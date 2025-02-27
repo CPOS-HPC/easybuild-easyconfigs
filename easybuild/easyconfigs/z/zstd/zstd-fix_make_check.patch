@@ -1,7 +1,7 @@
 # ignore "permissions on tmp1.zst don't match expected (644 != 0)" error when make check
 # because umask 0666 is restricted by our NFS server
---- playTests.sh	2023-04-05 04:13:52.000000000 +0800
-+++ playTests.sh.patch	2025-02-27 12:53:31.306778237 +0800
+--- zstd-1.5.5.orig/tests/playTests.sh	2023-04-05 04:13:52.000000000 +0800
++++ zstd-1.5.5/tests/playTests.sh	2025-02-27 12:53:31.306778237 +0800
 @@ -590,11 +590,11 @@
  
      println "test : respect umask when compressing from stdin input "
