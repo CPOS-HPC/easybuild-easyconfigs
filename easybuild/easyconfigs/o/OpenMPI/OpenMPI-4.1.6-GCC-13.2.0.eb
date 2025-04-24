@@ -33,7 +33,8 @@ dependencies = [
     ('hwloc', '2.9.2'),
     ('libevent', '2.1.12'),
     ('UCX', '1.15.0'),
-    ('libfabric', '1.19.0'),
+# remove libfabric to disable OFI
+#    ('libfabric', '1.19.0'),
     ('PMIx', '4.2.6'),
     ('UCC', '1.2.0'),
 ]
