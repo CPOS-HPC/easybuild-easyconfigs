@@ -26,4 +26,6 @@ sanity_check_paths = {
 
 sanity_check_commands = ["dragen-reports --help"]
 
+modloadmsg = "The data used by dragen-reports are installed at $EBROOTDRAGENMINREPORTS/opt/dragen-reports/"
+
 moduleclass = 'bio'
