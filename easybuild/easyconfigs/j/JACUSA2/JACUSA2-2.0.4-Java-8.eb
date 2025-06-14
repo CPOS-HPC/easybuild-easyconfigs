@@ -1,4 +1,4 @@
-easyblock = 'JAR'
+easyblock = 'Binary'
 
 name = 'JACUSA2'
 version = '2.0.4'
@@ -22,7 +22,7 @@ checksums = ['b2ab159fc66f950e8365d5f37527f635f431ee91297c71e730b55c0d7bf97358']
 
 postinstallcmds = ["mv %(installdir)s/%(name)s-%(version)s.jar %(installdir)s/%(namelower)s.jar"]
 
-dependencies = [('Java', '1.8')]
+dependencies = [('Java', '8')]
 
 sanity_check_commands = ['java -jar $EBROOTJACUSA2/%(namelower)s.jar 2>&1 | grep usage']
 
