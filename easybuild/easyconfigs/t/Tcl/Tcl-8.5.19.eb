@@ -1,0 +1,36 @@
+easyblock = 'ConfigureMake'
+
+name = 'Tcl'
+version = "8.5.19"
+
+homepage = 'http://www.tcl.tk/'
+description = """Tcl (Tool Command Language) is a very powerful but easy to learn dynamic programming language,
+suitable for a very wide range of uses, including web and desktop applications, networking, administration,
+testing and many more."""
+
+toolchain = SYSTEM
+
+source_urls = ['http://prdownloads.sourceforge.net/%(namelower)s']
+sources = ['%(namelower)s%(version)s-src.tar.gz']
+checksums = ['d3f04456da873d17f02efc30734b0300fb6c3b85028d445fe284b83253a6db18']
+
+#dependencies = [
+#    ('zlib', '1.2.11'),
+#]
+
+configopts = '--enable-threads EXTRA_INSTALL="install-private-headers"'
+
+runtest = 'test'
+
+start_dir = 'unix'
+
+postinstallcmds = ['ln -s %(installdir)s/bin/tclsh%(version_major)s.%(version_minor)s %(installdir)s/bin/tclsh']
+
+sanity_check_paths = {
+    'files': ['bin/tclsh%(version_major)s.%(version_minor)s', 'bin/tclsh',
+              'include/tcl.h', 'lib/libtcl%%(version_major)s.%%(version_minor)s.%s' % SHLIB_EXT,
+              'lib/tclConfig.sh', 'man/man1/tclsh.1'],
+    'dirs': [],
+}
+
+moduleclass = 'lang'

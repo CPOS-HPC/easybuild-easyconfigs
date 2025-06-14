@@ -1,0 +1,17 @@
+name = 'Nim'
+version = '2.0.12'
+
+homepage = 'https://nim-lang.org/'
+description = "Nim is a systems and applications programming language."
+
+toolchain = SYSTEM
+
+source_urls = ['https://nim-lang.org/download/']
+sources = [SOURCELOWER_TAR_XZ]
+checksums = ['c4887949c5eb8d7f9a9f56f0aeb2bf2140fabf0aee0f0580a319e2a09815733a']
+
+#builddependencies = [('binutils', '2.40')]
+
+#dependencies = [('libreadline', '8.2')]
+
+moduleclass = 'lang'
