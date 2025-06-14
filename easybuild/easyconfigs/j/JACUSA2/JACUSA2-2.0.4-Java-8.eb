@@ -20,17 +20,22 @@ sources = [{
 }]
 checksums = ['b2ab159fc66f950e8365d5f37527f635f431ee91297c71e730b55c0d7bf97358']
 
-postinstallcmds = ["mv %(installdir)s/%(name)s-%(version)s.jar %(installdir)s/%(namelower)s.jar"]
+postinstallcmds = [
+    "mv %(installdir)s/%(name)s-%(version)s.jar %(installdir)s/%(namelower)s.jar",
+    """echo 'java -jar $EBROOTJACUSA2/%(namelower)s.jar "$@"' > %(installdir)s/jacusa2""",
+    "chmod +x %(installdir)s/jacusa2",
+]
 
 dependencies = [('Java', '8')]
 
-sanity_check_commands = ['java -jar $EBROOTJACUSA2/%(namelower)s.jar 2>&1 | grep usage']
+sanity_check_commands = ['jacusa2 | grep usage']
 
 sanity_check_paths = {
-    'files': ['%(namelower)s.jar'],
+    'files': ['%(namelower)s.jar', 'jacusa2'],
     'dirs': [],
 }
 
-modloadmsg = "To execute JACUSA2 run: java -jar $EBROOTJACUSA2/%(namelower)s.jar"
+modloadmsg = "To execute JACUSA2 run: jacusa2\n"
+modloadmsg += "Alternatively, run: java -jar $EBROOTJACUSA2/%(namelower)s.jar"
 
 moduleclass = 'bio'
