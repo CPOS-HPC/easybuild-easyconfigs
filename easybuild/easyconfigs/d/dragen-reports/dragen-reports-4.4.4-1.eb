@@ -1,3 +1,4 @@
+# This is broken because /opt/dragen-reports/ is hardcoded in the program
 easyblock = 'Binary'
 
 name = 'dragen-reports'
