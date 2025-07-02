@@ -35,7 +35,7 @@ import stat
 import tempfile
 from collections import defaultdict
 from unittest import TestCase, TestLoader, main, skip
-from urllib.request import urlopen
+from urllib.request import Request, urlopen
 
 import easybuild.main as eb_main
 import easybuild.tools.options as eboptions
@@ -1429,10 +1429,7 @@ class EasyConfigTest(TestCase):
 
         whitelist = [
             'Kaiju',  # invalid certificate at https://kaiju.binf.ku.dk
-            'libxml2',  # https://xmlsoft.org works, but invalid certificate
             'p4vasp',  # https://www.p4vasp.at doesn't work
-            'ITSTool',  # https://itstool.org/ doesn't work
-            'UCX-',  # bad certificate for https://www.openucx.org
             'MUMPS',  # https://mumps.enseeiht.fr doesn't work
             'PyFR',  # https://www.pyfr.org doesn't work
             'PycURL',  # bad certificate for https://pycurl.io/
@@ -1441,8 +1438,6 @@ class EasyConfigTest(TestCase):
             # https:// doesn't work, results in index page being downloaded instead
             # (see https://github.com/easybuilders/easybuild-easyconfigs/issues/9692)
             'http://isl.gforge.inria.fr',
-            # https:// leads to File Not Found
-            'http://tau.uoregon.edu/',
             # https:// has outdated SSL configurations
             'http://faculty.scs.illinois.edu',
         ]
@@ -1456,7 +1451,8 @@ class EasyConfigTest(TestCase):
             if https_url_works is None:
                 https_url = http_url.replace('http://', 'https://')
                 try:
-                    https_url_works = bool(urlopen(https_url, timeout=5))
+                    req = Request(https_url, None, {'User-Agent': 'EasyBuild', 'Accept': '*/*'})
+                    https_url_works = bool(urlopen(req, timeout=5))
                 except Exception:
                     https_url_works = False
             checked_urls[http_url] = https_url_works
