@@ -1,0 +1,29 @@
+easyblock = 'RPackage'
+
+name = 'Banksy'
+version = '1.5.3'
+versionsuffix = '-R-%(rver)s'
+
+homepage = 'https://github.com/prabhakarlab/Banksy'
+description = """
+ Banksy is an R package that incorporates spatial information
+ to cluster cells in a feature space (e.g. gene expression).
+"""
+
+toolchain = {'name': 'foss', 'version': '2023b'}
+
+source_urls = ['https://github.com/prabhakarlab/Banksy/archive/refs/tags/']
+sources = ['v%(version)s.tar.gz']
+checksums = ['fb8d18e7a50a86c3af86586dce32b5269fb62ca6186f7ec68c56a62c9616bd7e']
+
+dependencies = [
+    ('R', '4.4.1'),
+    ('R-bundle-Bioconductor', '3.19', versionsuffix),
+]
+
+sanity_check_paths = {
+    'files': [],
+    'dirs': [name],
+}
+
+moduleclass = 'bio'
