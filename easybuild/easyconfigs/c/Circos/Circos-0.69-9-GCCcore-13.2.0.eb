@@ -26,6 +26,7 @@ builddependencies = [('binutils', '2.40')]
 
 dependencies = [
     ('Perl', '5.38.0'),
+    ('Perl-bundle-CPAN', '5.38.0'),
     ('GD', '2.78'),
 ]
 
