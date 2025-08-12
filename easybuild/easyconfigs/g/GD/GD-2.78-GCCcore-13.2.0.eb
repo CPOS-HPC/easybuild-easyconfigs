@@ -27,6 +27,7 @@ dependencies = [
     ('libgd', '2.3.3'),
     ('libpng', '1.6.40'),
     ('libjpeg-turbo', '3.0.1'),
+    ('LibTIFF', '4.6.0'),
 ]
 
 exts_defaultclass = 'PerlModule'
