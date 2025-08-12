@@ -1,0 +1,33 @@
+easyblock = 'RPackage'
+
+name = 'SeuratWrappers'
+local_commit = 'a1eb0d8'
+version = '20241122'
+versionsuffix = '-R-%(rver)s'
+
+homepage = 'https://github.com/satijalab/seurat-wrappers'
+description = "SeuratWrappers is a collection of community-provided methods and extensions for Seurat"
+
+toolchain = {'name': 'foss', 'version': '2023b'}
+
+sources = [{
+    'filename': SOURCE_TAR_XZ,
+    'git_config': {
+        'url': 'https://github.com/satijalab',
+        'repo_name': 'seurat-wrappers',
+        'commit': local_commit,
+    },
+}]
+checksums = ['ba604e4c5349dcbeb87a3549e6bc519dd2bf853320914fccebfee9cdaeb2f18b']
+
+dependencies = [
+    ('R', '4.4.1'),
+    ('R-bundle-Bioconductor', '3.19', versionsuffix),
+]
+
+sanity_check_paths = {
+    'files': [],
+    'dirs': [name],
+}
+
+moduleclass = 'bio'
