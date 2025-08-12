@@ -1375,6 +1375,9 @@ exts_list = [
     ('alabaster.base', '1.4.2', {
         'checksums': ['0b7ed9a8bacad9cb535317ab3425ff2a1c596f86456bb49c092da8cd9b91c4f9'],
     }),
+    ('alabaster.ranges', '1.4.2', {
+        'checksums': ['5c7cfd5092a6cf1e6340cc535c339fada84e002bacf4fbf7b2383dc169e3259b'],
+    }),
     ('alabaster.matrix', '1.4.2', {
         'checksums': ['c8e7a558250a418eea095cc86ec21706777f61805b8ca144223a61b584c662ac'],
     }),
