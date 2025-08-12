@@ -26,7 +26,7 @@ builddependencies = [('binutils', '2.40')]
 
 dependencies = [
     ('Perl', '5.38.0'),
-    ('GD', '2.75'),
+    ('GD', '2.78'),
 ]
 
 sanity_check_paths = {
