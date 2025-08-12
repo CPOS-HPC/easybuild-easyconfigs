@@ -3503,8 +3503,8 @@ exts_list = [
     ('RcppHungarian', '0.3', {
         'checksums': ['2ab052c0deb9e4d4352a2ed2e595813eaa36bdea0b567b836e1c5aa9ce899d03'],
     }),
-    ('leidenAlg', '1.1.5', {
-        'checksums': ['02fc96bc2e3e7b32aa6a27096f98b29763e210b86c5a60f87c5440b29c3a23cb'],
+    ('jsonvalidate', '1.5.0', {
+        'checksums': ['3429eb6f049905f9ce7869b9c30c57135ba64b28a12f7d24593428e9d7651f04'],
     }),
 ]
 
