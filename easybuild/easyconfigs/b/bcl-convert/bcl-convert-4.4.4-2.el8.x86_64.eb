@@ -11,7 +11,7 @@ description = """The Illumina BCL Convert v4.0 is a standalone local software ap
 toolchain = SYSTEM
 
 source_urls = ['https://webdata.illumina.com/downloads/software/bcl-convert/']
-sources = ['bcl-convert-%(version)s%(versionsuffix)s_oracle8.rpm']
+sources = ['bcl-convert-%(version)s%(versionsuffix)s.rpm']
 checksums = ['87aa97a0ecc809e66f0a9f18b7d0ebf8d351d3efbdf5e0bf037d240f24978665']
 
 install_cmd = "rpm2cpio " + sources[0] + " | cpio -idmv && "
