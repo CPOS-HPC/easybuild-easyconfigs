@@ -12,7 +12,7 @@ toolchain = SYSTEM
 
 sources = ['bcl-convert-%(version)s%(versionsuffix)s.rpm']
 checksums = ['87aa97a0ecc809e66f0a9f18b7d0ebf8d351d3efbdf5e0bf037d240f24978665']
-download_instructions = f"Download {sources[0]['filename']} manually from " + \
+download_instructions = f"Download {sources} manually from " + \
                         "https://support.illumina.com/sequencing/sequencing_software/bcl-convert/downloads.html"
 
 install_cmd = "rpm2cpio " + sources[0] + " | cpio -idmv && "
