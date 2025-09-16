@@ -20,12 +20,15 @@ patches = [
     '%(name)s-%(version)s-fix-cmake-target-libs-GCC-11.3-plus.patch',
     # bcl2fastq2 v2.20.0 is not compatible with recent Boost versions, use bundled Boost
     '%(name)s-%(version)s-find-boost.patch',
+    # fix compilation with GCC 13, include missing cstdint
+    '%(name)s-%(version)s-fix-gcc13.patch',
 ]
 checksums = [
     {'bcl2fastq2-v2-20-0-tar.zip': '8dd3044767d044aa4ce46de0de562b111c44e5b8b7348e04e665eb1b4f101fe3'},
     {'bcl2fastq2-2.20.0-fix-cmake-target-libs-GCC-11.3-plus.patch':
      '3f2736a8335b533646e25093f02bbbcf1aa629c68a0433b9bb5d66fadaa28edb'},
     {'bcl2fastq2-2.20.0-find-boost.patch': '8ca9ab8843fd21976781185b0d560f97fa83c26ab7962c339c2206b164d845c1'},
+    {'bcl2fastq2-2.20.0-fix-gcc13.patch': 'b8fe50909ebd6751400084bc6f0fb24df4a0ddd8cf8aa0fd15e1d0bab18d9742'},
 ]
 
 builddependencies = [
