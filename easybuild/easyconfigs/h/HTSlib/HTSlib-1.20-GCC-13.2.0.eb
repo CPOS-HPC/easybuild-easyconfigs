@@ -7,7 +7,6 @@
 # The Francis Crick Institute
 # Updated to 1.14
 # J. Sassmannshausen /GSTT
-# Updated to 1.21 jpecar EMBL
 
 easyblock = 'ConfigureMake'
 
@@ -18,19 +17,19 @@ homepage = 'https://www.htslib.org/'
 description = """A C library for reading/writing high-throughput sequencing data.
  This package includes the utilities bgzip and tabix"""
 
-toolchain = SYSTEM
+toolchain = {'name': 'GCC', 'version': '13.2.0'}
 
 source_urls = ['https://github.com/samtools/%(namelower)s/releases/download/%(version)s/']
 sources = [SOURCELOWER_TAR_BZ2]
 checksums = ['e52d95b14da68e0cfd7d27faf56fef2f88c2eaf32a2be51c72e146e3aa928544']
 
 # cURL added for S3 support
-#dependencies = [
-#    ('zlib', '1.3.1'),
-#    ('bzip2', '1.0.8'),
-#    ('XZ', '5.4.5'),
-#    ('cURL', '8.7.1'),
-#]
+dependencies = [
+    ('zlib', '1.2.13'),
+    ('bzip2', '1.0.8'),
+    ('XZ', '5.4.4'),
+    ('cURL', '8.3.0'),
+]
 
 
 sanity_check_paths = {
