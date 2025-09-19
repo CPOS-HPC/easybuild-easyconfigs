@@ -21,7 +21,7 @@ dependencies = [
     ('util-linux', '2.41'),
     ('OpenSSL', '1.1', '', SYSTEM),
     ('freetype', '2.13.3'),
-    ('curl', '8.11.1'),
+    ('cURL', '8.11.1'),
 ]
 
 prebuildopts = 'sed -i "s/rsync -a /cp -a /" %(builddir)s/userApps/kent/src/parasol/makefile && '
