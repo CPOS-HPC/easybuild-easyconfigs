@@ -14,7 +14,6 @@ easyblock = 'CMakeMake'
 
 name = 'SPAdes'
 version = '3.15.5'
-versionsuffix = '-Python-%(pyver)s'
 
 homepage = 'https://github.com/ablab/spades'
 description = "Genome assembler for single-cell and isolates data sets"
