@@ -7,7 +7,7 @@ local_hts_nim_ver = '0.3.25'
 homepage = 'https://github.com/brentp/mosdepth'
 description = "Fast BAM/CRAM depth calculation for WGS, exome, or targeted sequencing"
 
-toolchain = SYSTEM
+toolchain = {'name': 'GCC', 'version': '12.2.0'}
 
 sources = [
     {
@@ -27,9 +27,9 @@ checksums = [
 ]
 
 dependencies = [
-    ('Nim', '1.6.20'),
-    ('HTSlib', '1.20'),
-#    ('PCRE', '8.45'),
+    ('Nim', '2.0.12'),
+    ('HTSlib', '1.17'),
+    ('PCRE', '8.45'),
 ]
 
 extract_sources = True
