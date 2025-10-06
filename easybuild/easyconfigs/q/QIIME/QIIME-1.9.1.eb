@@ -14,14 +14,14 @@ description = """QIIME is an open-source bioinformatics pipeline for performing 
 
 toolchain = SYSTEM
 
-requirements = "%(namelower)s=%(version)s python=2.7 matplotlib=1.4.3 mock nose"
+requirements = "%(namelower)s=%(version)s"
 channels = ['bioconda', 'conda-forge']
 
 builddependencies = [('Miniconda3', '25.7.0-2')]
 
 sanity_check_paths = {
     'files': ['bin/print_qiime_config.py'],
-    'dirs': ['lib/python2.7/site-packages/qiime']
+    'dirs': ['lib'],
 }
 
 sanity_check_commands = ['print_qiime_config.py -t']
