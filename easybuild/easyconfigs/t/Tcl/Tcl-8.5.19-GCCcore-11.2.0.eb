@@ -3,20 +3,25 @@ easyblock = 'ConfigureMake'
 name = 'Tcl'
 version = "8.5.19"
 
-homepage = 'http://www.tcl.tk/'
-description = """Tcl (Tool Command Language) is a very powerful but easy to learn dynamic programming language,
-suitable for a very wide range of uses, including web and desktop applications, networking, administration,
-testing and many more."""
+homepage = 'https://www.tcl.tk/'
+description = """
+ Tcl (Tool Command Language) is a very powerful but easy to learn dynamic
+ programming language, suitable for a very wide range of uses, including web
+ and desktop applications, networking, administration, testing and many more.
+"""
 
-toolchain = SYSTEM
+toolchain = {'name': 'GCCcore', 'version': '11.2.0'}
 
 source_urls = ['http://prdownloads.sourceforge.net/%(namelower)s']
 sources = ['%(namelower)s%(version)s-src.tar.gz']
 checksums = ['d3f04456da873d17f02efc30734b0300fb6c3b85028d445fe284b83253a6db18']
 
-#dependencies = [
-#    ('zlib', '1.2.11'),
-#]
+builddependencies = [
+    ('binutils', '2.37'),
+]
+dependencies = [
+    ('zlib', '1.2.11'),
+]
 
 configopts = '--enable-threads EXTRA_INSTALL="install-private-headers"'
 
