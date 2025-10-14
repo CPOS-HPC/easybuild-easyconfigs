@@ -47,5 +47,7 @@ configopts = '--with-cuda=%(start_dir)s/opal/mca/cuda --with-show-load-errors=no
 preconfigopts += 'sed -i "s/have_ze=yes/have_ze=no/" %(start_dir)s/3rd-party/romio341/mpl/configure && '
 # Do not pick up the system library automatically
 configopts += ' --without-xpmem'
+# Build with PBS support
+configopts += ' --with-pbs --with-tm=/opt/pbs'
 
 moduleclass = 'mpi'

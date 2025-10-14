@@ -47,7 +47,8 @@ dependencies = [
     ('hwloc', '2.4.1'),
     ('libevent', '2.1.12'),
     ('UCX', '1.10.0'),
-    ('libfabric', '1.12.1'),
+# remove libfabric to disable OFI
+#    ('libfabric', '1.12.1'),
     ('PMIx', '3.2.3'),
 ]
 
@@ -61,5 +62,8 @@ configopts = '--with-cuda=internal '
 
 # to enable SLURM integration (site-specific)
 # configopts += '--with-slurm --with-pmi=/usr/include/slurm --with-pmi-libdir=/usr'
+
+# to enable PBS integration
+configopts += '--with-tm=/opt/pbs'
 
 moduleclass = 'mpi'

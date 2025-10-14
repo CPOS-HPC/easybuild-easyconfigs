@@ -31,7 +31,8 @@ dependencies = [
     ('hwloc', '2.10.0'),
     ('libevent', '2.1.12'),
     ('UCX', '1.16.0'),
-    ('libfabric', '1.21.0'),
+# remove libfabric to disable OFI
+#    ('libfabric', '1.21.0'),
     ('PMIx', '5.0.2'),
     ('PRRTE', '3.0.5'),
     ('UCC', '1.3.0'),
@@ -42,5 +43,7 @@ preconfigopts = 'gcc -Iopal/mca/cuda/include -shared opal/mca/cuda/lib/cuda.c -o
 configopts = '--with-cuda=%(start_dir)s/opal/mca/cuda --with-show-load-errors=no'
 # Do not pick up the system library automatically
 configopts += ' --without-xpmem'
+# Build with PBS support
+configopts += ' --with-pbs --with-tm=/opt/pbs'
 
 moduleclass = 'mpi'
