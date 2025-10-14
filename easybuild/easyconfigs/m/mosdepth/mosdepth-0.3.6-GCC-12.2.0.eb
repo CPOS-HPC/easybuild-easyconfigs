@@ -27,7 +27,7 @@ checksums = [
 ]
 
 dependencies = [
-    ('Nim', '2.0.12'),
+    ('Nim', '1.6.20'),
     ('HTSlib', '1.17'),
     ('PCRE', '8.45'),
 ]
