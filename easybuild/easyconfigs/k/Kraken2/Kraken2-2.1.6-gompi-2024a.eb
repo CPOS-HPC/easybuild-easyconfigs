@@ -24,7 +24,7 @@ toolchainopts = {'openmp': True, 'cstd': 'c++11'}
 github_account = 'DerrickWood'
 source_urls = [GITHUB_LOWER_SOURCE]
 patches = [
-    '%(name)s-%(version)s_fix_installation_for_easybuild.patch',
+    '%(name)s-2.1.6_fix_installation_for_easybuild.patch',
 ]
 checksums = [
     {'v2.1.6.tar.gz': '5bbd79392ff7c530124986dfdfe126bf638477db94fb7a901ec2daf9261707f3'},
@@ -33,7 +33,7 @@ checksums = [
 ]
 
 dependencies = [
-    ('Perl', '5.38.2'),
+    ('Perl', '5.38.2'), 
     ('BLAST+', '2.16.0'),
     ('wget', '1.25.0'),
 ]
