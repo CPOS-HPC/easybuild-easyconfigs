@@ -32,4 +32,8 @@ checksums = ['1efad4f7d8cee0d8eaebb320a2d63745bb3a160bb513a15ef7af46f330af662f']
 
 builddependencies = [('binutils', '2.39')]
 
+postinstallcmds = [
+    "perl -i -pe 's/defined \(%/\(%/' %(installdir)s/bin/mummerplot",
+]
+
 moduleclass = 'bio'
