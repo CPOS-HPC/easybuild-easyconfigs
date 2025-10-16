@@ -25,7 +25,7 @@ toolchainopts = {'openmp': True}
 
 source_urls = ['https://github.com/gmarcais/mummer/releases/download/v%(version)s/']
 sources = ['%(namelower)s-%(version)s.tar.gz']
-checksums = ['b866abcf75e0a24fbda8f8516defadfe523077d0d7303f941ff5d9673892eeab']
+checksums = ['bc20ae2701a0b2e323e4e515b7cfa18a0f0cb34a4ff5844b289b2de0154e3d3e']
 
 builddependencies = [
     ('binutils', '2.40'),
