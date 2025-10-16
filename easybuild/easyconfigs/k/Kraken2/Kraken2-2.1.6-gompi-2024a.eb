@@ -23,8 +23,9 @@ toolchainopts = {'openmp': True, 'cstd': 'c++11'}
 
 github_account = 'DerrickWood'
 source_urls = [GITHUB_LOWER_SOURCE]
+sources = ['v%(version)s.tar.gz']
 patches = [
-    '%(name)s-2.1.6_fix_installation_for_easybuild.patch',
+    '%(name)s-%(version)s_fix_installation_for_easybuild.patch',
 ]
 checksums = [
     {'v2.1.6.tar.gz': '5bbd79392ff7c530124986dfdfe126bf638477db94fb7a901ec2daf9261707f3'},
