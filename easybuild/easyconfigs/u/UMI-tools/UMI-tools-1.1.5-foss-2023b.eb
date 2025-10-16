@@ -6,12 +6,12 @@ version = '1.1.5'
 homepage = 'https://umi-tools.readthedocs.io'
 description = "Tools for handling Unique Molecular Identifiers in NGS data sets"
 
-toolchain = {'name': 'foss', 'version': '2024a'}
+toolchain = {'name': 'foss', 'version': '2023b'}
 
 dependencies = [
-    ('Python', '3.12.3'),
-    ('matplotlib', '3.9.2'),
-    ('Pysam', '0.22.1'),
+    ('Python', '3.11.5'),
+    ('matplotlib', '3.8.2'),
+    ('Pysam', '0.22.0'),
 ]
 
 exts_list = [
