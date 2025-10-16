@@ -24,13 +24,13 @@ description = """
  whether in complete or draft form. AMOS makes use of it.
 """
 
-toolchain = {'name': 'GCCcore', 'version': '10.3.0'}
+toolchain = {'name': 'GCCcore', 'version': '12.2.0'}
 
 source_urls = [('http://sourceforge.net/projects/mummer/files/%(namelower)s/%(version)s/', 'download')]
 sources = ['%(name)s%(version)s.tar.gz']
 checksums = ['1efad4f7d8cee0d8eaebb320a2d63745bb3a160bb513a15ef7af46f330af662f']
 
-builddependencies = [('binutils', '2.36.1')]
+builddependencies = [('binutils', '2.39')]
 
 postinstallcmds = [
     "perl -i -pe 's/defined \(%/\(%/' %(installdir)s/bin/mummerplot",

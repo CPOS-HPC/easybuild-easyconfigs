@@ -1,0 +1,50 @@
+easyblock = 'Bundle'
+
+name = 'Banksy'
+version = '1.5.3'
+versionsuffix = '-R-%(rver)s'
+
+homepage = 'https://github.com/prabhakarlab/Banksy'
+description = """
+ Banksy is an R package that incorporates spatial information
+ to cluster cells in a feature space (e.g. gene expression).
+"""
+
+toolchain = {'name': 'foss', 'version': '2023b'}
+
+dependencies = [
+    ('R', '4.4.1'),
+    ('R-bundle-Bioconductor', '3.19', versionsuffix),
+]
+
+exts_defaultclass = 'RPackage'
+exts_default_options = {
+    'sources': ['%(name)s_%(version)s.tar.gz'],
+    'source_urls': [
+        'https://cran.r-project.org/src/contrib/Archive/%(name)s',  # package archive
+        'https://cran.r-project.org/src/contrib/',  # current version of packages
+        'https://cran.freestatistics.org/src/contrib',  # mirror alternative for current packages
+    ],
+}
+exts_list = [
+    ('sccore', '1.0.6', {
+        'checksums': ['76cafd8663661edf4b26133a1bccd514191cc1f61e7506a63b29c16a2a7a78d1'],
+    }),
+    ('leidenAlg', '1.1.5', {
+        'checksums': ['02fc96bc2e3e7b32aa6a27096f98b29763e210b86c5a60f87c5440b29c3a23cb'],
+    }),
+    (name, version, {
+        'source_urls': ['https://github.com/prabhakarlab/Banksy/archive/refs/tags/'],
+        'sources': ['v%(version)s.tar.gz'],
+        'checksums': ['fb8d18e7a50a86c3af86586dce32b5269fb62ca6186f7ec68c56a62c9616bd7e'],
+    }),
+]
+
+modextrapaths = {'R_LIBS_SITE': ''}
+
+sanity_check_paths = {
+    'files': [],
+    'dirs': [name],
+}
+
+moduleclass = 'bio'

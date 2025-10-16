@@ -3500,6 +3500,12 @@ exts_list = [
     ('sgdGMF', '1.0', {
         'checksums': ['b10c7237f93be1ace5f6eb54c07ea2251ab9e5874a4294401b658bd2635b2cce'],
     }),
+    ('RcppHungarian', '0.3', {
+        'checksums': ['2ab052c0deb9e4d4352a2ed2e595813eaa36bdea0b567b836e1c5aa9ce899d03'],
+    }),
+    ('jsonvalidate', '1.5.0', {
+        'checksums': ['3429eb6f049905f9ce7869b9c30c57135ba64b28a12f7d24593428e9d7651f04'],
+    }),
 ]
 
 modextrapaths = {'R_LIBS_SITE': ''}
