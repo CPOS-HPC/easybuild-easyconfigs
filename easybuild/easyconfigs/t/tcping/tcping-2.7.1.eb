@@ -19,6 +19,6 @@ sanity_check_paths = {
     'dirs': [],
 }
 
-sanity_check_commands = ['tcping --help', 'tcping --version']
+sanity_check_commands = ['tcping -h', 'tcping -v']
 
 moduleclass = 'tools'
