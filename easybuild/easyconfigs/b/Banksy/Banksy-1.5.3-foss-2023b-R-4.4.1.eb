@@ -16,6 +16,7 @@ toolchain = {'name': 'foss', 'version': '2023b'}
 dependencies = [
     ('R', '4.4.1'),
     ('R-bundle-Bioconductor', local_biocver, versionsuffix),
+    ('libaec', '1.0.6'),  # required by alabaster.base
 ]
 
 exts_defaultclass = 'RPackage'
