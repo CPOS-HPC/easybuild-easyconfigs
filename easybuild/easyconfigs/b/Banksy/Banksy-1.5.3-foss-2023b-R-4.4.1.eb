@@ -32,6 +32,12 @@ exts_default_options = {
     ],
 }
 exts_list = [
+    ('RcppHungarian', '0.3', {
+        'checksums': ['2ab052c0deb9e4d4352a2ed2e595813eaa36bdea0b567b836e1c5aa9ce899d03'],
+    }),
+    ('jsonvalidate', '1.5.0', {
+        'checksums': ['3429eb6f049905f9ce7869b9c30c57135ba64b28a12f7d24593428e9d7651f04'],
+    }),
     ('gypsum', '1.0.1', {
         'checksums': ['60cbeeb3d91148c0921e6c43d16a94f8fb7af7f020d85aae602ec66569ed35ff'],
     }),
@@ -52,12 +58,6 @@ exts_list = [
     }),
     ('celldex', '1.14.0', {
         'checksums': ['46723b3799792f550b2f74cb161a19f581b042080e9dd9455906a82c0cb4b094'],
-    }),
-    ('RcppHungarian', '0.3', {
-        'checksums': ['2ab052c0deb9e4d4352a2ed2e595813eaa36bdea0b567b836e1c5aa9ce899d03'],
-    }),
-    ('jsonvalidate', '1.5.0', {
-        'checksums': ['3429eb6f049905f9ce7869b9c30c57135ba64b28a12f7d24593428e9d7651f04'],
     }),
     ('sccore', '1.0.6', {
         'checksums': ['76cafd8663661edf4b26133a1bccd514191cc1f61e7506a63b29c16a2a7a78d1'],
