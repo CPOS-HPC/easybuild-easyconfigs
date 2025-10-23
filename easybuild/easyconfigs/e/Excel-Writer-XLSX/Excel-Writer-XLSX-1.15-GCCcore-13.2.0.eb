@@ -20,7 +20,7 @@ dependencies = [
 
 exts_list = [
     ('Excel::Writer::XLSX', version, {
-        'source_tmpl': '%(name)s-%(version)s.tar.gz',
+        'source_tmpl': 'Excel-Writer-XLSX-%(version)s.tar.gz',
         'source_urls': ['https://cpan.metacpan.org/authors/id/J/JM/JMCNAMARA'],
         'checksums': ['7931b4d8e2fa8b4f806db4bf523be396483f55f53e4f4738fdff5e9a0d875331'],
     }),
