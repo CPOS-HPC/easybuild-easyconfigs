@@ -16,6 +16,7 @@ builddependencies = [
 dependencies = [
     ('Perl', '5.38.0'),
     ('Perl-bundle-CPAN', '5.38.0'),
+    ('Archive-Zip', '1.68'),
 ]
 
 exts_list = [
