@@ -48,7 +48,6 @@ dependencies = [
 
 postinstallcmds = [
     'cp %(builddir)s/%(name)s-%(version)s/{rsem-generate-ngvector,rsem-run-ebseq,rsem-control-fdr} %(installdir)s/bin',
-    'cp %(builddir)s/%(name)s-%(version)s/LICENSE %(installdir)s/doc',
 ]
 
 sanity_check_paths = {
