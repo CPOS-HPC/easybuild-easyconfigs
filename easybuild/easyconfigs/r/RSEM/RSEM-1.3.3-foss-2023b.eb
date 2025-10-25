@@ -1,0 +1,61 @@
+##
+# This is a contribution from DeepThought HPC Service, Flinders University, Adelaide, Australia
+# Homepage: 	https://staff.flinders.edu.au/research/deep-thought
+#
+# Authors::	Robert Qiao <rob.qiao@flinders.edu.au>
+# License::	GPLv3.0
+#
+# Notes::
+##
+
+easyblock = 'ConfigureMake'
+
+name = 'RSEM'
+version = '1.3.3'
+
+homepage = 'https://deweylab.github.io/RSEM/'
+description = "RNA-Seq by Expectation-Maximization"
+
+toolchain = {'name': 'foss', 'version': '2023b'}
+toolchainopts = {'openmp': True}
+
+source_urls = ['https://github.com/deweylab/RSEM/archive/']
+sources = ['v%(version)s.tar.gz']
+patches = ['RSEM-1.3.0_makefiles.patch']
+checksums = [
+    '90e784dd9df8346caa2a7e3ad2ad07649608a51df1c69bfb6e16f45e611a40dc',  # v1.3.3.tar.gz
+    '2d244659206c78655b92f1bd519ee65f28a6b5f9418dfad04e887b64eca6641b',  # RSEM-1.3.0_makefiles.patch
+]
+
+skipsteps = ['configure']
+
+installopts = "prefix=%(installdir)s"
+
+dependencies = [
+    ('Java', '11', '', SYSTEM),
+    ('ncurses', '6.4'),
+    ('zlib', '1.2.13'),
+    ('Perl', '5.38.0'),
+    ('Perl-bundle-CPAN', '5.38.0'),
+    ('R', '4.4.1'),
+    ('R-bundle-CRAN', '2024.06'),
+    ('HISAT2', '2.2.1'),
+    ('STAR', '2.7.11b'),
+    ('Bowtie2', '2.5.4'),
+    ('Bowtie', '1.3.1'),
+#    ('EBSeq', '2.2.0'),
+]
+
+postinstallcmds = [
+    'cp %(builddir)s/%(name)s-%(version)s/{rsem-generate-ngvector,rsem-run-ebseq,rsem-control-fdr} %(installdir)s/bin',
+    'cp %(builddir)s/%(name)s-%(version)s/LICENSE %(installdir)s/doc',
+]
+
+sanity_check_paths = {
+    'files': ['bin/rsem-calculate-expression', 'bin/rsem-plot-model', 'bin/rsem-plot-transcript-wiggles',
+              'bin/rsem-bam2wig', 'bin/rsem-generate-data-matrix', 'bin/rsem-run-em', 'bin/convert-sam-for-rsem',
+              'bin/rsem-generate-ngvector', 'bin/rsem-run-ebseq', 'bin/rsem-control-fdr'],
+    'dirs': ['bin/samtools-1.3'],
+}
+
+moduleclass = 'bio'
