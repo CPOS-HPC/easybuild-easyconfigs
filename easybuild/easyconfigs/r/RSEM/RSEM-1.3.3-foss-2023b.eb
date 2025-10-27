@@ -52,6 +52,7 @@ dependencies = [
 ]
 
 postinstallcmds = [
+    # Build and install EBSeq related binaries
     'make -C EBSeq -f Makefile rsem-for-ebseq-calculate-clustering-info',
     'cp -a %(builddir)s/%(name)s-%(version)s/EBSeq/rsem-for-ebseq-calculate-clustering-info %(installdir)s/bin',
     'cp -a %(builddir)s/%(name)s-%(version)s/EBSeq/rsem-for-ebseq-find-DE %(installdir)s/bin',
