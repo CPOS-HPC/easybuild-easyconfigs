@@ -25,6 +25,6 @@ sanity_check_paths = {
     'dirs': [''],
 }
 
-sanity_check_commands = ["MinIONQC.R --help 2>&1 | grep 'Usage:'"]
+sanity_check_commands = ["MinIONQC.R --help 2>&1 | grep 'Usage: %(installdir)s/MinIONQC.R'"]
 
 moduleclass = 'bio'
