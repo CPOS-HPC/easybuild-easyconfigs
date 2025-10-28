@@ -10,7 +10,7 @@ description = """Fast and effective quality control for MinION and PromethION se
 toolchain = {'name': 'foss', 'version': '2023b'}
 
 source_urls = ['https://github.com/roblanf/minion_qc/archive/refs/tags/']
-sources = ['%(version)s.tar.bz2']
+sources = ['%(version)s.tar.gz']
 checksums = ['d86b47151ecb1021f508b4c62cfc42d6b3eb7c32f07a26e74528e3c7d793d5db']
 
 dependencies = [
