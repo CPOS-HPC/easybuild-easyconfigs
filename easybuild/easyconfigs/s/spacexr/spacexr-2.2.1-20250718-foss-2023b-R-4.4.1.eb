@@ -36,7 +36,7 @@ exts_list = [
     (name, version, {
         'source_urls': ['https://github.com/dmcable/spacexr/archive/'],
         'sources': [{'download_filename': '%s.tar.gz' % local_commit, 'filename': SOURCE_TAR_GZ}],
-        'checksums': ['64a46212e8e1b45d754694b0f08ddc2b5ffba623695527da66ab479cd344de82'],
+        'checksums': ['404136fbfebd0a49c5c915e3f828a4d73939eca5ccbdc46f570d6ee1d5a5f1ef'],
 
     }),
 ]
