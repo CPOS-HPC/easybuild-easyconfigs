@@ -1,7 +1,7 @@
 easyblock = 'PythonBundle'
 
 name = 'UMI-tools'
-version = '1.1.6    '
+version = '1.1.6'
 
 homepage = 'https://umi-tools.readthedocs.io'
 description = "Tools for handling Unique Molecular Identifiers in NGS data sets"
