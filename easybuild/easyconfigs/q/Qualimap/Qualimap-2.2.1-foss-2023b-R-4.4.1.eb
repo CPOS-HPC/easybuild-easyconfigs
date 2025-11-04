@@ -22,7 +22,7 @@ dependencies = [
 ]
 
 # fixes `Unrecognized VM option 'MaxPermSize=1024m'`
-preinstallopts = "sed -i 's/MaxPermSize/MaxMetaspaceSize/g' qualimap qualimap_bash_fix && "
+preinstallopts = "sed -i 's/MaxPermSize/MaxMetaspaceSize/g' qualimap && "
 
 sanity_check_paths = {
     'files': ['qualimap'],
