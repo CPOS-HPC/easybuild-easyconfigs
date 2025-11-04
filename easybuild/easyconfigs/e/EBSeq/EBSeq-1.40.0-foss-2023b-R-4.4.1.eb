@@ -1,7 +1,7 @@
 easyblock = 'Bundle'
 
 name = 'EBSeq'
-version = '1.49.0'
+version = '1.40.0'
 versionsuffix = '-R-%(rver)s'
 local_biocver = '3.19'
 
