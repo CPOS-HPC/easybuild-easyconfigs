@@ -14,7 +14,7 @@ description = """QIIME is an open-source bioinformatics pipeline for performing 
 
 toolchain = SYSTEM
 
-requirements = "%(namelower)s=%(version)s python=2.7 matplotlib=1.4.3 mock nose"
+requirements = "%(namelower)s=%(version)s python=2.7 matplotlib=1.5.3 mock nose"
 channels = ['bioconda', 'conda-forge']
 
 builddependencies = [('Miniconda3', '25.7.0-2')]
