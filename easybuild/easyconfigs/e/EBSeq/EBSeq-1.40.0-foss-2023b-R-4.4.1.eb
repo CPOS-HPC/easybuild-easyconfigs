@@ -1,0 +1,48 @@
+easyblock = 'Bundle'
+
+name = 'EBSeq'
+version = '1.40.0'
+versionsuffix = '-R-%(rver)s'
+
+homepage = 'https://www.biostat.wisc.edu/~kendzior/EBSEQ/'
+description = """
+ An R package for gene and isoform differential expression analysis of RNA-seq data
+"""
+
+toolchain = {'name': 'foss', 'version': '2023b'}
+
+dependencies = [
+    ('R', '4.4.1'),
+    ('R-bundle-Bioconductor', '3.19', versionsuffix),
+]
+
+exts_defaultclass = 'RPackage'
+exts_default_options = {
+    'sources': ['%(name)s_%(version)s.tar.gz'],
+    'source_urls': [
+        'https://bioconductor.org/packages/3.17/bioc/src/contrib/',
+        'https://bioconductor.org/packages/3.17/bioc/src/contrib/Archive/%%(name)s',
+        'https://bioconductor.org/packages/3.17/data/annotation/src/contrib/',
+        'https://bioconductor.org/packages/3.17/data/experiment/src/contrib/',
+        'https://cran.r-project.org/src/contrib/Archive/%(name)s',  # package archive
+        'https://cran.r-project.org/src/contrib/',  # current version of packages
+        'https://cran.freestatistics.org/src/contrib',  # mirror alternative for current packages
+    ],
+}
+exts_list = [
+    ('blockmodeling', '1.1.5', {
+        'checksums': ['3b6f910078c29b801651e3a686112e41e456c517e1b99fcda11bb12681bb1503'],
+    }),
+    (name, version, {
+        'checksums': ['a5d3a88743d61062c6d68a426b19c53a4afd2fa216abc884d42c187780994378'],
+    }),
+]
+
+modextrapaths = {'R_LIBS_SITE': ''}
+
+sanity_check_paths = {
+    'files': [],
+    'dirs': [name],
+}
+
+moduleclass = 'bio'
