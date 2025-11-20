@@ -24,7 +24,7 @@ postinstallcmds = [
 #!/bin/bash
 
 exec apptainer exec \\
-    /software/easybuild/software/QIIME/1.9.1/qiime1-1.9.1.sif \\
+    /software/easybuild/software/QIIME/1.9.1/qiime-1.9.1.sif \\
     "$@"
 EOF""",
     "chmod +x %(installdir)s/%(namelower)s",
