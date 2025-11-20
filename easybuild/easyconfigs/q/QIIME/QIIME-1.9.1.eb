@@ -13,7 +13,7 @@ toolchain = SYSTEM
 apptainer_type = 'sif'
 
 # required: source ~ link to the online docker image for the tool
-installopts  = '-s hub.docker.com/r/fischuu/qiime-%(version)s '
+installopts  = '-s fischuu/qiime-%(version)s '
 
 # required: source type ~ image, since the tool is available online as a docker image
 installopts += '-i image '
