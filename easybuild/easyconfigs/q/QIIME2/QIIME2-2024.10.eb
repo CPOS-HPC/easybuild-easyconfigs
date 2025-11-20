@@ -1,23 +1,49 @@
-# EasyBuild recipy for QIIME2 through an apptainer container
-# Author: Maxime Boissonneault
-# Digital Research Alliance of Canada - Calcul Québec - Université Laval
 easyblock = 'Apptainer'
+
 name = 'QIIME2'
 version = '2024.10'
+
 homepage = 'http://qiime2.org/'
 description = """QIIME is an open-source bioinformatics pipeline for performing microbiome analysis
  from raw DNA sequencing data."""
+
 toolchain = SYSTEM
-dependencies = [('Apptainer', SYSTEM)]
-installopts = '-s quay.io/qiime2/amplicon:%(version)s '
+
+# parameters that will be passed to the build_container_image.sh script
+apptainer_type = 'sif'
+
+# required: source ~ link to the online docker image for the tool
+installopts  = '-s quay.io/qiime2/amplicon:%(version)s '
+
+# required: source type ~ image, since the tool is available online as a docker image
 installopts += '-i image '
-installopts += '-n %(namelower)s '
-installopts += '-v %(version)s '
-container_path = '/software/containers/%(namelower)s-%(version)s'
-aliases = ["qiime"]
-apptainer_params = '-c'
+
+# how the program will be called from the command line
+#aliases = ["qiime"]
+
+# parameters that will be passed to apptainer when running the container through the alias
+#apptainer_params = '--bind $HOME/.local/share/qiime2:/home/qiime2'
+
+# create wrapper script to call the container
+postinstallcmds = [
+    """cat > %(installdir)s/%(namelower)s << 'EOF'
+#!/bin/bash
+
+CACHE_DIR="$HOME/.local/share/qiime2"
+mkdir -p "$CACHE_DIR"
+
+exec apptainer exec \\
+    --bind "$CACHE_DIR":/home/qiime2 \\
+    %(installdir)s/%(namelower)s-%(version)s.sif \\
+    qiime "$@"
+EOF""",
+    "chmod +x %(installdir)s/%(namelower)s",
+]
+
+# files and directories which are checked after the container has been built
 sanity_check_paths = {
-    'files': ["opt/conda/envs/%(namelower)s-amplicon-%(version)s/bin/qiime"],
-    'dirs': ["opt/conda/envs/%(namelower)s-amplicon-%(version)s"],
+    'files': ['%(namelower)s-%(version)s.sif', '%(namelower)s'],
+    'dirs': [],
 }
+
 moduleclass = 'bio'
