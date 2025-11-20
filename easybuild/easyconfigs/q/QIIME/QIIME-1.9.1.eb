@@ -1,9 +1,4 @@
-# This file is an EasyBuild reciPY as per https://github.com/easybuilders/easybuild
-# Author: Pablo Escobar Lopez
-# sciCORE - University of Basel
-# SIB Swiss Institute of Bioinformatics 
-
-easyblock = 'Conda'
+easyblock = 'Apptainer'
 
 name = 'QIIME'
 version = '1.9.1'
@@ -14,18 +9,35 @@ description = """QIIME is an open-source bioinformatics pipeline for performing 
 
 toolchain = SYSTEM
 
-requirements = "%(namelower)s=%(version)s python=2.7 matplotlib=1.5.3 mock nose"
-channels = ['bioconda', 'conda-forge']
+# parameters that will be passed to the build_container_image.sh script
+apptainer_type = 'sif'
 
-builddependencies = [('Miniconda3', '25.7.0-2')]
+# required: source ~ link to the online docker image for the tool
+installopts  = '-s hub.docker.com/r/fischuu/qiime-%(version)s '
 
+# required: source type ~ image, since the tool is available online as a docker image
+installopts += '-i image '
+
+# create wrapper script to call the container
+postinstallcmds = [
+    """cat > %(installdir)s/%(namelower)s << 'EOF'
+#!/bin/bash
+
+CACHE_DIR="$HOME/.local/share/qiime"
+mkdir -p "$CACHE_DIR"
+
+exec apptainer exec \\
+    --bind "$CACHE_DIR":/home/qiime \\
+    %(installdir)s/%(namelower)s-%(version)s.sif \\
+    qiime "$@"
+EOF""",
+    "chmod +x %(installdir)s/%(namelower)s",
+]
+
+# files and directories which are checked after the container has been built
 sanity_check_paths = {
-    'files': ['bin/print_qiime_config.py'],
-    'dirs': ['lib'],
+    'files': ['%(namelower)s-%(version)s.sif', '%(namelower)s'],
+    'dirs': [],
 }
-
-sanity_check_commands = ['print_qiime_config.py -t']
-
-modextrapaths = {'PYTHONPATH': 'site-packages'}
 
 moduleclass = 'bio'
