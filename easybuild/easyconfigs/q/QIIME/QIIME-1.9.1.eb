@@ -23,13 +23,9 @@ postinstallcmds = [
     """cat > %(installdir)s/%(namelower)s << 'EOF'
 #!/bin/bash
 
-CACHE_DIR="$HOME/.local/share/qiime"
-mkdir -p "$CACHE_DIR"
-
 exec apptainer exec \\
-    --bind "$CACHE_DIR":/home/qiime \\
-    %(installdir)s/%(namelower)s-%(version)s.sif \\
-    qiime "$@"
+    /software/easybuild/software/QIIME/1.9.1/qiime1-1.9.1.sif \\
+    "$@"
 EOF""",
     "chmod +x %(installdir)s/%(namelower)s",
 ]
