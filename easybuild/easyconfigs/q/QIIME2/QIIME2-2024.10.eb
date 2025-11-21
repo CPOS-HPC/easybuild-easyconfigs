@@ -37,7 +37,7 @@ exec apptainer exec \\
     %(installdir)s/%(namelower)s-%(version)s.sif \\
     qiime "$@"
 EOF""",
-    "chmod +x %(installdir)s/%(namelower)s",
+    "chmod +x %(installdir)s/qiime",
 ]
 
 # files and directories which are checked after the container has been built
