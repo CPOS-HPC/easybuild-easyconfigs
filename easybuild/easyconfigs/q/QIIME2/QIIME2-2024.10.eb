@@ -24,9 +24,9 @@ installopts += '-i image '
 # parameters that will be passed to apptainer when running the container through the alias
 #apptainer_params = '--bind $HOME/.local/share/qiime2:/home/qiime2'
 
-# create wrapper script to call the container
+# create wrapper script to call the container, named as 'qiime' instead of 'qiime2'
 postinstallcmds = [
-    """cat > %(installdir)s/%(namelower)s << 'EOF'
+    """cat > %(installdir)s/qiime << 'EOF'
 #!/bin/bash
 
 CACHE_DIR="$HOME/.local/share/qiime2"
@@ -45,5 +45,7 @@ sanity_check_paths = {
     'files': ['%(namelower)s-%(version)s.sif', '%(namelower)s'],
     'dirs': [],
 }
+
+modloadmsg = "%(name)s %(version)s is provided via an Apptainer container.\n"
 
 moduleclass = 'bio'
