@@ -42,7 +42,7 @@ EOF""",
 
 # files and directories which are checked after the container has been built
 sanity_check_paths = {
-    'files': ['%(namelower)s-%(version)s.sif', '%(namelower)s'],
+    'files': ['%(namelower)s-%(version)s.sif', 'qiime'],
     'dirs': [],
 }
 
