@@ -36,8 +36,8 @@ sanity_check_paths = {
     'dirs': [],
 }
 
-modloadmsg = "%(name)s %(version)s is provided via an Apptainer container.\n"
-modloadmsg += "Use it by prefixing commands with:\n    %(namelower)s <command>\n"
-modloadmsg += "Examples:\n    %(namelower)s summarize_taxa.py --help"
+modloadmsg = "%(name)s %(version)s is provided via Apptainer.\n\n"
+modloadmsg += "Use it by prefixing commands with:\n    %(namelower)s <command>\n\n"
+modloadmsg += "Example:\n    %(namelower)s summarize_taxa.py --help"
 
 moduleclass = 'bio'
