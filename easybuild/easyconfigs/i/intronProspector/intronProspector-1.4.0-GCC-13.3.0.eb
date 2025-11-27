@@ -18,6 +18,7 @@ dependencies = [
     ('HTSlib', '1.21'),
     ('SAMtools', '1.21'),
     ('Kent_tools', '479'), # provides bedToBigBed
+    ('cURL', '8.7.1'),
 ]
 
 sanity_check_paths = {
