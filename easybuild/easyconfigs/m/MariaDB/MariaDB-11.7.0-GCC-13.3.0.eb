@@ -28,6 +28,7 @@ builddependencies = [
 dependencies = [
     ('ncurses', '6.5'),
     ('zlib', '1.3.1'),
+    ('Eigen', '3.4.0'),
     ('LZO', '2.10'),        # optional
     ('lz4', '1.9.4'),       # optional
     ('XZ', '5.4.5'),        # optional
