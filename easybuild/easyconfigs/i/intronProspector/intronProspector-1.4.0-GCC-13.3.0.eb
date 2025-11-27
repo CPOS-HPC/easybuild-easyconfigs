@@ -16,13 +16,8 @@ checksums = ['3e8055c555cccad973e043dd4e56f8a2125d2893760d63a7ee044a9cb8ba13de']
 
 dependencies = [
     ('HTSlib', '1.21'),
-    ('SAMtools', '1.21'),
+#    ('SAMtools', '1.21'),
     ('Kent_tools', '479'), # provides bedToBigBed
-    ('ncurses', '6.5'),
-    ('zlib', '1.3.1'),
-    ('bzip2', '1.0.8'),
-    ('XZ', '5.4.5'),
-    ('cURL', '8.7.1'),
 ]
 
 sanity_check_paths = {
