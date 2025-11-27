@@ -8,11 +8,16 @@ description = """
 Identify putative introns in RNA-Seq alignments in BAM/SAM alignments.
 """
 
-toolchain = {'name': 'GCC', 'version': '13.3.0'}
+toolchain = {'name': 'GCCcore', 'version': '13.3.0'}
 
 source_urls = ['https://github.com/diekhans/intronProspector/archive/refs/tags/']
 sources = ['v%(version)s.tar.gz']
 checksums = ['3e8055c555cccad973e043dd4e56f8a2125d2893760d63a7ee044a9cb8ba13de']
+
+builddependencies = [
+    ('binutils', '2.42'),
+    ('make', '4.4.1'),
+]
 
 dependencies = [
     ('HTSlib', '1.21'),
