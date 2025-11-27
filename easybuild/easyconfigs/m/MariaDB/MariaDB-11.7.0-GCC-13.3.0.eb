@@ -44,6 +44,7 @@ dependencies = [
 configopts = "-DCMAKE_SHARED_LINKER_FLAGS='-fuse-ld=bfd' "  # Linking fails with default gold linker
 configopts += "-DMYSQL_MAINTAINER_MODE=OFF "  # disabled to not treat warnings as errors (-Werror)
 configopts += "-DWITH_PCRE=auto "  # External download sometimes fails so we build PCRE2 directly.
+configopts += "-DWITH_EIGEN=auto " # External download sometimes fails
 configopts += "-DWITH_ZLIB=system "
 configopts += "-DWITH_EMBEDDED_SERVER=ON "  # for libmysqld.so & co
 configopts += "-DWITH_SAFEMALLOC=OFF "  # Disable memory debugger with jemalloc
