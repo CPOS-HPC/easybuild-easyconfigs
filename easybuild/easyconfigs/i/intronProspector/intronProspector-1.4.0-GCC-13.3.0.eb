@@ -16,8 +16,6 @@ checksums = ['3e8055c555cccad973e043dd4e56f8a2125d2893760d63a7ee044a9cb8ba13de']
 
 dependencies = [
     ('HTSlib', '1.21'),
-#    ('SAMtools', '1.21'),
-    ('Kent_tools', '479'), # provides bedToBigBed
 ]
 
 sanity_check_paths = {
@@ -26,7 +24,8 @@ sanity_check_paths = {
 }
 
 sanity_check_commands = [
-    "intronProspector -v",
+    "intronProspector --version",
+    "intronProspectorMerge --version",
 ]
 
 moduleclass = 'bio'
