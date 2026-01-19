@@ -1,0 +1,45 @@
+easyblock = 'Bundle'
+
+name = 'pdftools'
+version = '3.4.1'
+versionsuffix = '-R-%(rver)s'
+
+homepage = 'https://github.com/ropensci/pdftools'
+description = """
+  Text Extraction, Rendering and Converting of PDF Documents
+"""
+
+toolchain = {'name': 'foss', 'version': '2023b'}
+
+dependencies = [
+    ('R', '4.4.1'),
+    ('poppler', '24.04.0'),
+    ('R-bundle-CRAN', '2024.06'),
+]
+
+exts_defaultclass = 'RPackage'
+exts_default_options = {
+    'sources': ['%(name)s_%(version)s.tar.gz'],
+    'source_urls': [
+        'https://cran.r-project.org/src/contrib/Archive/%(name)s',  # package archive
+        'https://cran.r-project.org/src/contrib/',  # current version of packages
+        'https://cran.freestatistics.org/src/contrib',  # mirror alternative for current packages
+    ],
+}
+exts_list = [
+    ('qpdf', '1.3.3', {
+        'checksums': ['415610be6fa73f60a31872b81fea089288b07f9cb6d078088009207c5e60fe53'],
+    }),
+    (name, version, {
+        'checksums': ['31c1df5658749ea20e191321bbbfd6571dd5927bdb24e6cfd91ff9680a291cbd'],
+    }),
+]
+
+modextrapaths = {'R_LIBS_SITE': ''}
+
+sanity_check_paths = {
+    'files': [],
+    'dirs': [name],
+}
+
+moduleclass = 'vis'
