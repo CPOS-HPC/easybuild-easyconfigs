@@ -4,7 +4,7 @@ name = 'pdftools'
 version = '3.4.1'
 versionsuffix = '-R-%(rver)s'
 
-homepage = 'https://github.com/ropensci/pdftools'
+homepage = 'https://docs.ropensci.org/pdftools/'
 description = """
   Text Extraction, Rendering and Converting of PDF Documents
 """
