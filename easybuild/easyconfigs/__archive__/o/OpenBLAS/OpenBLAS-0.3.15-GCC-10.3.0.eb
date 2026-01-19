@@ -33,6 +33,8 @@ builddependencies = [
     ('make', '4.3'),
 ]
 
+buildopts = "TARGET=HASWELL"
+
 # extensive testing can be enabled by uncommenting the line below
 # runtest = 'PATH=.:$PATH lapack-timing'
 
