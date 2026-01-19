@@ -1,0 +1,40 @@
+# Author: Pavel Grochal (INUITS)
+# Updated: Denis Kristak, Pavel Tománek (INUITS)
+# License: GPLv2
+
+easyblock = 'PythonBundle'
+
+name = 'rpy2'
+version = '3.6.4'
+
+homepage = 'https://rpy2.github.io'
+description = """rpy2 is an interface to R running embedded in a Python process."""
+
+toolchain = {'name': 'foss', 'version': '2023a'}
+
+dependencies = [
+    ('Python', '3.12.3'),
+    ('Python-bundle-PyPI', '2024.06'),
+    ('SciPy-bundle', '2024.05'),
+    ('R', '4.4.2'),
+    ('R-bundle-CRAN', '2024.11'),
+    ('IPython', '8.28.0'),
+    ('cffi', '1.16.0'),
+]
+
+exts_list = [
+    ('coverage', '7.13.1', {
+        'checksums': ['b7593fe7eb5feaa3fbb461ac79aac9f9fc0387a5ca8080b0c6fe2ca27b091afd'],
+    }),
+    ('pytest-cov', '7.0.0', {
+        'checksums': ['33c97eda2e049a0c5298e91f519302a1334c26ac65c1a483d6206fd458361af1'],
+    }),
+    ('tzlocal', '5.3.1', {
+        'checksums': ['cceffc7edecefea1f595541dbd6e990cb1ea3d19bf01b2809f362a03dd7921fd'],
+    }),
+    (name, version, {
+        'checksums': ['a24e8dda5c5ff8cbd2b8ebd1ccf6f1a5a0a576623700cf91e2cce98d41a79fd3'],
+    }),
+]
+
+moduleclass = 'tools'
