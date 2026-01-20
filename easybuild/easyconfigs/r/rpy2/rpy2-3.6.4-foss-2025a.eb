@@ -10,16 +10,16 @@ version = '3.6.4'
 homepage = 'https://rpy2.github.io'
 description = """rpy2 is an interface to R running embedded in a Python process."""
 
-toolchain = {'name': 'foss', 'version': '2023a'}
+toolchain = {'name': 'foss', 'version': '2025a'}
 
 dependencies = [
-    ('Python', '3.12.3'),
-    ('Python-bundle-PyPI', '2024.06'),
-    ('SciPy-bundle', '2024.05'),
-    ('R', '4.4.2'),
-    ('R-bundle-CRAN', '2024.11'),
-    ('IPython', '8.28.0'),
-    ('cffi', '1.16.0'),
+    ('Python', '3.13.1'),
+    ('Python-bundle-PyPI', '2025.04'),
+    ('SciPy-bundle', '2025.06'),
+    ('R', '4.5.1'),
+    ('R-bundle-CRAN', '2025.10'),
+    ('IPython', '9.3.0'),
+    ('cffi', '1.17.1'),
 ]
 
 exts_list = [
