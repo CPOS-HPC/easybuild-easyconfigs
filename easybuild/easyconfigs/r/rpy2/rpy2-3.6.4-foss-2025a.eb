@@ -26,6 +26,9 @@ exts_list = [
     ('coverage', '7.13.1', {
         'checksums': ['b7593fe7eb5feaa3fbb461ac79aac9f9fc0387a5ca8080b0c6fe2ca27b091afd'],
     }),
+    ('hatchling', '1.28.0', {
+        'checksums': ['4d50b02aece6892b8cd0b3ce6c82cb218594d3ec5836dbde75bf41a21ab004c8'],
+    }),
     ('pytest-cov', '7.0.0', {
         'checksums': ['33c97eda2e049a0c5298e91f519302a1334c26ac65c1a483d6206fd458361af1'],
     }),
