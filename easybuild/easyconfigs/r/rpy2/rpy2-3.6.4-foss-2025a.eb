@@ -45,7 +45,11 @@ exts_list = [
         'checksums': ['cceffc7edecefea1f595541dbd6e990cb1ea3d19bf01b2809f362a03dd7921fd'],
     }),
     (name, version, {
-        'checksums': ['a24e8dda5c5ff8cbd2b8ebd1ccf6f1a5a0a576623700cf91e2cce98d41a79fd3'],
+        'patches': ['rpy2-%(version)s_fix_license.patch'],
+        'checksums': [
+            'a24e8dda5c5ff8cbd2b8ebd1ccf6f1a5a0a576623700cf91e2cce98d41a79fd3',  # rpy2-3.6.4.tar.gz
+            'f5b99cf14f290b6592bc02d68fce870ff4c18e405f47e997fd76cc69bfe30997',  # rpy2-3.6.4_fix_license.patch
+        ],
     }),
 ]
 
