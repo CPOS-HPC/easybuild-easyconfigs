@@ -26,7 +26,7 @@ dependencies = [
 exts_list = [
     ('setuptools-scm', '8.2.0', {
         'checksums': ['a18396a1bc0219c974d1a74612b11f9dce0d5bd8b1dc55c65f6ac7fd609e8c28'],
-    })
+    }),
     ('coverage', '7.13.1', {
         'checksums': ['b7593fe7eb5feaa3fbb461ac79aac9f9fc0387a5ca8080b0c6fe2ca27b091afd'],
     }),
