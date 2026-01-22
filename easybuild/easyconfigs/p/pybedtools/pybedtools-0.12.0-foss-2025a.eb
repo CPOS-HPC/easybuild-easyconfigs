@@ -9,7 +9,7 @@ description = "pybedtools wraps and extends BEDTools and offers feature-level ma
 toolchain = {'name': 'foss', 'version': '2025a'}
 
 sources = [SOURCE_TAR_GZ]
-checksums = ['8cb3ad3abd71dfc007a2915cbd30382380ddc7fc8175c0d540207f72dc1ceaac']
+checksums = ['8786ec9f6579c81363c00b437344438df79cf128860e5cae2466926181547249']
 
 dependencies = [
     ('Python', '3.13.1'),
