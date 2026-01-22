@@ -32,6 +32,12 @@ exts_list = [
     ('hatchling', '1.28.0', {
         'checksums': ['4d50b02aece6892b8cd0b3ce6c82cb218594d3ec5836dbde75bf41a21ab004c8'],
     }),
+    ('hatch-fancy-pypi-readme', '25.1.0', {
+        'checksums': ['9c58ed3dff90d51f43414ce37009ad1d5b0f08ffc9fc216998a06380f01c0045'],
+    }),
+    ('hatch-vcs', '0.5.0', {
+        'checksums': ['0395fa126940340215090c344a2bf4e2a77bcbe7daab16f41b37b98c95809ff9'],
+    }),
     ('pytest-cov', '7.0.0', {
         'checksums': ['33c97eda2e049a0c5298e91f519302a1334c26ac65c1a483d6206fd458361af1'],
     }),
