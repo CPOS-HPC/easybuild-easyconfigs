@@ -1,6 +1,6 @@
 # Author: Pavel Grochal (INUITS)
 # License: GPLv2
-# updated John Dey (Fred Hutch)
+# Updated: Emik Lin (HKUMed CPOS)
 
 easyblock = 'PythonBundle'
 
@@ -15,11 +15,15 @@ FLAIR has primarily been used for nanopore cDNA, native RNA, and PacBio sequenci
 
 toolchain = {'name': 'foss', 'version': '2025a'}
 
+builddependencies = [
+    ('poetry', '2.1.2'),
+    ('Cython', '3.1.1'),
+]
+
 dependencies = [
     ('Python', '3.13.1'),
     ('R', '4.5.1'),  # provides ggplot2, qqman
     ('SciPy-bundle', '2025.06'),  # provides numpy, pandas
-    ('Cython', '3.1.1'),
     ('rpy2', '3.6.4'),
     ('tqdm', '4.67.1'),
     ('SAMtools', '1.22.1'),
