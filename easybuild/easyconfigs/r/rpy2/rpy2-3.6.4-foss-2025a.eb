@@ -1,5 +1,5 @@
 # Author: Pavel Grochal (INUITS)
-# Updated: Denis Kristak, Pavel Tománek (INUITS)
+# Updated: Denis Kristak, Pavel Tománek (INUITS), Emik Lin (HKUMed CPOS)
 # License: GPLv2
 
 easyblock = 'PythonBundle'
