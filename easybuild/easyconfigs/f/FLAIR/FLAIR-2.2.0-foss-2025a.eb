@@ -47,7 +47,11 @@ exts_list = [
         'modulename': 'flair',
         'source_urls': ['https://github.com/BrooksLabUCSC/flair/archive/'],
         'sources': [{'download_filename': "%s.tar.gz" % local_commit, 'filename': '%(name)s-%(version)s.tar.gz'}],
-        'checksums': ['3a9c76a2ce10c2c5d27b7da1977f4d16e2352f1e5ac954c768ad0453d6c7945f'],
+        'patches': ['FLAIR-2.2.0_python313.patch'],
+        'checksums': [
+            '3b5ebab781e1c4fc43e7d2f2670a2dd735b6050bdd5d22a98db789b32369fbff',  # FLAIR-2.2.0.tar.gz
+            '935d298ad80dc8893fc6813d0da7d9b927bf319a37932116e44db651c94a0e21',  # FLAIR-2.2.0_python313.patch
+        ],
     }),
 ]
 
