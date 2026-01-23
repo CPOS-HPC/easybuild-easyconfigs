@@ -30,6 +30,9 @@ exts_list = [
     ('coverage', '7.13.1', {
         'checksums': ['b7593fe7eb5feaa3fbb461ac79aac9f9fc0387a5ca8080b0c6fe2ca27b091afd'],
     }),
+    ('calver', '2025.10.20', {
+        'checksums': ['c98b376c2424642224d456b2f70c51402343e008c63d204634665e1a2a2835f5'],
+    }),
     ('trove-classifiers', '2025.11.14.15', {
         'checksums': ['6b60f49d40bbd895bc61d8dc414fc2f2286d70eb72ed23548db8cf94f62804ca'],
     }),
