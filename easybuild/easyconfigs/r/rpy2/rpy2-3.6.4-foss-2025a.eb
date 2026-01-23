@@ -15,6 +15,8 @@ toolchain = {'name': 'foss', 'version': '2025a'}
 dependencies = [
     ('Python', '3.13.1'),
     ('Python-bundle-PyPI', '2025.04'),
+    ('coverage', '7.10.7'),
+    ('hatchling', '1.27.0'),
     ('SciPy-bundle', '2025.06'),
     ('R', '4.5.1'),
     ('R-bundle-CRAN', '2025.10'),
@@ -27,27 +29,12 @@ exts_list = [
     ('setuptools-scm', '8.2.0', {
         'checksums': ['a18396a1bc0219c974d1a74612b11f9dce0d5bd8b1dc55c65f6ac7fd609e8c28'],
     }),
-    ('coverage', '7.13.1', {
-        'checksums': ['b7593fe7eb5feaa3fbb461ac79aac9f9fc0387a5ca8080b0c6fe2ca27b091afd'],
-    }),
     ('calver', '2025.10.20', {
         'patches': ['rpy2-3.6.4_calver_fix_license.patch'], 
         'checksums': [
             'c98b376c2424642224d456b2f70c51402343e008c63d204634665e1a2a2835f5',  # calver-2025.10.20.tar.gz
             '2a27cce6bde7a59e7bb4b31b26e9c1496c6fabe84e568ddbfd06c383b47c5f17',  # rpy2-3.6.4_calver_fix_license.patch
         ],
-    }),
-    ('trove-classifiers', '2025.11.14.15', {
-        'checksums': ['6b60f49d40bbd895bc61d8dc414fc2f2286d70eb72ed23548db8cf94f62804ca'],
-    }),
-    ('hatchling', '1.28.0', {
-        'checksums': ['4d50b02aece6892b8cd0b3ce6c82cb218594d3ec5836dbde75bf41a21ab004c8'],
-    }),
-    ('hatch-fancy-pypi-readme', '25.1.0', {
-        'checksums': ['9c58ed3dff90d51f43414ce37009ad1d5b0f08ffc9fc216998a06380f01c0045'],
-    }),
-    ('hatch-vcs', '0.5.0', {
-        'checksums': ['0395fa126940340215090c344a2bf4e2a77bcbe7daab16f41b37b98c95809ff9'],
     }),
     ('pytest-cov', '7.0.0', {
         'checksums': ['33c97eda2e049a0c5298e91f519302a1334c26ac65c1a483d6206fd458361af1'],
