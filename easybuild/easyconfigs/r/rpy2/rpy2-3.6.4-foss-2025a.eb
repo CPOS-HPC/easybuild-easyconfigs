@@ -31,7 +31,11 @@ exts_list = [
         'checksums': ['b7593fe7eb5feaa3fbb461ac79aac9f9fc0387a5ca8080b0c6fe2ca27b091afd'],
     }),
     ('calver', '2025.10.20', {
-        'checksums': ['c98b376c2424642224d456b2f70c51402343e008c63d204634665e1a2a2835f5'],
+        'patches': ['rpy2-3.6.4_calver_fix_license.patch'], 
+        'checksums': [
+            'c98b376c2424642224d456b2f70c51402343e008c63d204634665e1a2a2835f5',  # calver-2025.10.20.tar.gz
+            '2a27cce6bde7a59e7bb4b31b26e9c1496c6fabe84e568ddbfd06c383b47c5f17',  # rpy2-3.6.4_calver_fix_license.patch
+        ],
     }),
     ('trove-classifiers', '2025.11.14.15', {
         'checksums': ['6b60f49d40bbd895bc61d8dc414fc2f2286d70eb72ed23548db8cf94f62804ca'],
