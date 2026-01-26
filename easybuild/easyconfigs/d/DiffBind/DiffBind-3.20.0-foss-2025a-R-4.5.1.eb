@@ -1,18 +1,18 @@
 easyblock = 'Bundle'
 
 name = 'DiffBind'
-version = '3.14.0'
+version = '3.20.0'
 versionsuffix = '-R-%(rver)s'
-local_biocver = '3.19'
+local_biocver = '3.22'
 
 homepage = 'https://bioconductor.org/packages/release/bioc/html/DiffBind.html'
 description = """Compute differentially bound sites from multiple ChIP-seq experiments using
  affinity (quantitative) data. Also enables occupancy (overlap) analysis and plotting functions."""
 
-toolchain = {'name': 'foss', 'version': '2023b'}
+toolchain = {'name': 'foss', 'version': '2025a'}
 
 dependencies = [
-    ('R', '4.4.1'),
+    ('R', '4.5.1'),
     ('R-bundle-Bioconductor', local_biocver, versionsuffix),
 ]
 
@@ -37,14 +37,14 @@ exts_list = [
     ('amap', '0.8-20', {
         'checksums': ['983bb7ec8f32d605013519c605499a9238215cd1376d3bcd7589998765f8c570'],
     }),
-    ('systemPipeR', '2.10.0', {
-        'checksums': ['dde61514c472f019a4e8a5bc46b09c4ec7daac41ec994ddf2fc443583c66bd8f'],
+    ('systemPipeR', '2.16.3', {
+        'checksums': ['9219976678c34c07f6f303e25cf78463bf814907c6416070bcf3630e41ec5155'],
     }),
     ('RcppNumerical', '0.6-0', {
         'checksums': ['2f0715d68a975403e2aa3f087939542001921623bd1bb8d905ebaff05d82d786'],
     }),
-    ('apeglm', '1.26.1', {
-        'checksums': ['7af71782e0a75a27f23c40cfe2b82a053322e11d1c240e4aae62826d0ef2350d'],
+    ('apeglm', '1.32.0', {
+        'checksums': ['90e1e687252378ce1ba2e11dd5bd6f1580e0359d45ba41cceec204faeef1c4d7'],
     }),
     ('invgamma', '1.1', {
         'checksums': ['aaa8de7c2a852fa6df30d8262086f6a3eb2b1fefbbc66dfe2f6c25c68917ea89'],
@@ -55,11 +55,11 @@ exts_list = [
     ('ashr', '2.2-63', {
         'checksums': ['7fa1957ed3cf0f1f20939b6ebf71fc04ab983ca77616f7b80ce9e9e6fad457c9'],
     }),
-    ('GreyListChIP', '1.36.0', {
-        'checksums': ['e737d6e391656ecc3886a667fa00159c1cbca57d860693c347944acb3cbb4336'],
+    ('GreyListChIP', '1.42.0', {
+        'checksums': ['91c2014b88338cacb20b77c18fc92d88ba9b75eb4f7db66d4bb3cc180468a13e'],
     }),
     (name, version, {
-        'checksums': ['f59e0233090a5cc0b115ff50dde770c3b146a611b9ca3bf9fcb2ca758bff20eb'],
+        'checksums': ['584bde4f4271539952a45c927d289e635d35e386ae4e0f029d8f13cd6a4151f8'],
     }),
 ]
 
