@@ -18,7 +18,7 @@ toolchain = {'name': 'gompi', 'version': '2024a'}
 
 source_urls = ['https://%(namelower)s-suite.org/%(namelower)s/%(namelower)s-software/%(version)s']
 sources = [SOURCELOWER_TAR_GZ]
-checksums = ['1dca8d0e6d1d36570c1a88ab8dbe7e4b177733fbbeacaa2e8c4674febf57aaf4']
+checksums = ['0406fb7b1dc27f6aab3d6d3a29ecdf617bbdd946690cfa97ca2129bc210bfd12']
 
 dependencies = [
     ('libxml2', '2.12.7'),
