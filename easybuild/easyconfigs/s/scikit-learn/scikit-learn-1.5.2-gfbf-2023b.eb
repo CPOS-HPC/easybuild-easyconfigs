@@ -12,8 +12,8 @@ It strives to be simple and efficient, accessible to everybody, and reusable in 
 toolchain = {'name': 'gfbf', 'version': '2023b'}
 
 builddependencies = [
-    ('Cython', '3.0.10'),
     ('meson-python', '0.16.0'),
+    ('Cython', '3.0.10'),
 ]
 
 dependencies = [
