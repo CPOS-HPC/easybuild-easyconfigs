@@ -5,6 +5,7 @@ easyblock = 'PythonBundle'
 
 name = 'IDR'
 version = '2.0.4.2'
+local_commit = '9452def'
 
 homepage = 'https://github.com/kundajelab/idr'
 description = """
@@ -23,17 +24,14 @@ dependencies = [
 
 exts_list = [
     ('idr', version, {
-        'source_urls': ['https://github.com/kundajelab/idr/archive/refs/tags/'],
-        'sources': ['%(version)s.tar.gz'],
-        'checksums': ['407f874fbe567ade139311fc005f9feddb0bd84366a54f6f5e2a100267fd6a31'],
+        'source_urls': ['https://github.com/kundajelab/idr/archive/'],
+        'sources': [{'download_filename': "%s.tar.gz" % local_commit, 'filename': '%(name)s-%(version)s.tar.gz'}],
+        'checksums': ['c6c10ec0ec007d8121e384bde84b1ff8a74c9cadfb252475834531774e25d2b3'],
     }),
 ]
 
-# Fix for NumPy 1.24: change deprecated numpy.int to int, and fix relative imports
+# Fix for NumPy 1.24: change deprecated numpy.int to int
 preinstallopts = "sed -i 's/numpy.int/int/g' idr/idr.py && "
-preinstallopts += "sed -i 's/import idr\./from . import /g' idr/idr.py && "
-
-modextrapaths = {'PYTHONPATH': ['lib/python%(pyshortver)s/site-packages/%(namelower)s']}
 
 sanity_check_paths = {
     'files': [],
