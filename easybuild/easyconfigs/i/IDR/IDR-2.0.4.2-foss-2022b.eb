@@ -30,7 +30,7 @@ exts_list = [
 ]
 
 # Fix for NumPy 1.24: change deprecated numpy.int to int
-preinstallopts = "sed -i 's/numpy.int/int/g' idr/idr.py"
+preinstallopts = "sed -i 's/numpy.int/int/g' idr/idr.py &&"
 
 modextrapaths = {'PYTHONPATH': ['lib/python%(pyshortver)s/site-packages/%(namelower)s']}
 
