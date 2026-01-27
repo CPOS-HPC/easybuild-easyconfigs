@@ -27,6 +27,11 @@ dependencies = [
     ('XZ', '5.4.4'),
 ]
 
+postinstallcmds = [
+    "mkdir -p %(installdir)s/bin",
+    "mv VerifyBamID %(installdir)s/bin/",
+]
+
 sanity_check_paths = {
     'files': ['bin/VerifyBamID'],
     'dirs': []
