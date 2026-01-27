@@ -1395,6 +1395,9 @@ exts_list = [
     ('methylKit', '1.36.0', {
         'checksums': ['118b9bfc3daa55e39b7647e6bb96e06a2acb041fcb53bcc71bf2dccaf4e9c32b'],
     }),
+    ('csaw', '1.44.0', {
+        'checksums': ['0b27a2b4b96760e64781006eb95c6893fecedc5bd23207c275be55292b1df382'],
+    }),
 ]
 
 modextrapaths = {'R_LIBS_SITE': ''}
