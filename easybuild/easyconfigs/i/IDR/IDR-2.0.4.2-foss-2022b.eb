@@ -22,10 +22,9 @@ dependencies = [
 ]
 
 exts_list = [
-    (name, version, {
-        'modulename': 'idr',
-        'source_urls': ['https://github.com/kundajelab/idr/archive/'],
-        'sources': [SOURCELOWER_TAR_GZ],
+    ('idr', version, {
+        'source_urls': ['https://github.com/kundajelab/idr/archive/refs/tags/'],
+        'sources': ['%(version)s.tar.gz'],
         'checksums': ['407f874fbe567ade139311fc005f9feddb0bd84366a54f6f5e2a100267fd6a31'],
     }),
 ]
