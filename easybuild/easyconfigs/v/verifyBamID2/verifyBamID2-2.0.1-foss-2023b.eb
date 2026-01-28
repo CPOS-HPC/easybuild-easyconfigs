@@ -1,6 +1,6 @@
 easyblock = 'CMakeMake'
 
-name = 'VerifyBamID2'
+name = 'verifyBamID2'
 version = '2.0.1'
 
 homepage = "https://griffan.github.io/VerifyBamID/"
@@ -27,12 +27,12 @@ dependencies = [
     ('XZ', '5.4.4'),
 ]
 
-buildininstalldir = True
+#buildininstalldir = True
 skipsteps = ['install']
 
 postinstallcmds = [
     "mkdir -p %(installdir)s/bin",
-    "mv VerifyBamID %(installdir)s/bin/",
+    "mv %(builddir)s/VerifyBamID-2.0.1/bin/VerifyBamID %(installdir)s/bin/",
 ]
 
 sanity_check_paths = {
