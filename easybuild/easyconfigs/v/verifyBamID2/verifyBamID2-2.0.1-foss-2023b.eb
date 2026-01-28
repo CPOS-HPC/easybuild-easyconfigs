@@ -27,7 +27,6 @@ dependencies = [
     ('XZ', '5.4.4'),
 ]
 
-#buildininstalldir = True
 skipsteps = ['install']
 
 postinstallcmds = [
