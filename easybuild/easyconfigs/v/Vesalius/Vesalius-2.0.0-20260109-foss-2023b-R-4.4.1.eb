@@ -52,8 +52,8 @@ exts_list = [
     ('PlotTools', '0.4.0', {
         'checksums': ['1e66fd28f79b966751aa241e98a1a7eb4ebb1ade417f86eac14d79402b1fe58c'],
     }),
-    ('TreeTools', '2.1.0', {
-        'checksums': ['eb227e72f55d1a95d335574d8684cdf18e53de9937d2dbdcecead1d35f3c3e51'],
+    ('TreeTools', '1.16.1', {
+        'checksums': ['e9162efae6d6f691ccee5f6dbb988fd45edcc4b017f1ba01e08163019d88a433'],
     }),
     ('TreeDist', '2.11.1', {
         'checksums': ['6446a0c0cd68a774cd899c85e12feb22d73709287d6c353a7a93dfd79a1b99e9'],
