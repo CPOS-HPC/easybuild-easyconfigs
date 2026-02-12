@@ -59,6 +59,7 @@ exts_list = [
         'checksums': ['6446a0c0cd68a774cd899c85e12feb22d73709287d6c353a7a93dfd79a1b99e9'],
     }),
     (name, version, {
+        'modulename': 'vesalius',
         'source_urls': ['https://github.com/WonLab-CS/Vesalius/archive/'],
         'sources': [{'download_filename': '%s.tar.gz' % local_commit, 'filename': SOURCE_TAR_GZ}],
         'checksums': ['aefac02327db10648555d9c07643f4cfb53f69c9e03663a1defb1deeb355ad78'],
