@@ -70,7 +70,7 @@ modextrapaths = {'R_LIBS_SITE': ''}
 
 sanity_check_paths = {
     'files': [],
-    'dirs': [name],
+    'dirs': ['%(namelower)s'],
 }
 
 moduleclass = 'bio'
