@@ -9,6 +9,7 @@ An insertion caller for Illumina paired-end WGS data.
 """
 
 toolchain = {'name': 'gfbf', 'version': '2024a'}
+toolchainopts = {'pic': True}
 
 source_urls = ['https://github.com/kensung-lab/INSurVeyor/archive/refs/tags']
 sources = ['%(version)s.tar.gz']
