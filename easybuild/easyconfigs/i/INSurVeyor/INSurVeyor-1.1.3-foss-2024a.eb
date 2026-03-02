@@ -31,12 +31,12 @@ dependencies = [
 
 configopts = "-DCMAKE_BUILD_TYPE=Release "
 
-_bins = ['reads_categorizer', 'clip_consensus_builder', 'call_insertions', 
+local_bins = ['reads_categorizer', 'clip_consensus_builder', 'call_insertions', 
          'dc_remapper', 'add_filtering_info', 'filter', 'normalise']
 
 install_cmd = ' && '.join([
     'mkdir -p %(installdir)s/bin',
-    'cp %s %%(installdir)s/bin/' % ' '.join(_bins),
+    'cp %s %%(installdir)s/bin/' % ' '.join(local_bins),
 ])
 
 postinstallcmds = [
@@ -47,7 +47,7 @@ postinstallcmds = [
 ]
 
 sanity_check_paths = {
-    'files': ['bin/%(namelower)s.py'],
+    'files': ['bin/%s' % bin for bin in local_bins + ['%(namelower)s.py', 'random_pos_generator.py']],
     'dirs': [''],
 }
 
