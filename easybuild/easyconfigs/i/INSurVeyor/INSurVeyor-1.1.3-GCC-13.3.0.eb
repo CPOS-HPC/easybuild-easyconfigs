@@ -8,7 +8,7 @@ description = """
 An insertion caller for Illumina paired-end WGS data.
 """
 
-toolchain = {'name': 'gfbf', 'version': '2024a'}
+toolchain = {'name': 'GCC', 'version': '13.3.0'}
 
 source_urls = ['https://github.com/kensung-lab/INSurVeyor/archive/refs/tags']
 sources = ['%(version)s.tar.gz']
@@ -22,11 +22,11 @@ builddependencies = [
 
 dependencies = [
     ('Python', '3.12.3'),
+    ('Python-bundle-PyPI', '2024.06'),
+    ('SciPy-bundle', '2024.05'),
     ('PyFaidx', '0.8.1.2'),
     ('PySam', '0.22.1'),
     ('HTSlib', '1.21'),
-    ('Python-bundle-PyPI', '2024.06'),
-    ('SciPy-bundle', '2024.05'),
 ]
 
 configopts = "-DCMAKE_BUILD_TYPE=Release "
