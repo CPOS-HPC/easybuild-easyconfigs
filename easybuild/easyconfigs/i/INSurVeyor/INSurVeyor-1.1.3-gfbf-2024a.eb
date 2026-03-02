@@ -22,11 +22,11 @@ builddependencies = [
 
 dependencies = [
     ('Python', '3.12.3'),
-    ('Python-bundle-PyPI', '2024.06'),
-    ('SciPy-bundle', '2024.05'),
     ('PyFaidx', '0.8.1.2'),
     ('PySam', '0.22.1'),
     ('HTSlib', '1.21'),
+    ('Python-bundle-PyPI', '2024.06'),
+    ('SciPy-bundle', '2024.05'),
 ]
 
 configopts = "-DCMAKE_BUILD_TYPE=Release "
