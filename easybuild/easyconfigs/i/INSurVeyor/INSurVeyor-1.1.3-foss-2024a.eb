@@ -17,12 +17,13 @@ checksums = ['0099ce859dd1b61b726b87ca26d7b89dabb34cab27afc97a5696780260b27304']
 builddependencies = [
     ('Autoconf', '2.72'),
     ('binutils', '2.42'),
-    ('CMake', '3.29.3'),
+    ('CMake', '3.31.8'),
 ]
 
 dependencies = [
     ('HTSlib', '1.21'),
     ('Python', '3.12.3'),
+    ('Python-bundle-PyPI', '2024.06'),
     ('SciPy-bundle', '2024.05'),
     ('PyFaidx', '0.8.1.2'),
     ('PySam', '0.22.1'),
