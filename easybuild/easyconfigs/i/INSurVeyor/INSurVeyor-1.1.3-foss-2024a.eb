@@ -8,7 +8,7 @@ description = """
 An insertion caller for Illumina paired-end WGS data.
 """
 
-toolchain = {'name': 'GCC', 'version': '13.3.0'}
+toolchain = {'name': 'foss', 'version': '2024a'}
 
 source_urls = ['https://github.com/kensung-lab/INSurVeyor/archive/refs/tags']
 sources = ['%(version)s.tar.gz']
