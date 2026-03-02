@@ -8,22 +8,22 @@ description = """
 An insertion caller for Illumina paired-end WGS data.
 """
 
-toolchain = {'name': 'GCC', 'version': '13.3.0'}
+toolchain = {'name': 'gfbf', 'version': '2024a'}
 
 source_urls = ['https://github.com/kensung-lab/INSurVeyor/archive/refs/tags']
 sources = ['%(version)s.tar.gz']
 checksums = ['0099ce859dd1b61b726b87ca26d7b89dabb34cab27afc97a5696780260b27304']
 
 builddependencies = [
-    ('Autoconf', '2.72'),
-    ('binutils', '2.42'),
-    ('CMake', '3.31.8'),
+    ('CMake', '3.29.3'),
+    ('Cython', '3.0.10'),
+    ('Autotools', '20231222'),
 ]
 
 dependencies = [
     ('Python', '3.12.3'),
     ('Python-bundle-PyPI', '2024.06'),
-    ('SciPy-bundle', '2024.05'),
+    ('SciPy-bundle', '2024.05'),  # for numpy
     ('PyFaidx', '0.8.1.2'),
     ('PySam', '0.22.1'),
     ('HTSlib', '1.21'),
