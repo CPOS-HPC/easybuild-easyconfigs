@@ -15,10 +15,10 @@ sources = ['%(namelower)s_v%(version)s_u16_x86_64.tar.gz']
 checksums = ['7c084cba0f5c675c57cc79e2470d6e0d87be564b4f5363ad6b6357e4c9772a5b']
 
 sanity_check_paths = {
-    'files': ['bin/%(namelower)s'],
+    'files': ['%(namelower)s'],
     'dirs': [],
 }
 
-sanity_check_commands = ["%(namelower)s --help"]
+sanity_check_commands = ["%(namelower)s --version | grep %(version)s"]
 
 moduleclass = 'bio'
