@@ -12,7 +12,7 @@ toolchain = {'name': 'GCCcore', 'version': '13.3.0'}
 
 sources = [
     {
-        'source_urls': ['https://github.com/statgen/BamUtil/archive/'],
+        'source_urls': ['https://github.com/statgen/bamUtil/archive/'],
         'download_filename': 'v%(version)s.tar.gz',
         'filename': SOURCE_TAR_GZ,
     },
@@ -23,7 +23,7 @@ sources = [
     },
 ]
 checksums = [
-    '24ac4bdb81eded6e33f60dba85ec3d32ebdb06d42f75df775c2632bbfbd8cce9',  # BamUtil-1.0.15.tar.gz
+    '24ac4bdb81eded6e33f60dba85ec3d32ebdb06d42f75df775c2632bbfbd8cce9',  # bamUtil-1.0.15.tar.gz
     '075dcd891409c48d76c0c66186c0cc479bc3cd50bba093e7f318e1d1d19961ff',  # libStatGen-1.0.15.tar.gz
 ]
 
