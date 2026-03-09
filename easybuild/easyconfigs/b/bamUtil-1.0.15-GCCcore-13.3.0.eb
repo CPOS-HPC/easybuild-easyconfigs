@@ -1,0 +1,35 @@
+name = 'bamUtil'
+version = '1.0.15'
+
+easyblock = 'MakeCp'
+
+homepage = 'https://genome.sph.umich.edu/wiki/BamUtil'
+description = """bamUtil is a repository that contains several programs
+  that perform operations on SAM/BAM files. All of these programs
+  are built into a single executable, bam."""
+
+toolchain = {'name': 'GCCcore', 'version': '13.3.0'}
+
+github_account = 'statgen'
+source_urls = [GITHUB_SOURCE]
+sources = [{'download_filename': '3ad3980.tar.gz', 'filename': SOURCELOWER_TAR_GZ}]
+checksums = ['24ac4bdb81eded6e33f60dba85ec3d32ebdb06d42f75df775c2632bbfbd8cce9']
+
+builddependencies = [
+    ('binutils', '2.42'),
+]
+dependencies = [
+    ('libStatGen', '1.0.15'),
+]
+
+# make sure right compilers are used by passing them as options to 'make' (default is to use gcc/g++)
+buildopts = 'CC="$CC" CXX="$CXX"'
+
+files_to_copy = ['bin']
+
+sanity_check_paths = {
+    'files': ['bin/bam'],
+    'dirs': [],
+}
+
+moduleclass = 'bio'
