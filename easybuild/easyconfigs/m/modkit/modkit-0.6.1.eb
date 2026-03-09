@@ -14,6 +14,8 @@ source_urls = ['https://github.com/nanoporetech/modkit/releases/download/v%(vers
 sources = ['%(namelower)s_v%(version)s_u16_x86_64.tar.gz']
 checksums = ['7c084cba0f5c675c57cc79e2470d6e0d87be564b4f5363ad6b6357e4c9772a5b']
 
+modextrapaths = {'PATH': ''}
+
 sanity_check_paths = {
     'files': ['%(namelower)s'],
     'dirs': [],
