@@ -3,6 +3,7 @@
 # Updated to version 0.6.2: Pavel Grochal (INUITS)
 # Updated to version 0.6.5: Alex Domingo (VUB)
 # Updated to version 0.6.7 by J. Sassmannshausen NHS/GSTT
+# Updated to version 0.6.11 by Emik Lin (HKUMed CPOS)
 
 easyblock = 'Tarball'
 
