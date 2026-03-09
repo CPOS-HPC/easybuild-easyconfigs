@@ -23,7 +23,7 @@ dependencies = [
 ]
 
 # make sure right compilers are used by passing them as options to 'make' (default is to use gcc/g++)
-buildopts = 'CC="$CC" CXX="$CXX"'
+buildopts = 'CC="$CC" CXX="$CXX" LIB_PATH_GENERAL="${EBROOTLIBSTATGEN}"'
 
 files_to_copy = ['bamUtil/bin']
 
