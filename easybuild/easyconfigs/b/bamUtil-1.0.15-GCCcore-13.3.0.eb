@@ -13,7 +13,7 @@ toolchain = {'name': 'GCCcore', 'version': '13.3.0'}
 github_account = 'statgen'
 source_urls = [GITHUB_SOURCE]
 sources = [{'download_filename': '3ad3980.tar.gz', 'filename': SOURCELOWER_TAR_GZ}]
-checksums = ['24ac4bdb81eded6e33f60dba85ec3d32ebdb06d42f75df775c2632bbfbd8cce9']
+checksums = ['49a2b523d5034886e3aec2895cd7df3d032d59dfee44d8adbdf1dc369dc82b33']
 
 builddependencies = [
     ('binutils', '2.42'),
