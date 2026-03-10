@@ -1,7 +1,7 @@
 # Created by Emik Lin (HKUMed CPOS)
 # Use external SeqLib instead of building shipped version
 --- CMakeLists.txt.orig	2025-05-25 20:07:52.000000000 +0800
-+++ CMakeLists.txt	2026-03-10 11:08:12.294471000 +0800
++++ CMakeLists.txt	2026-03-10 11:38:22.740045000 +0800
 @@ -12,14 +12,25 @@
  
  project(svaba)
@@ -16,7 +16,7 @@
 +endif()
 +
 +# Locate the libraries dynamically
-+find_library(SEQLIB_LIBRARY NAMES SeqLib PATHS ${SEQLIB_DIR}/lib REQUIRED)
++find_library(SEQLIB_LIBRARY NAMES seqlib PATHS ${SEQLIB_DIR}/lib REQUIRED)
 +find_library(BWA_LIBRARY NAMES bwa PATHS ${BWA_DIR}/lib REQUIRED)
 +find_library(FML_LIBRARY NAMES fml PATHS ${FML_DIR}/lib REQUIRED)
  
