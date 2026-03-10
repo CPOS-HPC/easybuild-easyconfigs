@@ -1,0 +1,33 @@
+# Created by Emik Lin (HKUMed CPOS)
+# Use external SeqLib instead of building shipped version
+--- CMakeLists.txt.orig	2025-05-25 20:07:52.000000000 +0800
++++ CMakeLists.txt	2026-03-10 10:37:41.527355000 +0800
+@@ -17,11 +17,14 @@
+ # Include directories for headers
+ include_directories(
+     ${CMAKE_CURRENT_SOURCE_DIR}
+-    ${CMAKE_CURRENT_SOURCE_DIR}/SeqLib
+-    ${CMAKE_CURRENT_SOURCE_DIR}/SeqLib/bwa
+-    ${CMAKE_CURRENT_SOURCE_DIR}/SeqLib/fermi-lite    
++    #${CMAKE_CURRENT_SOURCE_DIR}/SeqLib
++    #${CMAKE_CURRENT_SOURCE_DIR}/SeqLib/bwa
++    #${CMAKE_CURRENT_SOURCE_DIR}/SeqLib/fermi-lite    
+ )
+ 
++# Look for seqlib
++find_package(seqlib REQUIRED)
++
+ # Look for htslib on the system
+ find_package(htslib QUIET)
+ 
+@@ -190,8 +193,8 @@
+ # Linking
+ target_link_libraries(svaba 
+     seqlib
+-    ${CMAKE_CURRENT_SOURCE_DIR}/SeqLib/bwa/libbwa.a
+-    ${CMAKE_CURRENT_SOURCE_DIR}/SeqLib/fermi-lite/libfml.a
++    #${CMAKE_CURRENT_SOURCE_DIR}/SeqLib/bwa/libbwa.a
++    #${CMAKE_CURRENT_SOURCE_DIR}/SeqLib/fermi-lite/libfml.a
+     Threads::Threads
+     hts
+     ZLIB::ZLIB

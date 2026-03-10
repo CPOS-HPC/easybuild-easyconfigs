@@ -16,7 +16,10 @@ toolchain = {'name': 'GCC', 'version': '13.3.0'}
 # git clone --recursive https://github.com/walaj/svaba
 source_urls = 'https://github.com/walaj/svaba/archive/',
 sources = [{'download_filename': '%s.tar.gz' % local_commit, 'filename': SOURCE_TAR_GZ}]
-checksums = ['719b8a3579bee8d9e492d3782c3cd96210808667218b8bffbcd0e3281ca3a7ff']
+checksums = [
+    '719b8a3579bee8d9e492d3782c3cd96210808667218b8bffbcd0e3281ca3a7ff', # SvABA-1.3.0.tar.gz
+    'fda301172c0026393205054be848768db55ed54e7bbc521eace8bf397ae80319', # SvABA-1.3.0_use-external-deps.patch
+]
 
 builddependencies = [
     ('CMake', '3.29.3'),
