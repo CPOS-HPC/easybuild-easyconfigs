@@ -22,7 +22,6 @@ sources = [{
         'recursive': True,
     },
 }]
-sources = [{'download_filename': '%s.tar.gz' % local_commit, 'filename': SOURCE_TAR_GZ}]
 
 checksums = ['719b8a3579bee8d9e492d3782c3cd96210808667218b8bffbcd0e3281ca3a7ff']
 
