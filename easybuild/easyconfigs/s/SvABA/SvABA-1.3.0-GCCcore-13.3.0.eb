@@ -27,6 +27,7 @@ dependencies = [
     ('HTSlib', '1.21'),
     ('XZ', '5.4.5'),
     ('bzip2', '1.0.8'),
+    ('SeqLib', '1.2.0'),
 ]
 
 separate_build_dir = True
