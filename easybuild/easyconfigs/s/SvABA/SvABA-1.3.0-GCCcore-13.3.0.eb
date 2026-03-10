@@ -38,7 +38,7 @@ dependencies = [
 
 separate_build_dir = True
 
-configopts = "-DHTSLIB_DIR=$EBROOTHTSLIB/lib "
+configopts = "-DHTSLIB_DIR=$EBROOTHTSLIB/lib -DSEQLIB_DIR=$EBROOTSEQLIB/lib "
 
 files_to_copy = [
     (['%(namelower)s'], 'bin'),
