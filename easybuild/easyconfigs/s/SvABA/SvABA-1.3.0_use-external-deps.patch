@@ -1,8 +1,14 @@
 # Created by Emik Lin (HKUMed CPOS)
 # Use external SeqLib instead of building shipped version
 --- CMakeLists.txt.orig	2025-05-25 20:07:52.000000000 +0800
-+++ CMakeLists.txt	2026-03-10 10:37:41.527355000 +0800
-@@ -17,11 +17,14 @@
++++ CMakeLists.txt	2026-03-10 10:44:58.497891000 +0800
+@@ -12,16 +12,19 @@
+ 
+ project(svaba)
+ 
+-add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/SeqLib)
++#add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/SeqLib)
+ 
  # Include directories for headers
  include_directories(
      ${CMAKE_CURRENT_SOURCE_DIR}
