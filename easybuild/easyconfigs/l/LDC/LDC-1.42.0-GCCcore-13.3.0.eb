@@ -10,7 +10,7 @@ toolchain = {'name': 'GCCcore', 'version': '13.3.0'}
 
 source_urls = ['https://github.com/ldc-developers/ldc/releases/download/v%(version)s']
 sources = ['ldc-%(version)s-src.tar.gz']
-checksums = ['839bac36f6073318e36f0b163767e03bdbd3f57d99256b97494ac439b59a4562']
+checksums = ['9bb0f628f869f7fc7b53c381a79742d29c17552c6f1a56b0a02aa289e65a0e3b']
 
 builddependencies = [
     ('binutils', '2.42'),
