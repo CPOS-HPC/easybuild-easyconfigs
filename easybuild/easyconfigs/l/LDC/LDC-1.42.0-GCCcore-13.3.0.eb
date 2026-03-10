@@ -21,7 +21,7 @@ builddependencies = [
 ]
 
 dependencies = [
-    ('LLVM', '18.1.8'),
+    ('LLVM', '20.1.5'),
 ]
 
 configopts = "-DLLVM_ROOT_DIR=$EBROOTLLVM"
