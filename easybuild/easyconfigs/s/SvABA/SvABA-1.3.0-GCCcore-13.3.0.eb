@@ -23,7 +23,7 @@ sources = [{
     },
 }]
 
-checksums = ['719b8a3579bee8d9e492d3782c3cd96210808667218b8bffbcd0e3281ca3a7ff']
+checksums = ['5ef48e3ab0140526a7955beabfe53cc47f7b466c4d3a894d2ea780e25e86ee1a']
 
 builddependencies = [
     ('CMake', '3.29.3'),
