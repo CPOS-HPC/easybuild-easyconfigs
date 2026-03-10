@@ -1,13 +1,24 @@
 # Created by Emik Lin (HKUMed CPOS)
 # Use external SeqLib instead of building shipped version
 --- CMakeLists.txt.orig	2025-05-25 20:07:52.000000000 +0800
-+++ CMakeLists.txt	2026-03-10 10:44:58.497891000 +0800
-@@ -12,16 +12,19 @@
++++ CMakeLists.txt	2026-03-10 11:08:12.294471000 +0800
+@@ -12,14 +12,25 @@
  
  project(svaba)
  
 -add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/SeqLib)
-+#add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/SeqLib)
++set(SEQLIB_DIR "" CACHE PATH "Path to external SeqLib")
++set(BWA_DIR "" CACHE PATH "Path to external BWA")
++set(FML_DIR "" CACHE PATH "Path to external fermi-lite")
++
++if (NOT SEQLIB_DIR OR NOT BWA_DIR OR NOT FML_DIR)
++    message(FATAL_ERROR "Missing paths. Please specify -DSEQLIB_DIR, -DBWA_DIR, and -DFML_DIR")
++endif()
++
++# Locate the libraries dynamically
++find_library(SEQLIB_LIBRARY NAMES SeqLib PATHS ${SEQLIB_DIR}/lib REQUIRED)
++find_library(BWA_LIBRARY NAMES bwa PATHS ${BWA_DIR}/lib REQUIRED)
++find_library(FML_LIBRARY NAMES fml PATHS ${FML_DIR}/lib REQUIRED)
  
  # Include directories for headers
  include_directories(
@@ -15,25 +26,22 @@
 -    ${CMAKE_CURRENT_SOURCE_DIR}/SeqLib
 -    ${CMAKE_CURRENT_SOURCE_DIR}/SeqLib/bwa
 -    ${CMAKE_CURRENT_SOURCE_DIR}/SeqLib/fermi-lite    
-+    #${CMAKE_CURRENT_SOURCE_DIR}/SeqLib
-+    #${CMAKE_CURRENT_SOURCE_DIR}/SeqLib/bwa
-+    #${CMAKE_CURRENT_SOURCE_DIR}/SeqLib/fermi-lite    
++    ${SEQLIB_DIR}/include
++    ${BWA_DIR}/include
++    ${FML_DIR}/include
  )
  
-+# Look for seqlib
-+find_package(seqlib REQUIRED)
-+
  # Look for htslib on the system
- find_package(htslib QUIET)
+@@ -189,9 +200,9 @@
  
-@@ -190,8 +193,8 @@
  # Linking
  target_link_libraries(svaba 
-     seqlib
+-    seqlib
 -    ${CMAKE_CURRENT_SOURCE_DIR}/SeqLib/bwa/libbwa.a
 -    ${CMAKE_CURRENT_SOURCE_DIR}/SeqLib/fermi-lite/libfml.a
-+    #${CMAKE_CURRENT_SOURCE_DIR}/SeqLib/bwa/libbwa.a
-+    #${CMAKE_CURRENT_SOURCE_DIR}/SeqLib/fermi-lite/libfml.a
++    ${SEQLIB_LIBRARY}
++    ${BWA_LIBRARY}
++    ${FML_LIBRARY}
      Threads::Threads
      hts
      ZLIB::ZLIB
