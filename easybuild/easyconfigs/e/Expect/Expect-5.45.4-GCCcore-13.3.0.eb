@@ -1,6 +1,6 @@
 easyblock = 'ConfigureMake'
 
-name = 'expect'
+name = 'Expect'
 version = '5.45.4'
 
 homepage = 'https://core.tcl.tk/expect/index'
@@ -12,7 +12,7 @@ description = """Expect is a tool for automating interactive applications
 toolchain = {'name': 'GCCcore', 'version': '13.3.0'}
 
 source_urls = [SOURCEFORGE_SOURCE]
-sources = ['%(name)s%(version)s.tar.gz']
+sources = ['%(namelower)s%(version)s.tar.gz']
 checksums = ['49a7da83b0bdd9f46d04a04deec19c7767bb9a323e40c4781f89caf760b92c34']
 
 # we need to specify --exec-prefix as by default it uses the path of Tcl.
@@ -29,7 +29,7 @@ dependencies = [
 runtest = 'test'
 
 sanity_check_paths = {
-    'files': ['bin/expect'],
+    'files': ['bin/%(namelower)s'],
     'dirs': ['.'],
 }
 
