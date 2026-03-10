@@ -22,7 +22,7 @@ dependencies = [
     ('Pysam', '0.22.1'),
     ('SAMtools', '1.21'),
     ('samblaster', '0.1.26'),
-    ('Sambamba', '0.8.0'),
+    ('Sambamba', '1.0.1'),
     ('gawk', '5.3.2'),
     ('bzip2', '1.0.8'),
     ('cURL', '8.7.1'),
