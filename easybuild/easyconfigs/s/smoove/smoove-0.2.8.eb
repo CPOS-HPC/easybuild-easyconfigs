@@ -1,7 +1,7 @@
 easyblock = 'Binary'
 
 name = 'smoove'
-version = '0.4.3'
+version = '0.2.8'
 
 homepage = 'https://github.com/brentp/smoove'
 description = 'Structural variant calling and genotyping with existing tools, but, smoothly. '
