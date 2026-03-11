@@ -10,7 +10,7 @@ toolchain = SYSTEM
 
 source_urls = ['https://github.com/brentp/%(name)s/releases/download/v%(version)s']
 sources = [{'download_filename': '%(name)s_v%(version)s_linux_amd64', 'filename': '%(name)s-%(version)s'}]
-checksums = ['d2f47900b39e56ea69631f3d90f0b524c6d3a67f4418b1eb11d5e2b71ccba3a4']
+checksums = ['3e071a0699af99c05bfc0a593552934d789bb1371189d013f21e1d1e9fd57f24']
 
 extract_sources = False
 
