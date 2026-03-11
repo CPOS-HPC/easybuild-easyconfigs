@@ -22,8 +22,6 @@ builddependencies = [
     ('lz4', '1.9.4'),
 ]
 
-buildopts = 'LDCFLAGS="-d -wi" '
-
 files_to_copy = [(['bin/sambamba-%(version)s'], 'bin')]
 
 postinstallcmds = ["cd %(installdir)s/bin && ln -s sambamba-%(version)s sambamba"]
