@@ -1,0 +1,30 @@
+easyblock = 'Binary'
+
+name = 'smoove'
+version = '0.4.3'
+
+homepage = 'https://github.com/brentp/smoove'
+description = 'Structural variant calling and genotyping with existing tools, but, smoothly. '
+
+toolchain = SYSTEM
+
+source_urls = ['https://github.com/brentp/%(name)s/releases/download/v%(version)s']
+sources = [{'download_filename': '%(name)s', 'filename': '%(name)s-%(version)s'}]
+checksums = ['4e0624097f8b2b9a152caa51947659d370ef8311621582abd23a77b733ba3b3b']
+
+dependencies = [
+    ('gsort', '0.1.5'),
+]
+
+extract_sources = False
+
+install_cmd = "cp %(name)s-%(version)s %(installdir)s/%(name)s && chmod a+rx %(installdir)s/%(name)s"
+
+sanity_check_paths = {
+    'files': ['%(name)s'],
+    'dirs': [],
+}
+
+sanity_check_commands = ["%(name)s"]
+
+moduleclass = 'bio'
