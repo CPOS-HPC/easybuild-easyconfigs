@@ -1,0 +1,24 @@
+easyblock = 'GoPackage'
+
+name = 'gsort'
+version = '4.50.1'
+
+homepage = 'https://github.com/brentp/gsort'
+description = """gsort is a tool to sort genomic files according to a genomefile."""
+
+toolchain = SYSTEM
+
+source_urls = ['https://github.com/brentp/gsort/archive/refs/tags/']
+sources = ['v%(version)s.tar.gz']
+checksums = ['d2f47900b39e56ea69631f3d90f0b524c6d3a67f4418b1eb11d5e2b71ccba3a4']
+
+builddependencies = [('Go', '1.25.3', '', SYSTEM)]
+
+sanity_check_paths = {
+    'files': ['bin/gsort'],
+    'dirs': [],
+}
+
+sanity_check_commands = ['gsort --help']
+
+moduleclass = 'bio'
