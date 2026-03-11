@@ -1,7 +1,7 @@
 easyblock = 'GoPackage'
 
 name = 'gsort'
-version = '4.50.1'
+version = '0.1.5'
 
 homepage = 'https://github.com/brentp/gsort'
 description = """gsort is a tool to sort genomic files according to a genomefile."""
