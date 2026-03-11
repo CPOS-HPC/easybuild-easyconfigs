@@ -34,7 +34,7 @@ prebuildopts = "export ZLIB_PATH=$EBROOTZLIB/lib && "
 
 # prevent building of included HTSlib for lumpy_filter
 prebuildopts += "mkdir bin && ln -s $EBROOTSAMTOOLS/lib/libhts.a lib/htslib/libhts.a && "
-prebuildopts += "sed -i 's/-lz/-lz -llzma -lbz2/g' src/filter/Makefile && "
+prebuildopts += "sed -i 's/-lz/-lz -llzma -lbz2 -lm/g' src/filter/Makefile && "
 prebuildopts += "make -C src/filter && cp src/filter/lumpy_filter bin/ && "
 
 buildopts = "lumpyexpress lumpy"
