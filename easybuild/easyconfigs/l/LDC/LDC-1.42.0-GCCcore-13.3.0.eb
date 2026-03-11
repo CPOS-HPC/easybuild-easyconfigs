@@ -26,6 +26,7 @@ dependencies = [
 ]
 
 configopts = "-DLLVM_ROOT_DIR=$EBROOTLLVM "
+# explicitly add zstd to the linker flags to prevent build failure
 configopts += '-DCMAKE_EXE_LINKER_FLAGS="-lzstd" '
 
 sanity_check_paths = {
