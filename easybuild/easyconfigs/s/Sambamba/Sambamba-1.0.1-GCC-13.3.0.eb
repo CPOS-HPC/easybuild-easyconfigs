@@ -2,6 +2,7 @@ easyblock = 'MakeCp'
 
 name = 'Sambamba'
 version = '1.0.1'
+local_commit = 'dba65af'
 
 homepage = 'https://lomereiter.github.io/sambamba/'
 description = """Sambamba is a high performance modern robust and fast tool
@@ -12,14 +13,16 @@ description = """Sambamba is a high performance modern robust and fast tool
 toolchain = {'name': 'GCC', 'version': '13.3.0'}
 
 source_urls = ['https://github.com/biod/sambamba/archive/']
-sources = ['v%(version)s.tar.gz']
-checksums = ['955a51a00be9122aa9b0c27796874bfdda85de58aa0181148ef63548ea5192b0']
+sources = [{'download_filename': '%s.zip' % local_commit, 'filename': '%(name)s-%(version)s.zip'}]
+checksums = ['e1ffc9d29e9cb1f76938a6e7086ad9df9639608f35b1ed97e99932df35268b1f']
 
 builddependencies = [
     ('LDC', '1.42.0'),
     ('Python', '3.12.3'),
     ('lz4', '1.9.4'),
 ]
+
+buildopts = 'LDCFLAGS="-d -wi" '
 
 files_to_copy = [(['bin/sambamba-%(version)s'], 'bin')]
 
