@@ -25,6 +25,6 @@ sanity_check_paths = {
     'dirs': [],
 }
 
-sanity_check_commands = ["%(name)s"]
+sanity_check_commands = ["%(name)s 2>&1 | grep %(version)s"]
 
 moduleclass = 'bio'
