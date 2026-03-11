@@ -15,7 +15,7 @@ checksums = ['d2f47900b39e56ea69631f3d90f0b524c6d3a67f4418b1eb11d5e2b71ccba3a4']
 builddependencies = [('Go', '1.25.3', '', SYSTEM)]
 
 sanity_check_paths = {
-    'files': ['bin/gsort'],
+    'files': ['gsort'],
     'dirs': [],
 }
 
