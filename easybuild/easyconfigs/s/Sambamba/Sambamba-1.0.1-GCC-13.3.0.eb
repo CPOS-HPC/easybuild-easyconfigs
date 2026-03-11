@@ -13,7 +13,7 @@ description = """Sambamba is a high performance modern robust and fast tool
 toolchain = {'name': 'GCC', 'version': '13.3.0'}
 
 source_urls = ['https://github.com/biod/sambamba/archive/']
-sources = [{'download_filename': '%s.zip' % local_commit, 'filename': '%(name)s-%(version)s.zip'}]
+sources = [{'download_filename': '%s.tar.gz' % local_commit, 'filename': '%(name)s-%(version)s.tar.gz'}]
 checksums = ['e1ffc9d29e9cb1f76938a6e7086ad9df9639608f35b1ed97e99932df35268b1f']
 
 builddependencies = [
