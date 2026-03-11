@@ -12,7 +12,11 @@ toolchainopts = {'usempi': True}
 
 source_urls = ['https://github.com/arq5x/lumpy-sv/archive/']
 sources = ['v%(version)s.tar.gz']
-checksums = ['6a75dffafd238417011416c62d4351f64ea71bd018b5a7660383566f2cbb7c5d']
+patches = ['LUMPY-0.3.1_fix_gcc13_const.patch']
+checksums = [
+    '6a75dffafd238417011416c62d4351f64ea71bd018b5a7660383566f2cbb7c5d', # v0.3.1.tar.gz
+    '059aea9b5a04eb9f8cbc403f31a03397ec53bb2b0858a37f3a1b11dfab9ddfac', # LUMPY-0.3.1_fix_gcc13_const.patch
+]
 
 builddependencies = [('CMake', '3.29.3')]
 
