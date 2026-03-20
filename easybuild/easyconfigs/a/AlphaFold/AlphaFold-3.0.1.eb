@@ -1,6 +1,6 @@
 easyblock = 'Apptainer'
 
-name = 'QIIME'
+name = 'AlphaFold'
 version = '3.0.1'
 
 homepage = 'https://deepmind.google/science/alphafold/'
