@@ -13,15 +13,12 @@ toolchain = {'name': 'foss', 'version': '2024a'}
 source_urls = ['https://github.com/nanoporetech/%(name)s/archive/']
 sources = [{'download_filename': '%(version)s.tar.gz', 'filename': SOURCE_TAR_GZ}]
 patches = [
-    'pod5-file-format-0.3.23-use-eb-pybind11.patch',
-    'pod5-file-format-0.3.23-gcc13-includes.patch',
+    'pod5-file-format-0.3.36-use-eb-pybind11.patch',
 ]
 checksums = [
     {'pod5-file-format-0.3.36.tar.gz': '5c1a96639908f6297c1431fcde6be051a5f40d4b69b5459bf1050ee36242dfc4'},
-    {'pod5-file-format-0.3.23-use-eb-pybind11.patch':
-     '09aa3926bb39aee8d40519e1ecc6ec7d5aba5f64cd40178a5493d394aff8f09d'},
-    {'pod5-file-format-0.3.23-gcc13-includes.patch':
-     '38bc961a2e6df3bde174344f3bd75cf3a25ecac5ac9067207bf655dc909fff4b'},
+    {'pod5-file-format-0.3.36-use-eb-pybind11.patch':
+     '9098132d0ae688b48286ce420314e635da4db0af738d3f9cdd5a6b74bc77b52b'},
 ]
 
 builddependencies = [
