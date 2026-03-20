@@ -1,0 +1,13 @@
+# Fix CMake Error file INSTALL cannot find __build/pod5_conan_licenses
+--- pod5-file-format-0.3.36/c++/pod5_format_pybind/CMakeLists.txt.orig	2025-11-19 21:15:58.000000000 +0800
++++ pod5-file-format-0.3.36/c++/pod5_format_pybind/CMakeLists.txt	2026-03-20 18:37:14.330092758 +0800
+@@ -55,6 +55,9 @@
+ set(wheel_output_dir "${CMAKE_CURRENT_BINARY_DIR}/wheel_${POD5_FULL_VERSION}")
+ file(MAKE_DIRECTORY ${wheel_output_dir})
+ 
++# ADD THIS LINE to prevent the build_wheel.cmake INSTALL error
++file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/pod5_conan_licenses)
++
+ add_custom_command(
+     OUTPUT "${wheel_output_stub}"
+     COMMAND ${CMAKE_COMMAND}
