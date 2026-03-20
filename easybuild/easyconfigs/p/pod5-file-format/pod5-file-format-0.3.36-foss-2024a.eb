@@ -17,7 +17,7 @@ patches = [
     'pod5-file-format-0.3.23-gcc13-includes.patch',
 ]
 checksums = [
-    {'pod5-file-format-0.3.36.tar.gz': '5c1a96639908f6297c1431fcde6be051a5f40d4b69b5459bf1050ee36242dfc4'},
+    {'pod5-file-format-0.3.36.tar.gz': 'dd478c15631e892a19cfc0ad6736e32aa5559ea67fadba222a28a558935fefb7'},
     {'pod5-file-format-0.3.23-use-eb-pybind11.patch':
      '09aa3926bb39aee8d40519e1ecc6ec7d5aba5f64cd40178a5493d394aff8f09d'},
     {'pod5-file-format-0.3.23-gcc13-includes.patch':
