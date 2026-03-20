@@ -23,7 +23,7 @@ postinstallcmds = [
 #!/bin/bash
 
 exec apptainer exec \\
-    /software/easybuild/software/AlphaFold/3.0.1/alphafold3-3.0.1-f3e86f2.sif \\
+    /software/easybuild/software/AlphaFold/3.0.1/alphafold3-3.0.1.sif \\
     "$@"
 EOF""",
     "chmod +x %(installdir)s/%(namelower)s",
