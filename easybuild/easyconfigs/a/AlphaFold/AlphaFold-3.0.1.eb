@@ -12,7 +12,7 @@ toolchain = SYSTEM
 apptainer_type = 'sif'
 
 # required: source ~ link to the online docker image for the tool
-installopts  = '-s docker://tacc/alphafold3:3.0.1-f3e86f2'
+installopts  = '-s tacc/alphafold3:3.0.1-f3e86f2'
 
 # required: source type ~ image, since the tool is available online as a docker image
 installopts += '-i image '
