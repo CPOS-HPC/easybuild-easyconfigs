@@ -18,7 +18,7 @@ patches = [
 checksums = [
     {'pod5-file-format-0.3.36.tar.gz': '5c1a96639908f6297c1431fcde6be051a5f40d4b69b5459bf1050ee36242dfc4'},
     {'pod5-file-format-0.3.36-use-eb-pybind11.patch':
-     '9098132d0ae688b48286ce420314e635da4db0af738d3f9cdd5a6b74bc77b52b'},
+     'cb32e4af2c3c00156568b068286d0608c19c42a3c5ef10cab07b3b7fb8551dc1'},
 ]
 
 builddependencies = [

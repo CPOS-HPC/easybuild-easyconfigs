@@ -1,13 +1,13 @@
 # Ensure the EB pybind11 is used during build
 #
---- CMakeLists.txt	2026-03-20 17:59:16.819640101 +0800
-+++ CMakeLists.txt.orig	2026-03-20 17:57:20.585880209 +0800
+--- CMakeLists.txt.orig	2025-11-19 21:15:58.000000000 +0800
++++ CMakeLists.txt	2026-03-20 18:07:01.586751188 +0800
 @@ -116,7 +116,7 @@
  if (BUILD_PYTHON_WHEEL)
      find_package(Python ${PYTHON_VERSION} EXACT COMPONENTS Interpreter Development)
      set(PYBIND11_FINDPYTHON ON)
--    find_package (pybind11 CONFIG REQUIRED)
-+    add_subdirectory(third_party/pybind11)
+-    add_subdirectory(third_party/pybind11)
++    find_package (pybind11 CONFIG REQUIRED)
      install(
          FILES third_party/pybind11/LICENSE
          DESTINATION licenses
