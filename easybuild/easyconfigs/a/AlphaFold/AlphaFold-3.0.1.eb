@@ -1,0 +1,41 @@
+easyblock = 'Apptainer'
+
+name = 'QIIME'
+version = '3.0.1'
+
+homepage = 'https://deepmind.google/science/alphafold/'
+description = "AlphaFold can predict protein structures with atomic accuracy even where no similar structure is known"
+
+toolchain = SYSTEM
+
+# parameters that will be passed to the build_container_image.sh script
+apptainer_type = 'sif'
+
+# required: source ~ link to the online docker image for the tool
+installopts  = '-s tacc/alphafold3:3.0.1-f3e86f2'
+
+# required: source type ~ image, since the tool is available online as a docker image
+installopts += '-i image '
+
+# create wrapper script to call the container
+postinstallcmds = [
+    """cat > %(installdir)s/%(namelower)s << 'EOF'
+#!/bin/bash
+
+exec apptainer exec \\
+    /software/easybuild/software/AlphaFold/3.0.1/alphafold3-3.0.1-f3e86f2.sif \\
+    "$@"
+EOF""",
+    "chmod +x %(installdir)s/%(namelower)s",
+]
+
+# files and directories which are checked after the container has been built
+sanity_check_paths = {
+    'files': ['%(namelower)s-%(version)s.sif', '%(namelower)s'],
+    'dirs': [],
+}
+
+modloadmsg = "%(name)s %(version)s is provided via Apptainer.\n\n"
+modloadmsg += "Use it by prefixing commands with:\n    %(namelower)s <command>\n\n"
+
+moduleclass = 'bio'
