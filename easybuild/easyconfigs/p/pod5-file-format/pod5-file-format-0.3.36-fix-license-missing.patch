@@ -1,0 +1,31 @@
+# Fix CMake Error file INSTALL cannot find __build/pod5_conan_licenses and third_party/pybind11/LICENSE
+--- pod5-file-format-0.3.36/c++/pod5_format_pybind/CMakeLists.txt.orig	2025-11-19 21:15:58.000000000 +0800
++++ pod5-file-format-0.3.36/c++/pod5_format_pybind/CMakeLists.txt	2026-03-20 18:37:14.330092758 +0800
+@@ -55,6 +55,9 @@
+ set(wheel_output_dir "${CMAKE_CURRENT_BINARY_DIR}/wheel_${POD5_FULL_VERSION}")
+ file(MAKE_DIRECTORY ${wheel_output_dir})
+ 
++# ADD THIS LINE to prevent the build_wheel.cmake INSTALL error
++file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/pod5_conan_licenses)
++
+ add_custom_command(
+     OUTPUT "${wheel_output_stub}"
+     COMMAND ${CMAKE_COMMAND}
+
+--- pod5-file-format-0.3.36/c++/pod5_format_pybind/build_wheel.cmake.orig	2025-11-19 21:15:58.000000000 +0800
++++ pod5-file-format-0.3.36/c++/pod5_format_pybind/build_wheel.cmake	2026-03-23 10:57:52.175582243 +0800
+@@ -12,9 +12,12 @@
+ 
+ # Copy the licenses into the wheel src.
+ # Note: the trailing / on src is important since it tells cmake to copy only the contents.
+-file(INSTALL "${POD5_CONAN_LICENSES}/" DESTINATION "${PYTHON_PROJECT_DIR}/licenses")
+ foreach(license_src license_dst IN ZIP_LISTS POD5_CXX_LICENSES_SRC POD5_CXX_LICENSES_DST)
+-    file(COPY_FILE "${license_src}" "${PYTHON_PROJECT_DIR}/licenses/${license_dst}")
++    if(EXISTS "${license_src}")
++        file(COPY_FILE "${license_src}" "${PYTHON_PROJECT_DIR}/licenses/${license_dst}")
++    else()
++        message(STATUS "Skipping missing license file: ${license_src}")
++    endif()
+ endforeach()
+ 
+ execute_process(
