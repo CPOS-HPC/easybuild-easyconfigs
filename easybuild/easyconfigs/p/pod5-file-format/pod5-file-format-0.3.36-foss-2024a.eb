@@ -18,8 +18,8 @@ patches = [
 ]
 checksums = [
     {'pod5-file-format-0.3.36.tar.gz': '5c1a96639908f6297c1431fcde6be051a5f40d4b69b5459bf1050ee36242dfc4'},
-    {'pod5-file-format-0.3.36-use-eb-pybind11.patch':
-     'd975c62b9bf2c798bf6007baa80d11268acdd8f59d5367c2f86c4c48dd76279a'},
+#    {'pod5-file-format-0.3.36-use-eb-pybind11.patch':
+#     'd975c62b9bf2c798bf6007baa80d11268acdd8f59d5367c2f86c4c48dd76279a'},
     {'pod5-file-format-0.3.36-fix-conan-license-missing.patch':
      '540ec02f75158304d54c33138aed65f0ab22b2636ed50dec9a833175cca1a3e1'},
 ]
