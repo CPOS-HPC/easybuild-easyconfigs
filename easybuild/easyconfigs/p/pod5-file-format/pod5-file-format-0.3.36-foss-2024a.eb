@@ -13,7 +13,7 @@ toolchain = {'name': 'foss', 'version': '2024a'}
 source_urls = ['https://github.com/nanoporetech/%(name)s/archive/']
 sources = [{'download_filename': '%(version)s.tar.gz', 'filename': SOURCE_TAR_GZ}]
 patches = [
-    'pod5-file-format-0.3.36-use-eb-pybind11.patch',
+#    'pod5-file-format-0.3.36-use-eb-pybind11.patch',
     'pod5-file-format-0.3.36-fix-conan-license-missing.patch',
 ]
 checksums = [
