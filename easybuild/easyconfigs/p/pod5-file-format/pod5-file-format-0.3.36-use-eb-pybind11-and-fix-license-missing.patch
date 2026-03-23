@@ -34,3 +34,20 @@
  if (ENABLE_POD5_PACKAGING)
      include(pod5_packaging)
  endif()
+--- c++/pod5_format_pybind/build_wheel.cmake.orig	2025-11-19 21:15:58.000000000 +0800
++++ c++/pod5_format_pybind/build_wheel.cmake	2026-03-23 11:23:42.195410000 +0800
+@@ -12,10 +12,10 @@
+ 
+ # Copy the licenses into the wheel src.
+ # Note: the trailing / on src is important since it tells cmake to copy only the contents.
+-file(INSTALL "${POD5_CONAN_LICENSES}/" DESTINATION "${PYTHON_PROJECT_DIR}/licenses")
+-foreach(license_src license_dst IN ZIP_LISTS POD5_CXX_LICENSES_SRC POD5_CXX_LICENSES_DST)
+-    file(COPY_FILE "${license_src}" "${PYTHON_PROJECT_DIR}/licenses/${license_dst}")
+-endforeach()
++#file(INSTALL "${POD5_CONAN_LICENSES}/" DESTINATION "${PYTHON_PROJECT_DIR}/licenses")
++#foreach(license_src license_dst IN ZIP_LISTS POD5_CXX_LICENSES_SRC POD5_CXX_LICENSES_DST)
++#    file(COPY_FILE "${license_src}" "${PYTHON_PROJECT_DIR}/licenses/${license_dst}")
++#endforeach()
+ 
+ execute_process(
+     COMMAND ${PYTHON_EXECUTABLE} -m pip wheel . --wheel-dir ${WHEEL_OUTPUT_DIR}
