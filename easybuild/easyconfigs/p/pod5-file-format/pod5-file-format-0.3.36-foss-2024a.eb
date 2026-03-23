@@ -11,14 +11,22 @@ description = """POD5 is a file format for storing nanopore dna data in an easil
 toolchain = {'name': 'foss', 'version': '2024a'}
 
 source_urls = ['https://github.com/nanoporetech/%(name)s/archive/']
-sources = [{'download_filename': '%(version)s.tar.gz', 'filename': SOURCE_TAR_GZ}]
+sources = [{
+    'git_config': {
+        'url': 'https://github.com/nanoporetech',
+        'repo_name': name,
+        'tag': '%(version)s',
+        'recursive': True,
+    },
+    'filename': SOURCE_TAR_XZ,
+}]
 patches = [
-    'pod5-file-format-0.3.36-use-eb-pybind11-and-fix-license-missing.patch',
+    'pod5-file-format-0.3.36-use-eb-pybind11.patch',
 ]
 checksums = [
-    {'pod5-file-format-0.3.36.tar.gz': '5c1a96639908f6297c1431fcde6be051a5f40d4b69b5459bf1050ee36242dfc4'},
-    {'pod5-file-format-0.3.36-use-eb-pybind11-and-fix-license-missing.patch':
-     '290450b7e6f0d8e7f0cb67af6a278ff5b9e0cdc65fe9572cc5153339a21473ae'},
+    {'pod5-file-format-0.3.36.tar.xz': '3174a2a4df18a45453484041e330fc452ec176c1385e07883726e235ab0e836f'},
+    {'pod5-file-format-0.3.36-use-eb-pybind11.patch':
+     '8a3a494f4c3a0d592d41149d82e8fea55968f4e7c6cbeabd0400429a47987131'},
 ]
 
 builddependencies = [
@@ -43,17 +51,6 @@ dependencies = [
     ('polars', '1.28.1'),
 ]
 
-# unpin polars and h5py versions in pod5
-# also pyarrow
-local_preinstallopts = (
-    "sed -i"
-    " -e 's/polars~=0.19/polars/'"
-    " -e 's/h5py~=3.10.0/h5py/'"
-    " -e 's/18.0.0/17.0.0/g'"
-    " pyproject.toml && "
-    "grep pyarrow pyproject.toml && "
-)
-
 exts_defaultclass = 'PythonPackage'
 exts_default_options = {
     'source_urls': [PYPI_SOURCE],
@@ -72,7 +69,6 @@ exts_list = [
         'checksums': ['6b1d3829ee8921c4301998c909f7829fa9ed3cbdac0d3b16af2d743aed1ba8df'],
     }),
     ('pod5', version, {
-        'preinstallopts': local_preinstallopts,
         'checksums': ['dd478c15631e892a19cfc0ad6736e32aa5559ea67fadba222a28a558935fefb7'],
     }),
 ]
