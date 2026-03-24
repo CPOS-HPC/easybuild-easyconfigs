@@ -557,12 +557,6 @@ builddependencies = [
 ]
 dependencies = [
     ('Python', '3.13.1'),
-    ('Python-bundle-PyPI', '2025.04'),
-    ('SciPy-bundle', '2025.06'),
-    ('matplotlib', '3.10.3'),
-    ('Arrow', '22.0.0'),
-    ('DeltaLake', '1.2.1'),
-    ('openpyxl', '3.1.5'),
 ]
 
 crates = [
@@ -1120,9 +1114,5 @@ crates = [
     ('zstd-safe', '7.2.4'),
     ('zstd-sys', '2.0.16+zstd.1.5.7'),
 ]
-
-preinstallopts = 'export MATURIN_PEP517_ARGS="--no-default-features --features all" && '
-
-use_pip_extras = "deltalake,matplotlib,numpy,openpyxl,pandas,pyarrow"
 
 moduleclass = 'data'
