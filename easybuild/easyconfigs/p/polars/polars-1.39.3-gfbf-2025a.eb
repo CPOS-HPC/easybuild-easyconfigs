@@ -1093,6 +1093,6 @@ crates = [
 
 preinstallopts = 'export MATURIN_PEP517_ARGS="--no-default-features --features all" && '
 
-use_pip_extras = "deltalake,matplotlib,numpy,openpyxl,pandas,pyarrow"
+use_pip_extras = "deltalake,matplotlib,numpy,openpyxl,pandas,pyarrow,polars-runtime-32"
 
 moduleclass = 'data'
