@@ -1,13 +1,15 @@
-# Ensure the EB pybind11 is used during build
-#
 --- CMakeLists.txt.orig	1970-01-01 08:00:00.000000000 +0800
-+++ CMakeLists.txt	2026-03-23 11:56:48.731542000 +0800
-@@ -116,7 +116,7 @@
++++ CMakeLists.txt	2026-03-23 12:03:00.070009000 +0800
+@@ -116,7 +116,11 @@
  if (BUILD_PYTHON_WHEEL)
      find_package(Python ${PYTHON_VERSION} EXACT COMPONENTS Interpreter Development)
      set(PYBIND11_FINDPYTHON ON)
 -    add_subdirectory(third_party/pybind11)
 +    find_package (pybind11 CONFIG REQUIRED)
++    
++    # 1. Fix the Conan licenses error (creates an empty dir so INSTALL doesn't crash)
++    file(MAKE_DIRECTORY "${CMAKE_BINARY_DIR}/pod5_conan_licenses")
++
      install(
          FILES third_party/pybind11/LICENSE
          DESTINATION licenses
