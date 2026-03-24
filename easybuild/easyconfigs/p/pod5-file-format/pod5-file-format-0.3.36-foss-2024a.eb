@@ -8,7 +8,7 @@ description = """POD5 is a file format for storing nanopore dna data in an easil
  The format is able to be written in a streaming manner which allows a sequencing
  instrument to directly write the format."""
 
-toolchain = {'name': 'foss', 'version': '2025a'}
+toolchain = {'name': 'foss', 'version': '2024a'}
 
 source_urls = ['https://github.com/nanoporetech/%(name)s/archive/']
 sources = [{
