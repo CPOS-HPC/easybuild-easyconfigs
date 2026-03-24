@@ -1,6 +1,6 @@
 easyblock = 'CargoPythonPackage'
 
-name = 'polars'
+name = 'polars-runtime-32'
 version = '1.39.3'
 
 homepage = 'https://pola.rs/'
