@@ -272,7 +272,7 @@ checksums = [
     {'objc2-io-kit-0.3.2.tar.gz': '33fafba39597d6dc1fb709123dfa8289d39406734be322956a69f0931c73bb15'},
     {'objc2-io-surface-0.3.2.tar.gz': '180788110936d59bab6bd83b6060ffdfffb3b922ba1396b312ae795e1de9d81d'},
     {'object-0.37.3.tar.gz': 'ff76201f031d8863c38aa7f905eca4f53abbfa15f609db4277d44cd8938f33fe'},
-    {'object_store-0.13.1.tar.xz': '4c4e869f972475e59d8b1564ea64f95f28c8abde7d2cfec5a1ba98ab0a710198'},
+    {'object_store-0.13.1-12323e21.tar.xz': '4c4e869f972475e59d8b1564ea64f95f28c8abde7d2cfec5a1ba98ab0a710198'},
     {'once_cell-1.21.3.tar.gz': '42f5e15c9953c5e4ccceeb2e7382a716482c34515315f7b03532b8b4e8393d2d'},
     {'openssl-0.10.75.tar.gz': '08838db121398ad17ab8531ce9de97b244589089e290a384c900cb9ff7434328'},
     {'openssl-macros-0.1.1.tar.gz': 'a948666b637a0f465e8564c73e89d4dde00d72d4d473cc972f390fc3dcee7d9c'},
