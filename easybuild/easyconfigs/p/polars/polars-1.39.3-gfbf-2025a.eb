@@ -100,6 +100,7 @@ checksums = [
     {'const-oid-0.9.6.tar.gz': 'c2459377285ad874054d797f3ccebf984978aa39129f6eafde5cdc8315b612f8'},
     {'constant_time_eq-0.4.2.tar.gz': '3d52eff69cd5e647efe296129160853a42795992097e8af39800e1060caeea9b'},
     {'core-foundation-0.10.1.tar.gz': 'b2a6cd9ae233e7f62ba4e9353e81a88df7fc8a5987b8d445b4d90c879bd156f6'},
+    {'core-foundation-0.9.4.tar.gz': '91e195e091a93c46f7102ec7818a2aa394e1e1771c3ab4825963fa03e45afb8f'},
     {'core-foundation-sys-0.8.7.tar.gz': '773648b94d0e5d620f64f280777445740e61fe701025087ec8b57f45c791888b'},
     {'core2-0.4.0.tar.gz': 'b49ba7ef1ad6107f8824dbe97de947cbaac53c44e7f9756a1fba0d37c1eec505'},
     {'cpufeatures-0.2.17.tar.gz': '59ed5838eebb26a2bb2e58f6d5b5316989ae9d08bab10e0e6d103e656d1b0280'},
