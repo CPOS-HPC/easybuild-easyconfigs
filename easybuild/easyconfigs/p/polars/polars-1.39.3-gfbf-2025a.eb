@@ -542,7 +542,7 @@ checksums = [
 
 builddependencies = [
     ('maturin', '1.8.3'),
-    ('Rust', '1.85.1'),
+    ('Rust', '1.91.1'),
 ]
 dependencies = [
     ('Python', '3.13.1'),
