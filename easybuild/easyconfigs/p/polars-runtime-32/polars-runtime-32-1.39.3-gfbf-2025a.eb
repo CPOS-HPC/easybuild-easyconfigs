@@ -640,7 +640,8 @@ crates = [
     ('clipboard-win', '5.4.1'),
     ('cmake', '0.1.57'),
     (
-        'color-backtrace', '0.7.2',
+        'color-backtrace',
+        '0.7.2',
         'https://github.com/orlp/color-backtrace',
         'bb62ccf1e9eb1f6b7af5f16acff1fd7151a876dd'
     ),
@@ -819,7 +820,8 @@ crates = [
     ('objc2-io-surface', '0.3.2'),
     ('object', '0.37.3'),
     (
-        'object_store', '0.13.1',
+        'object_store',
+        '0.13.1',
         'https://github.com/kdn36/arrow-rs-object-store',
         '12323e21b6e420f1e9d630fa8c4a40de41b11f2f'
     ),
