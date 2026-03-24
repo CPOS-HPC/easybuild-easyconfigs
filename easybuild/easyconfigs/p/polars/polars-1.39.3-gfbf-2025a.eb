@@ -1090,8 +1090,14 @@ crates = [
     ('zstd-sys', '2.0.16+zstd.1.5.7'),
 ]
 
+exts_list = [
+    ('polars-runtime-32', '1.39.3', {
+        'checksums': ['c728e4f469cafab501947585f36311b8fb222d3e934c6209e83791e0df20b29d'],
+    }),
+]
+
 preinstallopts = 'export MATURIN_PEP517_ARGS="--no-default-features --features all" && '
 
-use_pip_extras = "deltalake,matplotlib,numpy,openpyxl,pandas,pyarrow,polars-runtime-32"
+use_pip_extras = "deltalake,matplotlib,numpy,openpyxl,pandas,pyarrow"
 
 moduleclass = 'data'
