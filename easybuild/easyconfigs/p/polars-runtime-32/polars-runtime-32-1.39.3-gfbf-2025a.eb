@@ -10,7 +10,7 @@ interface for Python."""
 
 toolchain = {'name': 'gfbf', 'version': '2025a'}
 
-sources = [SOURCELOWER_TAR_GZ]
+sources = ['polars_runtime_32-%(version)s.tar.gz']
 checksums = [
     {'polars_runtime_32-1.39.3.tar.gz': 'c728e4f469cafab501947585f36311b8fb222d3e934c6209e83791e0df20b29d'},
     {'adler2-2.0.1.tar.gz': '320119579fcad9c21884f5c4861d16174d0e06250625266f50fe6898340abefa'},
