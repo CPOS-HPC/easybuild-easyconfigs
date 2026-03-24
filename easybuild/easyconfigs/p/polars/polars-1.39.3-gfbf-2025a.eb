@@ -1093,6 +1093,7 @@ crates = [
 exts_list = [
     ('polars_runtime_32', '1.39.3', {
         'modulename': 'polars-runtime-32',
+        'source_urls': [PYPI_SOURCE],
         'checksums': ['c728e4f469cafab501947585f36311b8fb222d3e934c6209e83791e0df20b29d'],
     }),
 ]
