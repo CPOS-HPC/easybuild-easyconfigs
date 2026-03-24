@@ -12,7 +12,7 @@ toolchain = {'name': 'gfbf', 'version': '2025a'}
 
 sources = [SOURCELOWER_TAR_GZ]
 checksums = [
-    {'polars-1.39.3.tar.gz': 'cdc0a62a1452e2daf1777e36fcf9351424cba2a588827cc32550fe0fa79dec82'},
+    {'polars-1.39.3.tar.gz': '2e016c7f3e8d14fa777ef86fe0477cec6c67023a20ba4c94d6e8431eefe4a63c'},
     {'adler2-2.0.1.tar.gz': '320119579fcad9c21884f5c4861d16174d0e06250625266f50fe6898340abefa'},
     {'adler32-1.2.0.tar.gz': 'aae1277d39aeec15cb388266ecc24b11c80469deae6067e17a1a7aa9e5c1f234'},
     {'ahash-0.8.12.tar.gz': '5a15f179cd60c4584b8a8c596927aadc462e27f2ca70c04e0071964a73ba7a75'},
