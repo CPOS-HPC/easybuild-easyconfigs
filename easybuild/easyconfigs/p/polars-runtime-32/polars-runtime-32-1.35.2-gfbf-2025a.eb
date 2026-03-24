@@ -1114,4 +1114,6 @@ crates = [
     ('zstd-sys', '2.0.15+zstd.1.5.7'),
 ]
 
+preinstallopts = 'export MATURIN_PEP517_ARGS="--no-default-features --features all" && '
+
 moduleclass = 'data'
