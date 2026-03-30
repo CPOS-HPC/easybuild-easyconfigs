@@ -11,7 +11,11 @@ toolchain = {'name': 'foss', 'version': '2023a'}
 
 source_urls = ['https://github.com/Illumina/hap.py/archive/']
 sources = ['v%(version)s.tar.gz']
-checksums = ['838912f1ab805224110af3c1035849d5483b5ce4c565ae0f0db7f7284af06676']
+patches = ['hap.py-0.3.15_fix-limits.patch']
+checksums = [
+    '838912f1ab805224110af3c1035849d5483b5ce4c565ae0f0db7f7284af06676', # v0.3.15.tar.gz
+    '4712479d6ecfb5c51b2aaac2f956290dd6cc43554d53ba4e1b8f2a45e5b76d8b', # hap.py-0.3.15_fix-limits.patch
+]
 
 builddependencies = [
     ('binutils', '2.40'),
