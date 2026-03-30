@@ -38,6 +38,6 @@ sanity_check_paths = {
     'dirs': ['bin'],
 }
 
-sanity_check_commands = ["python bin/hap.py --version | grep %(version)s"]
+sanity_check_commands = ["hap.py --version | grep %(version)s"]
 
 moduleclass = 'math'
