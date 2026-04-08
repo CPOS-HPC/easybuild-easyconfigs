@@ -1,0 +1,10 @@
+# Fix https://github.com/easybuilders/easybuild-easyconfigs/issues/24101
+# Author: Emik Lin (HKUMed CPOS)
+--- system.mk/Makefile.linux.orig	2022-07-13 16:18:29.000000000 +0800
++++ system.mk/Makefile.linux	2026-04-08 08:50:41.914385000 +0800
+@@ -74,4 +74,4 @@
+ 
+ ${PARTY3}/zlib/libz.a: $(WHICHZLIB).tar.bz2
+ 	bzcat $^ | tar -x -C ${PARTY3}
+-	cd ${PARTY3}/${ZLIBVERSION} && ./configure --static && $(MAKE) && cd ${WDIR} && rm -f zlib && ln -sf ${ZLIBVERSION} ${PARTY3}/zlib
++	cd ${PARTY3}/${ZLIBVERSION} && ./configure && $(MAKE) && cd ${WDIR} && rm -f zlib && ln -sf ${ZLIBVERSION} ${PARTY3}/zlib
