@@ -1,4 +1,3 @@
-# Author: Emik Lin (HKUMed CPOS)
 easyblock = 'MakeCp'
 
 name = 'verifyBamID'
