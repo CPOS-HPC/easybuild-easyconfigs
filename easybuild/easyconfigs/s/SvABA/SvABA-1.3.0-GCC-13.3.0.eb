@@ -43,7 +43,9 @@ configopts = "-DHTSLIB_DIR=$EBROOTHTSLIB/lib "
 files_to_copy = [
     (['%(namelower)s'], 'bin'),
     (['SeqLib/libseqlib.a'], 'lib'),
-    (['%(builddir)s/%(namelower)s/R'], ''),
+    (['../%(namelower)s/R'], ''),
+    (['../%(namelower)s/bin/memusg.sh'], 'bin'),
+    (['../%(namelower)s/bin/profiler.sh'], 'bin'),
 ]
 
 modextrapaths = {'R_LIBS_SITE': 'R'}
