@@ -4,6 +4,7 @@
 # Authors::     Jordi Blasco <jordi.blasco@hpcnow.com>
 # License::     GPL-v3.0
 # Author: Åke Sandgren (HPC2N)
+# Update: Emik Lin (HKUMed CPOS)
 # #
 
 easyblock = 'BinariesTarball'
