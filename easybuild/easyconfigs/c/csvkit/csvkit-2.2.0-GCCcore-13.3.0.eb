@@ -1,7 +1,7 @@
 easyblock = 'PythonBundle'
 
 name = 'csvkit'
-version = '2.1.0'
+version = '2.2.0'
 
 homepage = 'https://github.com/wireservice/csvkit'
 description = """csvkit is a suite of command-line tools for converting to and working with CSV,
