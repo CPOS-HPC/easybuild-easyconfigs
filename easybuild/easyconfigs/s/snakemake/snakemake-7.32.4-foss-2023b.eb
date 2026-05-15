@@ -8,6 +8,11 @@ description = "The Snakemake workflow management system is a tool to create repr
 
 toolchain = {'name': 'foss', 'version': '2023b'}
 
+builddependencies = [
+    ('binutils', '2.40'),
+    ('poetry', '1.6.1'),
+]
+
 dependencies = [
     ('Python', '3.11.5'),
     ('Python-bundle-PyPI', '2023.10'),
