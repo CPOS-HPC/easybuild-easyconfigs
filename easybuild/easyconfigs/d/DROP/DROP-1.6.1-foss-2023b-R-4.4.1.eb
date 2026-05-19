@@ -9,6 +9,10 @@ description = "Pipeline to find aberrant events in RNA-Seq data, useful for diag
 
 toolchain = {'name': 'foss', 'version': '2023b'}
 
+builddependencies = [
+    ('hatchling', '1.18.0'),
+]
+
 dependencies = [
     ('R', '4.4.1'),
     ('R-bundle-CRAN', '2024.06'),
