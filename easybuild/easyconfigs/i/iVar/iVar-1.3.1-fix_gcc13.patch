@@ -9,3 +9,25 @@ Add missing cstdint header to fix build with GCC 13
  
  #ifndef primer_bed
  #define primer_bed
+
+--- src/parse_gff.h.orig    2021-02-06 03:24:50.000000000 +0800
++++ src/parse_gff.h 2026-05-19 09:39:42.481534165 +0800
+@@ -4,6 +4,7 @@
+ #include <regex>
+ #include <map>
+ #include <iterator>
++#include <cstdint>
+
+ #ifndef parse_gff
+ #define parse_gff
+
+--- src/call_consensus_pileup.h.orig        2021-02-06 03:24:50.000000000 +0800
++++ src/call_consensus_pileup.h     2026-05-19 09:41:05.452000163 +0800
+@@ -6,6 +6,7 @@
+ #include<algorithm>
+ #include<string>
+ #include<regex>
++#include<cstdint>
+ #include<libgen.h>
+
+ #include "allele_functions.h"
