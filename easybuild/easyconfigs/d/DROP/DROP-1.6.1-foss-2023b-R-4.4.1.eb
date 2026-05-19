@@ -15,7 +15,7 @@ dependencies = [
     ('R-bundle-Bioconductor', '3.19', versionsuffix),
     ('tMAE', '1.0.5', versionsuffix),
     ('Java', '17', '', SYSTEM),
-    ('GATK', '4.6.2.0', '-Java-%(javaver)s'),
+    ('GATK', '4.6.0.0', '-Java-%(javaver)s'),
     ('Graphviz', '9.0.0'),
     ('graphviz-python', '0.20.1'),
     ('Python', '3.11.5'),
