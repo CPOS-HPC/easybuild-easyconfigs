@@ -53,7 +53,7 @@ exts_list = [
     (name, version, {
         'source_tmpl': '%(version)s.tar.gz',
         'source_urls': ['https://github.com/gagneurlab/drop/archive'],
-        'checksums': ['18f2a2eb4fa587d00bb717c9ca7a5d20b397805db1542db68afdd6079a8e43f4'],
+        'checksums': ['58f4fdb3defc3a75f581e3c218ed51db4f7801859c279f544f13aac5b79a9d1d'],
     }),
 ]
 
