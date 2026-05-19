@@ -1,4 +1,4 @@
-Add missing cstdint header to fix build with GCC 13
+Add missing cstdint header to fix build with GCC 13 and replace free() with delete[] for memory allocated using new[]
 --- src/primer_bed.h.orig	2021-02-06 03:24:50.000000000 +0800
 +++ src/primer_bed.h	2026-05-19 09:17:21.874388232 +0800
 @@ -3,6 +3,7 @@
