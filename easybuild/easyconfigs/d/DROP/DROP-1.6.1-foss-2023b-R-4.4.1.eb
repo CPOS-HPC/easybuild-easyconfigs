@@ -48,8 +48,8 @@ exts_list = [
     ('about', '5.2', {
         'checksums': ['4a318ad1dcf6e9355b8ae18195c707d26413782b57ac5c740cc696b44350c959'],
     }),
-    ('plumbum', '1.9.0', {
-        'checksums': ['e640062b72642c3873bd5bdc3effed75ba4d3c70ef6b6a7b907357a84d909219'],
+    ('plumbum', '1.10.0', {
+        'checksums': ['f8cbf0ecec0b73ff4e349398b65112a9e3f9300e7dc019001217dcc148d5c97c'],
     }),
     ('pandoc', '2.4', {
         'checksums': ['ecd1f8cbb7f4180c6b5db4a17a7c1a74df519995f5f186ef81ce72a9cbd0dd9a'],
