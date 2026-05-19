@@ -24,7 +24,7 @@ dependencies = [
 github_account = 'gagneurlab'
 source_urls = [GITHUB_SOURCE]
 sources = ['%(version)s.tar.gz']
-checksums = ['b75b51b05b31995de4b7095b2329a72f002e1ac43ee20e1e975482e05b163a6d']
+checksums = ['c43f24bdd846ad39672d7911581cd6190af726503b1dd674d75f739cf90ed1e2']
 
 sanity_check_paths = {
     'files': [],
