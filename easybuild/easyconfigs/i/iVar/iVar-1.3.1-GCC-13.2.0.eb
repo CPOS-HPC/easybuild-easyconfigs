@@ -22,7 +22,11 @@ toolchain = {'name': 'GCC', 'version': '13.2.0'}
 github_account = 'andersen-lab'
 source_urls = [GITHUB_LOWER_SOURCE]
 sources = ['v%(version)s.tar.gz']
-checksums = ['a5fb33e8e8fffedbb0836cb7c2f8b19d50f7f90112a9dca1f6a8e9f322056e6f']
+patches = ['%(name)s-%(version)s-fix_gcc13.patch']
+checksums = [
+    'a5fb33e8e8fffedbb0836cb7c2f8b19d50f7f90112a9dca1f6a8e9f322056e6f', # v1.3.1.tar.gz
+    '44f5aad1c92e0fd6a335cfccd7cb3162e3701d0305e411d2f0c14597392a8000', # iVar-1.3.1-fix_gcc13.patch
+]
 
 builddependencies = [('Autotools', '20220317')]
 dependencies = [
