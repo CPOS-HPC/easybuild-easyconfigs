@@ -31,9 +31,6 @@ dependencies = [
 
 preconfigopts = './autogen.sh &&'
 
-# fix_missing include <cstdint>
-prebuildopts += "sed -i 's/#include <algorithm>/#include <algorithm>\\n#include <cstdint>/g' "
-
 sanity_check_paths = {
     'files': ['bin/ivar'],
     'dirs': [],
