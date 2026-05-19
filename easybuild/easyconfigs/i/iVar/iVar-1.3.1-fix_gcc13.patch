@@ -21,16 +21,14 @@ Add missing cstdint header to fix build with GCC 13
  #ifndef parse_gff
  #define parse_gff
 
---- src/call_consensus_pileup.h.orig        2021-02-06 03:24:50.000000000 +0800
-+++ src/call_consensus_pileup.h     2026-05-19 09:41:05.452000163 +0800
-@@ -6,6 +6,7 @@
- #include<algorithm>
- #include<string>
- #include<regex>
-+#include<cstdint>
- #include<libgen.h>
+--- src/call_consensus_pileup.cpp.orig      2021-02-06 03:24:50.000000000 +0800
++++ src/call_consensus_pileup.cpp   2026-05-19 09:50:20.160741167 +0800
+@@ -1,4 +1,5 @@
+ #include "call_consensus_pileup.h"
++#include <cstring>
 
- #include "allele_functions.h"
+ void format_alleles(std::vector<allele> &ad){
+   std::vector<allele>::iterator it = ad.begin();
 
 --- src/ivar.cpp.orig       2021-02-06 03:24:50.000000000 +0800
 +++ src/ivar.cpp    2026-05-19 09:46:31.103979316 +0800
