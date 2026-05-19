@@ -18,7 +18,7 @@ toolchain = {'name': 'foss', 'version': '2023b'}
 dependencies = [
     ('R', '4.4.1'),
     ('R-bundle-CRAN', '2024.06'),
-    ('R-bundle-Bioconductor', '3.19', 'versionsuffix'),
+    ('R-bundle-Bioconductor', '3.19', versionsuffix),
 ]
 
 github_account = 'mumichae'
