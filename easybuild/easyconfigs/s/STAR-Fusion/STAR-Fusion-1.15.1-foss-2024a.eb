@@ -25,7 +25,13 @@ dependencies = [
     ('STAR', '2.7.11b'),
     ('R', '4.4.2'),
     ('R-bundle-CRAN', '2024.11'),
+    ('Perl', '5.38.2'),
+    ('Perl-bundle-CPAN', '5.38.2'),
+    ('XML-LibXML', '2.0210'),
+    ('DB_File', '1.859'),
 ]
+
+postinstallcmds = ["cd %(installdir)s && make"]
 
 sanity_check_paths = {
     'files': ['STAR-Fusion'],
