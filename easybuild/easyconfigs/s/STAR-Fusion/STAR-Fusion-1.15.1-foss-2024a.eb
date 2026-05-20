@@ -23,6 +23,8 @@ checksums = ['3c688c5ca446a3a3171d4f920d7a36fb360d7e49c35425468a3b5feaac0d6187']
 dependencies = [
     ('Perl', '5.38.2'),
     ('STAR', '2.7.11b'),
+    ('R', '4.4.2'),
+    ('R-bundle-CRAN', '2024.11'),
 ]
 
 sanity_check_paths = {
