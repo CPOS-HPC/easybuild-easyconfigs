@@ -22,13 +22,11 @@ checksums = ['3c688c5ca446a3a3171d4f920d7a36fb360d7e49c35425468a3b5feaac0d6187']
 
 dependencies = [
     ('Perl', '5.38.2'),
+    ('Perl-bundle-CPAN', '5.38.2'),
+    ('DB_File', '1.859'),
     ('STAR', '2.7.11b'),
     ('R', '4.4.2'),
     ('R-bundle-CRAN', '2024.11'),
-    ('Perl', '5.38.2'),
-    ('Perl-bundle-CPAN', '5.38.2'),
-    ('XML-LibXML', '2.0210'),
-    ('DB_File', '1.859'),
 ]
 
 postinstallcmds = ["cd %(installdir)s && make"]
