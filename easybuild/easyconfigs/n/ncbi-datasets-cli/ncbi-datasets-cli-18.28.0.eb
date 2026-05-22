@@ -1,0 +1,39 @@
+# EasyBuild easyconfig for NCBI Datasets CLI
+# Installs the prebuilt Linux x86_64 command-line tools: datasets and dataformat.
+
+easyblock = 'Tarball'
+
+name = 'ncbi-datasets-cli'
+version = '18.28.0'
+
+homepage = 'https://www.ncbi.nlm.nih.gov/datasets/docs/v2/command-line-tools/download-and-install/'
+description = """The NCBI Datasets command-line tools (CLI) are datasets and dataformat.
+Use datasets to download biological sequence data across all domains of life from NCBI.
+Use dataformat to convert metadata from JSON Lines format to other formats.
+"""
+
+toolchain = SYSTEM
+
+source_urls = ['https://github.com/ncbi/datasets/releases/download/v%(version)s/']
+sources = ['linux-amd64.cli.package.zip']
+checksums = ['3d5ae29108d700cf06a21602371bde6d5b68502ee46a3cbac485ff4c42c16482']
+
+postinstallcmds = [
+    'chmod +x %(installdir)s/datasets %(installdir)s/dataformat',
+]
+
+sanity_check_paths = {
+    'files': ['datasets', 'dataformat'],
+    'dirs': [],
+}
+
+sanity_check_commands = [
+    'datasets --version',
+    'dataformat --version',
+]
+
+modextrapaths = {
+    'PATH': [''],
+}
+
+moduleclass = 'bio'
