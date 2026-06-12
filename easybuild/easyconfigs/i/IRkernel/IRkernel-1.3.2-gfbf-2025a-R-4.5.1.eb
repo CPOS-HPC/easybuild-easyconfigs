@@ -9,7 +9,7 @@ description = """The R kernel for the 'Jupyter' environment executes R code
  which the front-end (Jupyter Notebook or other front-ends) submits to the
  kernel via the network."""
 
-toolchain = {'name': 'gfbf', 'version': '2024a'}
+toolchain = {'name': 'gfbf', 'version': '2025a'}
 
 dependencies = [
     ('R', '4.5.1'),
