@@ -26,8 +26,8 @@ dependencies = [
 skipsteps = ['configure', 'build']
 preinstallopts = "sed -i 's|^PREFIX\s*?=.*$|PREFIX ?= %(installdir)s|' Makefile && "
 postinstallcmds = [
-    "cp -a %(builddir)s/bin/INSTALL_annotations.sh %(installdir)s/INSTALL_annotations.sh",
-    "cp -a %(builddir)s/Makefile %(installdir)s/Makefile",
+    "cp -a %(start_dir)s/bin/INSTALL_annotations.sh %(installdir)s/INSTALL_annotations.sh",
+    "cp -a %(start_dir)s/Makefile %(installdir)s/Makefile",
     "chmod a+x %(installdir)s/bin/INSTALL_annotations.sh",
 ]
 
