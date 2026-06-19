@@ -24,6 +24,7 @@ dependencies = [
 ]
 
 installopts = ' PREFIX=%(installdir)s'
+files_to_copy = ['bin', 'etc', 'share', 'changeLog.txt', 'commandLineOptions.txt', 'License.txt']
 
 modextravars = {
     'ANNOTSV': '%(installdir)s',
