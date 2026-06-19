@@ -1,5 +1,5 @@
 # Author: Emik Lin (HKUMed CPOS)
-easyblock = 'ConfigureMake'
+easyblock = 'MakeCp'
 
 name = 'AnnotSV'
 version = '3.5.10'
@@ -22,8 +22,6 @@ dependencies = [
     ('scikit-bio', '0.6.2'),
     ('pyfaidx','0.8.1.1'),
 ]
-
-skipsteps = ['configure']
 
 installopts = ' PREFIX=%(installdir)s'
 
