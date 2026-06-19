@@ -23,7 +23,7 @@ dependencies = [
     ('pyfaidx','0.8.1.1'),
 ]
 
-skipsteps = ['configure']
+skipsteps = ['configure', 'install']
 preinstallopts = "sed -i 's|^PREFIX[[:space:]]*?=.*$|PREFIX ?= %(installdir)s|' Makefile && "
 
 #files_to_copy = ['bin', 'etc', 'share', 'changeLog.txt', 'commandLineOptions.txt', 'License.txt']
