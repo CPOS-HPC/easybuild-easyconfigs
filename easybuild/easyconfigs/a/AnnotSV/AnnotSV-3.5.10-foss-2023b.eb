@@ -23,7 +23,7 @@ dependencies = [
     ('pyfaidx','0.8.1.1'),
 ]
 
-installopts = ' PREFIX=%(installdir)s'
+buildopts = ' PREFIX=%(installdir)s'
 files_to_copy = ['bin', 'etc', 'share', 'changeLog.txt', 'commandLineOptions.txt', 'License.txt']
 
 modextravars = {
