@@ -1,5 +1,5 @@
 # Author: Emik Lin (HKUMed CPOS)
-easyblock = 'MakeCp'
+easyblock = 'ConfigureMake'
 
 name = 'AnnotSV'
 version = '3.5.10'
@@ -23,7 +23,7 @@ dependencies = [
     ('pyfaidx','0.8.1.1'),
 ]
 
-files_to_copy = ['bin', 'etc', 'share', 'changeLog.txt', 'commandLineOptions.txt', 'License.txt']
+installopts = 'PREFIX=%(installdir)s '
 
 modextravars = {
     'ANNOTSV': '%(installdir)s',
@@ -35,7 +35,7 @@ modextravars = {
 # and then pass the directory via AnnotSV -annotationsDir.
 sanity_check_paths = {
     'files': ['bin/%(name)s'],
-    'dirs': [],
+    'dirs': ['share'],
 }
 
 sanity_check_commands = [
