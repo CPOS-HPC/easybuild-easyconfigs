@@ -25,7 +25,7 @@ dependencies = [
 
 skipsteps = ['configure', 'build']
 preinstallopts = "sed -i 's|^PREFIX\s*?=.*$|PREFIX ?= %(installdir)s|' Makefile && "
-postinstallcmds = ['make install-all-annotations']
+postinstallcmds = ['make PREFIX=%(installdir)s install-all-annotations']
 
 modextravars = {
     'ANNOTSV': '%(installdir)s',
