@@ -25,7 +25,6 @@ dependencies = [
 
 skipsteps = ['configure', 'build']
 preinstallopts = "sed -i 's|^PREFIX\s*?=.*$|PREFIX ?= %(installdir)s|' Makefile && "
-postinstallcmds = ['make PREFIX=%(installdir)s install-all-annotations']
 
 modextravars = {
     'ANNOTSV': '%(installdir)s',
@@ -35,6 +34,7 @@ modextravars = {
 # Users can download them with:
 #   INSTALL_annotations.sh 3.5 2406
 # and then pass the directory via AnnotSV -annotationsDir.
+
 sanity_check_paths = {
     'files': ['bin/%(name)s'],
     'dirs': ['share'],
