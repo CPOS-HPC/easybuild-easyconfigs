@@ -26,8 +26,6 @@ dependencies = [
 skipsteps = ['configure', 'build']
 preinstallopts = "sed -i 's|^PREFIX\s*?=.*$|PREFIX ?= %(installdir)s|' Makefile && "
 
-#files_to_copy = ['bin', 'etc', 'share', 'changeLog.txt', 'commandLineOptions.txt', 'License.txt']
-
 modextravars = {
     'ANNOTSV': '%(installdir)s',
 }
