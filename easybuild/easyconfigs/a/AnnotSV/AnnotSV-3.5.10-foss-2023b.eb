@@ -23,7 +23,9 @@ dependencies = [
     ('pyfaidx','0.8.1.1'),
 ]
 
-installopts = 'PREFIX=%(installdir)s '
+skipsteps = ['configure']
+
+installopts = ' PREFIX=%(installdir)s'
 
 modextravars = {
     'ANNOTSV': '%(installdir)s',
