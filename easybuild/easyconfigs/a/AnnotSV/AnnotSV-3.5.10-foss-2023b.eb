@@ -1,5 +1,5 @@
 # Author: Emik Lin (HKUMed CPOS)
-easyblock = 'MakeCp'
+easyblock = 'ConfigureMake'
 
 name = 'AnnotSV'
 version = '3.5.10'
@@ -23,9 +23,10 @@ dependencies = [
     ('pyfaidx','0.8.1.1'),
 ]
 
+skipsteps = ['configure']
 preinstallopts = "sed -i 's|^PREFIX[[:space:]]*?=.*$|PREFIX ?= %(installdir)s|' Makefile && "
 
-files_to_copy = ['bin', 'etc', 'share', 'changeLog.txt', 'commandLineOptions.txt', 'License.txt']
+#files_to_copy = ['bin', 'etc', 'share', 'changeLog.txt', 'commandLineOptions.txt', 'License.txt']
 
 modextravars = {
     'ANNOTSV': '%(installdir)s',
