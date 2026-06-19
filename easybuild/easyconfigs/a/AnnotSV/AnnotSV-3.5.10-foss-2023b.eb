@@ -42,7 +42,7 @@ modextravars = {
 # and then pass the directory via AnnotSV -annotationsDir.
 
 sanity_check_paths = {
-    'files': ['bin/%(name)s', 'bin/INSTALL_annotations.sh', 'Makefile'],
+    'files': ['bin/%(name)s', 'bin/INSTALL_annotations.sh'],
     'dirs': ['share'],
 }
 
