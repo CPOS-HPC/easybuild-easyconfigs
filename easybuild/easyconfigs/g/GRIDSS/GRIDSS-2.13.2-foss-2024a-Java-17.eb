@@ -29,8 +29,8 @@ sources = [SOURCELOWER_TAR_GZ]
 checksums = ['4d5651b1fc27928c0f76f1e8e7b90a74e6feae0c1cb9abea17fa2bd359f1d704']
 
 dependencies = [
-    ('Java', '11', '', SYSTEM),
-    ('picard', '2.25.1', versionsuffix, SYSTEM),
+    ('Java', '17', '', SYSTEM),
+    ('picard', '3.0.0', versionsuffix, SYSTEM),
     ('R', '4.4.2'),
     ('SAMtools', '1.21'),
     ('BWA', '0.7.18'),
