@@ -1,42 +1,20 @@
+# Author: Emik Lin (HKUMed CPOS)
 easyblock = 'MakeCp'
 
 name = 'AnnotSV'
 version = '3.5.10'
-
-local_variantconvert_version = '2.0.1'
-local_exomiser_rp_version = '14.1.0'
 
 homepage = 'https://lbgi.fr/AnnotSV/'
 description = "An integrated tool for structural variations annotation and ranking"
 
 toolchain = {'name': 'foss', 'version': '2023b'}
 
-sources = [
-    {
-        'source_urls': ['https://github.com/lgmgeo/AnnotSV/archive/refs/tags/'],
-        'download_filename': 'v%(version)s.tar.gz',
-        'filename': '%(name)s-%(version)s.tar.gz',
-    },
-    {
-        'source_urls': ['https://github.com/SamuelNicaise/variantconvert/archive/refs/tags/'],
-        'download_filename': '%(local_variantconvert_version)s.tar.gz',
-        'filename': 'variantconvert-%(local_variantconvert_version)s.tar.gz',
-    },
-    {
-        'source_urls': ['https://github.com/exomiser/Exomiser/releases/download/%(local_exomiser_rp_version)s/'],
-        'filename': 'exomiser-rest-prioritiser-%(local_exomiser_rp_version)s.jar',
-    },
-]
-checksums = [
-    {'%(name)s-%(version)s.tar.gz': '3cf870cf5a5f3b495b4f23eed8fee1e06ab9a6575b1324a20244db62c1e4a015'},
-    {'variantconvert-2.0.1.tar.gz': '47df427e4166c1aee7ac342abec31919baeb9ff04b85204160f188c62b0f16cc'},
-    {'exomiser-rest-prioritiser-14.1.0.jar': '52d823dd86ef1660d24105e09ec72f2e4a5ac8283f0d606376ce72530c8e75cc'},
-]
+source_urls = ['https://github.com/lgmgeo/AnnotSV/archive/refs/tags/']
+sources = [{'download_filename': 'v%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}]
+checksums = ['3cf870cf5a5f3b495b4f23eed8fee1e06ab9a6575b1324a20244db62c1e4a015']
 
 dependencies = [
     ('Tcl', '8.6.13'),
-    ('Python', '3.11.5'),
-    ('Java', '17.0.2'),
     ('BEDTools', '2.31.1'),
     ('BCFtools', '1.20'),
 ]
@@ -45,14 +23,6 @@ dependencies = [
 skipsteps = ['build']
 
 files_to_copy = ['bin', 'etc', 'share', 'changeLog.txt', 'commandLineOptions.txt', 'License.txt']
-
-postinstallcmds = [
-    "mkdir -p %(installdir)s/share/python3 %(installdir)s/share/AnnotSV/jar",
-    "tar -xf %(builddir)s/variantconvert-%(local_variantconvert_version)s.tar.gz -C %(installdir)s/share/python3",
-    "mv %(installdir)s/share/python3/variantconvert-%(local_variantconvert_version)s %(installdir)s/share/python3/variantconvert",
-    "cp -a %(builddir)s/exomiser-rest-prioritiser-%(local_exomiser_rp_version)s.jar %(installdir)s/share/AnnotSV/jar/",
-    "echo Successfully installed variantconvert > %(installdir)s/share/python3/variantconvert/pipinstall.flag",
-]
 
 modextravars = {
     'ANNOTSV': '%(installdir)s',
