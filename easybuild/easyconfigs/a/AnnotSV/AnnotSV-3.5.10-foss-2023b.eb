@@ -31,7 +31,6 @@ postinstallcmds = [
     "chmod a+x %(installdir)s/bin/INSTALL_annotations.sh",
 ]
 
-
 modextravars = {
     'ANNOTSV': '%(installdir)s',
 }
