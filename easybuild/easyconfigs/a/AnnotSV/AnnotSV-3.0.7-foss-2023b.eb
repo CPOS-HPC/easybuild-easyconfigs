@@ -30,11 +30,6 @@ modextravars = {
     'ANNOTSV': '%(installdir)s',
 }
 
-# Annotation datasets are intentionally not installed by this easyconfig.
-# Users can download them with:
-#   INSTALL_annotations.sh 3.5 2406
-# and then pass the directory via AnnotSV -annotationsDir.
-
 sanity_check_paths = {
     'files': ['bin/%(name)s'],
     'dirs': ['share'],
