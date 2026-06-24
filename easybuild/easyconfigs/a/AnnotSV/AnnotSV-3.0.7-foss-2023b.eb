@@ -23,9 +23,7 @@ dependencies = [
 skipsteps = ['configure', 'build']
 preinstallopts = "sed -i 's|^PREFIX[[:space:]]*?=.*$|PREFIX ?= %(installdir)s|' Makefile && "
 postinstallcmds = [
-    "cp -a %(start_dir)s/bin/INSTALL_annotations.sh %(installdir)s/bin/INSTALL_annotations.sh",
     "cp -a %(start_dir)s/Makefile %(installdir)s/Makefile",
-    "chmod a+x %(installdir)s/bin/INSTALL_annotations.sh",
 ]
 
 modextravars = {
@@ -38,7 +36,7 @@ modextravars = {
 # and then pass the directory via AnnotSV -annotationsDir.
 
 sanity_check_paths = {
-    'files': ['bin/%(name)s', 'bin/INSTALL_annotations.sh'],
+    'files': ['bin/%(name)s'],
     'dirs': ['share'],
 }
 
