@@ -14,7 +14,7 @@ sources = [{'download_filename': 'v%(version)s.tar.gz', 'filename': '%(name)s-%(
 checksums = ['01ba773de35f388303a142340c1c61d6fb22bf41f4e00a05f03235298bd7e968']
 
 dependencies = [
-    ('Tcl', '8.6.13'),
+    ('Tcl', '8.5.19'),
     ('BEDTools', '2.31.1'),
     ('BCFtools', '1.19'),
     ('Java', '11', '', SYSTEM),
