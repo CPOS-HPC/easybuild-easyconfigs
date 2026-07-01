@@ -23,6 +23,7 @@ dependencies = [
 ]
 
 skipsteps = ['configure', 'build']
+# Set PREFIX in Makefile to install to the correct directory and remove pip install related commands
 preinstallopts = "sed -i 's|^PREFIX[[:space:]]*?=.*$|PREFIX ?= %(installdir)s|' Makefile && "
 preinstallopts += "sed -i '/^[[:space:]]pip3 install /,+3d' Makefile && "
 postinstallcmds = [
