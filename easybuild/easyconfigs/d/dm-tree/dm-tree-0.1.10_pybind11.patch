@@ -114,7 +114,7 @@
      python_requires='>=3.10',
      install_requires=[
          'absl-py>=0.6.1',
-@@ -140,8 +57,20 @@
+@@ -140,8 +57,21 @@
          'wrapt>=1.11.2',
      ],
      test_suite='tree',
@@ -130,6 +130,7 @@
 +                'absl_raw_hash_set',
 +                'absl_raw_logging_internal',
 +                'absl_strings',
++                'absl_synchronization',
 +                'absl_throw_delegate',
 +            ]
 +        )
