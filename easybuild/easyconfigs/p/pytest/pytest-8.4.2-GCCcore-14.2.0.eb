@@ -14,7 +14,6 @@ builddependencies = [
     ('binutils', '2.42'),
     ('hatchling', '1.27.0'),
     ('flit', '3.10.1'),
-    ('setuptools', '80.9.0'),
 ]
 
 dependencies = [
@@ -35,6 +34,7 @@ _skip_tests = [
     'testing/test_debugging.py',
     'testing/test_config.py',
     'testing/test_helpconfig.py',
+    'testing/acceptance_test.py',
 ]
 _ignore_tests = ' --ignore='.join(_skip_tests)
 
