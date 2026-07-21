@@ -44,6 +44,7 @@ exts_list = [
         'checksums': ['35e98cc2e26332305a49b32eaaebfb7289d1963c88d3989ff5ccb02c46809820'],
     }),
     ('xmlschema', '4.3.2', {
+        'preinstallopts': "sed -i '/Programming Language :: Python :: 3\.15/d' pyproject.toml && ",
         'checksums': ['f3b33a21a2b2cdc404ddc3fb599d8bc1dee90b155d547370672e6e684746b8d6'],
     }),
     (name, version, {
