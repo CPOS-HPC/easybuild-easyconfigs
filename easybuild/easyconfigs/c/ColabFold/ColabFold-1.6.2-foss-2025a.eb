@@ -79,7 +79,7 @@ _notebooks_to_copy = [
 postinstallcmds = [
     # copy notebooks to installation directory
     "mkdir %(installdir)s/notebooks",
-    "cp %s %(installdir)s/notebooks/" % " ".join(_notebooks_to_copy),
+    "cp %s %%(installdir)s/notebooks/" % " ".join(_notebooks_to_copy),
     # BioEmu checks for the following file in the installation directory
     # of ColabFold to accept this installation as usable
     "touch %(installdir)s/.COLABFOLD_PATCHED",
