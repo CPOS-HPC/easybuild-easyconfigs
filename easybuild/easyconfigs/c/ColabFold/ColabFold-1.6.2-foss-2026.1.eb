@@ -8,24 +8,24 @@ description = """Making protein folding accessible to all. Predict proteins stru
 google colab and on your machine."""
 github_account = 'sokrypton'
 
-toolchain = {'name': 'foss', 'version': '2025a'}
+toolchain = {'name': 'foss', 'version': '2026.1'}
 
 builddependencies = [
-    ('poetry', '2.1.2'),
-    ('pytest', '8.4.2'),
+    ('poetry', '2.3.4'),
+    ('Python-bundle-PyPI', '2026.04'),  # provides pytest
 ]
 dependencies = [
-    ('Python', '3.13.1'),
-    ('SciPy-bundle', '2025.06'),
-    ('Biopython', '1.85'),
-    ('matplotlib', '3.10.3'),
-    ('py3Dmol', '2.5.3'),
-    ('jax', '0.7.0'),
+    ('Python', '3.14.2'),
+    ('SciPy-bundle', '2026.05'),
+    ('Biopython', '1.87'),
+    ('matplotlib', '3.10.9'),
+    ('py3Dmol', '2.5.5'),
+    ('jax', '0.10.1'),
     ('dm-haiku', '0.0.16'),
     ('dm-tree', '0.1.10'),
     ('ml-collections', '1.1.0'),
-    ('tqdm', '4.67.1'),
-    ('OpenMM', '8.3.0'),  # for pdbfixer
+    ('tqdm', '4.67.3'),
+    ('OpenMM', '8.5.2'),  # for pdbfixer
 ]
 
 # relax requirements of versions arbitrarily pinned long ago
