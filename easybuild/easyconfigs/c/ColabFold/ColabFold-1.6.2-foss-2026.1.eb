@@ -26,6 +26,7 @@ dependencies = [
     ('ml-collections', '1.1.0'),
     ('tqdm', '4.67.3'),
     ('OpenMM', '8.5.2'),  # for pdbfixer
+    ('orjson', '3.11.8'),
 ]
 
 # relax requirements of versions arbitrarily pinned long ago
@@ -36,6 +37,11 @@ exts_default_options = {
     'sources': [SOURCE_PY3_WHL],
 }
 exts_list = [
+    ('legacy-cgi', '2.6.4', {
+        'modulename': 'cgi',
+        'source_tmpl': 'legacy_cgi-%(version)s-py3-none-any.whl',
+        'checksums': ['7e235ce58bf1e25d1fc9b2d299015e4e2cd37305eccafec1e6bac3fc04b878cd'],
+    }),
     ('appdirs', '1.4.4', {
         'sources': ['%(name)s-%(version)s-py2.py3-none-any.whl'],
         'checksums': ['a841dacd6b99318a741b166adb07e19ee71a274450e68237b4650ca1055ab128'],
