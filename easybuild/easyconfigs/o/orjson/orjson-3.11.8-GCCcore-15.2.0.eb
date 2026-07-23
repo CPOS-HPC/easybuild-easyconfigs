@@ -60,6 +60,9 @@ crates = [
 
 
 exts_list = [
+    ('librt', '0.7.8', {
+        'checksums': ['1a4ede613941d9c3470b0368be851df6bb78ab218635512d0370b27a277a0862'],
+    }),
     ('pathspec', '1.1.1', {
         'checksums': ['17db5ecd524104a120e173814c90367a96a98d07c45b2e10c2f3919fff91bf5a'],
     }),
