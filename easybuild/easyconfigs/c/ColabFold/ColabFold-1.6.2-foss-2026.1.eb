@@ -43,7 +43,7 @@ exts_list = [
         'checksums': ['f34989d9bff7954edfab09fba7757e3d62404da34577bff0d253599ec5b4f93d'],
     }),
     ('immutabledict', '4.3.1', {
-        'checksums': ['f844a669106cfdc73f47b1a9da003782fb17dc955a54c80972e0d93d1c63c514'],
+        'checksums': ['c9facdc0ff30fdb8e35bd16532026cac472a549e182c94fa201b51b25e4bf7bf'],
     }),
     ('PDBFixer', '1.12', {
         'source_urls': ['https://github.com/openmm/pdbfixer/archive/refs/tags/'],
