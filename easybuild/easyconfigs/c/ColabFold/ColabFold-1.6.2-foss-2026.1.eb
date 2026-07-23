@@ -35,7 +35,7 @@ exts_default_options = {
 exts_list = [
     ('legacy-cgi', '2.6.4', {
         'modulename': 'cgi',
-        'sources': 'legacy_cgi-%(version)s-py3-none-any.whl',
+        'sources': ['legacy_cgi-%(version)s-py3-none-any.whl'],
         'checksums': ['7e235ce58bf1e25d1fc9b2d299015e4e2cd37305eccafec1e6bac3fc04b878cd'],
     }),
     ('appdirs', '1.4.4', {
