@@ -29,10 +29,6 @@ dependencies = [
     ('orjson', '3.11.8'),
 ]
 
-# relax requirements of versions arbitrarily pinned long ago
-# fix name of tensorflow package
-_relax_req = """sed -i '/^python =.*/d;s/ = "[=<^]/ = ">=/g;s/tensorflow-cpu/tensorflow/g' pyproject.toml &&"""
-
 exts_default_options = {
     'sources': [SOURCE_PY3_WHL],
 }
