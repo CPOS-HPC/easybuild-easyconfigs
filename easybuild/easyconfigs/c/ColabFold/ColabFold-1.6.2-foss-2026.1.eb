@@ -40,7 +40,7 @@ exts_list = [
         'checksums': ['15ccc861ac51c53696de0a5d6d4607f99c210739caf987b5d2054f3efed429d8'],
     }),
     ('chex', '0.1.92', {
-        'checksums': ['fa8beff1124204ae466a6eb13cb91ae3c24322a1c7216946aee93d031e2f1996'],
+        'checksums': ['f34989d9bff7954edfab09fba7757e3d62404da34577bff0d253599ec5b4f93d'],
     }),
     ('immutabledict', '4.3.1', {
         'checksums': ['f844a669106cfdc73f47b1a9da003782fb17dc955a54c80972e0d93d1c63c514'],
