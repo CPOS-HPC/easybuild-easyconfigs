@@ -43,7 +43,7 @@ preinstallopts += ' export OPENMM_LIB_PATH=%(installdir)s/lib && '
 postinstallcmds = [
     'make PythonBdistWheel',
     'export PIP_REQUIRE_VIRTUALENV=false && '
-    'python -s -m pip install python/dist/%(name)s-%(version)s-*.whl --prefix=%(installdir)s',
+    'python -s -m pip install python/dist/%(namelower)s-%(version)s-*.whl --prefix=%(installdir)s',
 ]
 
 sanity_check_paths = {
