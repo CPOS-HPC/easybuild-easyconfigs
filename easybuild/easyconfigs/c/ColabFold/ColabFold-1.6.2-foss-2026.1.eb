@@ -12,10 +12,10 @@ toolchain = {'name': 'foss', 'version': '2026.1'}
 
 builddependencies = [
     ('poetry', '2.3.4'),
+    ('Python-bundle-PyPI', '2026.04'), # provides pytest
 ]
 dependencies = [
     ('Python', '3.14.2'),
-    ('Python-bundle-PyPI', '2026.04'),
     ('SciPy-bundle', '2026.05'),
     ('Biopython', '1.87'),
     ('matplotlib', '3.10.9'),
@@ -36,6 +36,9 @@ exts_default_options = {
     'sources': [SOURCE_PY3_WHL],
 }
 exts_list = [
+    ('appdirs', '1.4.4', {
+        'checksums': ['a841dacd6b99318a741b166adb07e19ee71a274450e68237b4650ca1055ab128'],
+    }),
     ('toolz', '1.1.0', {
         'checksums': ['15ccc861ac51c53696de0a5d6d4607f99c210739caf987b5d2054f3efed429d8'],
     }),
