@@ -66,7 +66,6 @@ exts_list = [
         'sources': [{'download_filename': 'v%(version)s.tar.gz', 'filename': SOURCE_TAR_GZ}],
         'checksums': ['b5cec32f17d905a101dbff97665ca67b8329680c1b44b5999cab0913850066bb'],
         'use_pip_extras': 'alphafold',
-        'preinstallopts': _relax_req,
         'testinstall': True,
         'runtest': 'pytest',
     }),
