@@ -45,8 +45,8 @@ exts_list = [
     ('toolz', '1.1.0', {
         'checksums': ['15ccc861ac51c53696de0a5d6d4607f99c210739caf987b5d2054f3efed429d8'],
     }),
-    ('chex', '0.1.92', {
-        'checksums': ['f34989d9bff7954edfab09fba7757e3d62404da34577bff0d253599ec5b4f93d'],
+    ('chex', '0.1.91', {
+        'checksums': ['6fc4cbfc22301c08d4a7ef706045668410100962eba8ba6af03fa07f4e5dcf9b'],
     }),
     ('immutabledict', '4.3.1', {
         'checksums': ['c9facdc0ff30fdb8e35bd16532026cac472a549e182c94fa201b51b25e4bf7bf'],
