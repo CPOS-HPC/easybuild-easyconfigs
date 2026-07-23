@@ -3,7 +3,7 @@
 easyblock = 'Tarball'
 
 name = 'dorado'
-version = '2.1.0'
+version = '1.3.1'
 
 homepage = 'https://github.com/nanoporetech/dorado'
 description = "Dorado is a high-performance, easy-to-use, open source basecaller for Oxford Nanopore reads."
@@ -12,7 +12,7 @@ toolchain = SYSTEM
 
 source_urls = ['https://cdn.oxfordnanoportal.com/software/analysis/']
 sources = ['%(name)s-%(version)s-linux-x64.tar.gz']
-checksums = ['55f3bd0c45cf64690c43f9677403f69c4da9a88d00876473e75d648b797eacdb']
+checksums = ['bab71a682ea0d1063db5a4404e52643598c2478e54292d4678c7e952a5cef0f6']
 
 postinstallcmds = [
     "mkdir %(installdir)s/models && cd %(installdir)s/models && "
