@@ -12,10 +12,10 @@ toolchain = {'name': 'foss', 'version': '2026.1'}
 
 builddependencies = [
     ('poetry', '2.3.4'),
-    ('Python-bundle-PyPI', '2026.04'),  # provides pytest
 ]
 dependencies = [
     ('Python', '3.14.2'),
+    ('Python-bundle-PyPI', '2026.04'),
     ('SciPy-bundle', '2026.05'),
     ('Biopython', '1.87'),
     ('matplotlib', '3.10.9'),
