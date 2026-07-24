@@ -1095,8 +1095,14 @@ exts_list = [
     ('polars-runtime-32', version, {
         'sources': ['polars_runtime_32-%(version)s.tar.gz'],
         'modulename': '_polars_runtime_32',
+        'patches': ['polars-1.41.2_stable-Rust-cold-path.patch'],
         'preinstallopts': 'export MATURIN_PEP517_ARGS="--no-default-features --features full" && ',
-        'checksums': ['7af09ec1ab053da2c9669e8d15f809a4083a29be05db57111688b8051062af56'],
+        'checksums': [
+            {'polars_runtime_32-1.41.2.tar.gz':
+             '7af09ec1ab053da2c9669e8d15f809a4083a29be05db57111688b8051062af56'},
+            {'polars-1.41.2_stable-Rust-cold-path.patch':
+             'a71a327fa0b9be1533457732a5297175e4ad124dc59cf285bc0b39aa122e149d'},
+        ],
     }),
     (name, version, {
         'use_pip_extras': 'deltalake,graph,numpy,openpyxl,pandas,pyarrow',
