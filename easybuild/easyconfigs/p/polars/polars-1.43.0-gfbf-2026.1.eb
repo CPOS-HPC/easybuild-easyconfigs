@@ -561,6 +561,10 @@ dependencies = [
     ('Python', '3.14.2'),
     ('Python-bundle-PyPI', '2026.04'),
     ('SciPy-bundle', '2026.05'),
+    ('matplotlib', '3.10.9'),
+    ('Arrow', '24.0.0'),
+    ('DeltaLake', '1.6.0'),
+    ('openpyxl', '3.1.5'),
 ]
 
 crates = [
@@ -1113,10 +1117,12 @@ exts_list = [
     ('polars-runtime-32', version, {
         'sources': ['polars_runtime_32-%(version)s.tar.gz'],
         'modulename': '_polars_runtime_32',
-        'preinstallopts': 'export MATURIN_PEP517_ARGS="--no-default-features --features full" && ',
+        'preinstallopts': 'mv %(builddir)s/easybuild_vendor/jemallocator %(builddir)s/jemallocator-git-unused && '
+                          'export MATURIN_PEP517_ARGS="--no-default-features --features full" && ',
         'checksums': ['5fb47a3a883402e62eab2fde5922f78c531d037aeece3640c15225f39228621e'],
     }),
     (name, version, {
+        'use_pip_extras': 'deltalake,graph,numpy,openpyxl,pandas,pyarrow',
         'checksums': ['bb2c67553e4968c18dfe268a88ff9a5790d5c2e0b7ea7efe97640b9a90438c88'],
     }),
 ]
