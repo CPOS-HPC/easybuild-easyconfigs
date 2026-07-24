@@ -1,4 +1,4 @@
-easyblock = 'CargoPythonPackage'
+easyblock = 'CargoPythonBundle'
 
 name = 'arro3'
 version = '0.8.1'
@@ -7,9 +7,6 @@ homepage = 'https://kylebarron.dev/arro3/latest/'
 description = "Minimal Python bindings to the Apache Arrow Rust implementation."
 
 toolchain = {'name': 'gfbf', 'version': '2026.1'}
-
-source_urls = ['https://files.pythonhosted.org/packages/source/a/arro3-core']
-sources = ['arro3_core-%(version)s.tar.gz']
 
 crates = [
     ('adler2', '2.0.1'),
@@ -333,7 +330,6 @@ crates = [
 ]
 
 checksums = [
-    {'arro3_core-0.8.1.tar.gz': '1df54a8e2c14a877f291d90de65f00bafe9cc6d5958417ff749f178f059dcd39'},
     {'adler2-2.0.1.tar.gz': '320119579fcad9c21884f5c4861d16174d0e06250625266f50fe6898340abefa'},
     {'ahash-0.8.12.tar.gz': '5a15f179cd60c4584b8a8c596927aadc462e27f2ca70c04e0071964a73ba7a75'},
     {'aho-corasick-1.1.4.tar.gz': 'ddd31a130427c27518df266943a5308ed92d4b226cc639f5a8f1002816174301'},
@@ -657,8 +653,23 @@ builddependencies = [
     ('maturin', '1.13.1'),
 ]
 
-dependencies = [('Python', '3.14.2')]
+dependencies = [
+    ('Python', '3.14.2'),
+]
 
-options = {'modulename': 'arro3.core'}
+exts_list = [
+    ('arro3_core', version, {
+        'modulename': 'arro3.core',
+        'checksums': ['1df54a8e2c14a877f291d90de65f00bafe9cc6d5958417ff749f178f059dcd39'],
+    }),
+    ('arro3_compute', version, {
+        'modulename': 'arro3.compute',
+        'checksums': ['5d8dd072795e5657f344986125facfe18c2c9b772ba3f468e2b00e7702314479'],
+    }),
+    ('arro3_io', version, {
+        'modulename': 'arro3.io',
+        'checksums': ['0f39d54a9a6e169ef4fec3c75d616a0fd73562afb4ba3eea8d163e538fe38d52'],
+    }),
+]
 
 moduleclass = 'data'
