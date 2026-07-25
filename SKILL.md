@@ -24,6 +24,8 @@ Create recipes that match this repository, resolve through its dependency graph,
 - Use PyPI’s sdist checksum when a `PythonBundle` extension will fetch from PyPI.
 - Use GitHub sources when the build needs repository-only files such as `Cargo.lock`, subprojects, tests, or generated metadata absent from the PyPI sdist.
 - Prefer stable tags or releases. For untagged software, pin a full commit and use its commit date as the version when that matches repository precedent.
+- When upstream metadata declares a release version but no corresponding tag exists, retain that declared version and pin a full commit that still represents it.
+- Check the default branch tip immediately before finalizing a commit-based recipe. Do not confuse the commit that introduced a file with the repository’s latest commit.
 - Never use a commit that is unavailable from the declared repository.
 - Download and hash the exact artifact referenced by the recipe.
 - Put filename comments after checksum values:
@@ -64,6 +66,7 @@ Always confirm anchors from local easyconfigs instead of treating this table as 
 - Preserve official capitalization in `name`, filenames, modules, homepage, and descriptions.
 - Follow the field order of the closest current recipe.
 - Use standard source constants such as `SOURCELOWER_TAR_GZ` when the source follows the standard naming convention.
+- Keep single-entry `sources` and `checksums` lists on one line. Use multiline form for multiple artifacts or entries that are not readable when compact.
 - Keep checksum filename comments on the checksum line.
 - Keep patches minimal, descriptive, reusable across toolchains when their changes are source-version-specific, and authored:
 
@@ -73,6 +76,7 @@ Author: Emik Lin (HKUMed CPOS)
 
 - Prefer patch-free configuration through documented build options when practical.
 - Do not add symlink farms, vendored copies, or patches unless the build system requires them.
+- Do not patch upstream packaging merely to install an auxiliary or historical script. If the unmodified installer provides the official entry points and passes the build and sanity checks, retain it unchanged.
 - Add explicit sanity paths only when they improve coverage beyond the easyblock defaults.
 - Use meaningful import and CLI sanity commands.
 
@@ -89,6 +93,8 @@ Author: Emik Lin (HKUMed CPOS)
 - Do not assume pip can resolve missing dependencies during an offline EasyBuild build.
 - For `PythonBundle`, do not add `sanity_pip_check = True`; it is enabled by default. Set this option only when deliberately overriding the default, with a documented reason.
 - Validate both imports and console entry points.
+- When assessing a Python 2 project for Python 3, distinguish a mechanically converted script from package-wide compatibility. Compile all installed scripts and test a representative data path before declaring the package compatible.
+- Keep experimental Python 3 conversion changes out of a requested Python 2 recipe unless they are required for that build.
 
 When pip reports a constraint conflict, pin versions to the application’s declared range rather than disabling `pip check`. Examples include:
 
