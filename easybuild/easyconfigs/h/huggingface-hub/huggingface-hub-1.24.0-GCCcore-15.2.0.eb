@@ -894,6 +894,9 @@ checksums = [
 ]
 
 exts_list = [
+    ('click', '8.4.2', {
+        'checksums': ['9a6cea6e60b17ebe0a44c5cc636d94f09bd66142c1cd7d8b4cd731c4917a15f6'],
+    }),
     ('hf-xet', '1.5.1', {
         'sources': ['hf_xet-%(version)s.tar.gz'],
         'modulename': 'hf_xet',
