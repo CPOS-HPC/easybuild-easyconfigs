@@ -38,7 +38,7 @@ checksums = [
 ]
 
 builddependencies = [
-    ('CMake', '4.2.1'),
+    ('CMake', '3.31.11'),
     ('Doxygen', '1.17.0'),
 ]
 
