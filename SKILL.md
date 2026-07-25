@@ -28,7 +28,7 @@ Create recipes that match this repository, resolve through its dependency graph,
 - Check the default branch tip immediately before finalizing a commit-based recipe. Do not confuse the commit that introduced a file with the repository’s latest commit.
 - Never use a commit that is unavailable from the declared repository.
 - Download and hash the exact artifact referenced by the recipe.
-- Put filename comments after checksum values:
+- Add filename comments only when a checksum list contains multiple artifacts. Put each filename comment after its checksum value. Do not add comments to single-entry one-line checksum lists:
 
 ```python
 checksums = [
