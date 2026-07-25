@@ -35,6 +35,7 @@ exts_list = [
     }),
     ('arda-mapper', '2.5.5', {
         'sources': ['arda_mapper-%(version)s.tar.gz'],
+        'modulename': 'arda',
         'checksums': ['3311d8bb171b72d80a07369dc8fdb3675b1cc114dd8c2736a72e930514d0b28b'],
     }),
     ('vdjmatch', '0.1.0', {
