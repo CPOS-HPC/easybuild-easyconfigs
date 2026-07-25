@@ -12,10 +12,7 @@ description = "Reference-free misassembly identification and correction of metag
 toolchain = {'name': 'foss', 'version': '2023b'}
 
 source_urls = ['https://github.com/ZhaoXM-Lab/metaMIC/archive/']
-sources = [{
-    'download_filename': '%s.tar.gz' % local_commit,
-    'filename': SOURCE_TAR_GZ,
-}]
+sources = [{'download_filename': '%s.tar.gz' % local_commit, 'filename': SOURCE_TAR_GZ}]
 patches = ['%(name)s-%(version)s_compatibility.patch']
 checksums = [
     'c471b9610e85246b0348f3b1d19b7faf500da04b1dd8571e503d145334c7ad08',  # metaMIC-20220221.tar.gz
@@ -35,6 +32,7 @@ dependencies = [
 ]
 
 download_dep_fail = True
+options = {'modulename': 'metaMIC.metaMIC'}
 
 sanity_check_paths = {
     'files': ['bin/metaMIC'],
