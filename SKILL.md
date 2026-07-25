@@ -87,7 +87,7 @@ Author: Emik Lin (HKUMed CPOS)
 - Specify nonstandard sdist names with `source_tmpl` or `sources`.
 - Add backend packages such as `pdm-backend`, `hatchling`, `poetry`, `maturin`, or `scikit-build-core` as build dependencies or earlier extensions when required by `pyproject.toml`.
 - Do not assume pip can resolve missing dependencies during an offline EasyBuild build.
-- Enable `sanity_pip_check = True` for bundles when dependency metadata is reliable.
+- For `PythonBundle`, do not add `sanity_pip_check = True`; it is enabled by default. Set this option only when deliberately overriding the default, with a documented reason.
 - Validate both imports and console entry points.
 
 When pip reports a constraint conflict, pin versions to the application’s declared range rather than disabling `pip check`. Examples include:
