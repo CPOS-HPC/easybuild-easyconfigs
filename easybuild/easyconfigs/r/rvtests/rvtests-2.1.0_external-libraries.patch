@@ -1,6 +1,6 @@
 Use EasyBuild-provided libraries instead of bundled, outdated copies.
 
-Author: EasyBuild
+Author: Emik Lin (HKUMed CPOS)
 --- a/Makefile.common
 +++ b/Makefile.common
 @@ -5,38 +5,38 @@

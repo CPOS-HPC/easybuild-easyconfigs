@@ -14,7 +14,7 @@ sources = ['v%(version)s.tar.gz']
 patches = ['%(name)s-%(version)s_external-libraries.patch']
 checksums = [
     'bc05cd1ab1cbeda62bd79fd3ba0f46b8e304a1bc1bea556316baa2c38ef1fcf3',  # v2.1.0.tar.gz
-    'eb70ddfd57458a6aaf46ae90c006243de155f0b4cb1b7d7f4cbeed1f2301a06d',  # rvtests-2.1.0_external-libraries.patch
+    '12900df765580033d75a7410a6e7ac0b47204229ca161acf3c1b1e1e2bad62f6',  # rvtests-2.1.0_external-libraries.patch
 ]
 
 dependencies = [
