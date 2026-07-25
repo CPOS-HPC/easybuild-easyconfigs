@@ -18,6 +18,15 @@ Create recipes that match this repository, resolve through its dependency graph,
 - When the user identifies a specific reference recipe, retain its dependency set and ordering unless upstream requirements justify a change.
 - Check upstream release metadata, source contents, lockfiles, and package requirements when they can have changed.
 
+For a simple copy-forward migration where the software version, pinned commit, sources, patches, and checksums are
+unchanged:
+
+- Copy the closest recipe and update only the requested toolchain and generation-matched dependencies.
+- Do not re-download or re-hash unchanged artifacts.
+- Confirm the source, commit, version, patches, and checksums remain identical with a focused diff.
+- Run the robot dry run and `git diff --check`. Reserve an isolated build for demonstrated compatibility risk or a
+  prior build failure.
+
 ### 2. Select the source artifact deliberately
 
 - Distinguish PyPI sdists, GitHub release assets, GitHub-generated tag archives, crates.io archives, and vendor binary tarballs. Their checksums differ even for the same version.
@@ -210,11 +219,15 @@ If EasyBuild’s downloader lacks network access, prefetch exact sources into th
 
 Before handoff:
 
-1. Verify every source and patch checksum.
-2. Run `patch --dry-run` against the exact source archive.
+1. Verify every new or changed source and patch checksum. For a simple copy-forward migration, compare unchanged
+   checksum values with the reference recipe instead of downloading and hashing the artifacts again.
+2. Run `patch --dry-run` for new or changed patches, or when the source version changed. Do not repeat it for an
+   unchanged source-and-patch pair in a simple copy-forward migration.
 3. Run the EasyBuild robot dry run.
-4. Run a full isolated build when feasible.
-5. Confirm imports, executables, version output, extension sanity, and `pip check`.
+4. Run a full isolated build for new recipes and risky migrations when feasible. For a simple copy-forward migration,
+   the robot dry run is sufficient unless compatibility concerns or a prior failure justify a build.
+5. Confirm imports, executables, version output, extension sanity, and `pip check` when a build or matching installed
+   module is available. Do not require these runtime checks for the robot-only simple copy-forward path.
 6. Run `git diff --check`; normalize patch-file blank context lines if needed, then recompute the patch checksum.
 7. Review `git status` and the exact diff.
 
