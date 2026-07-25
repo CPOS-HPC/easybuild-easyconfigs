@@ -1,0 +1,4 @@
+interface:
+  display_name: "EasyBuild Easyconfigs"
+  short_description: "Create, migrate, debug, and validate easyconfigs"
+  default_prompt: "Use $easybuild-easyconfigs to create or update an EasyBuild recipe and validate it against repository conventions."
