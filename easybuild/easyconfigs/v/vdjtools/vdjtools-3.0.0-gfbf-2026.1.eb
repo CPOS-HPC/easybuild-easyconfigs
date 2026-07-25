@@ -13,6 +13,7 @@ toolchain = {'name': 'gfbf', 'version': '2026.1'}
 builddependencies = [
     ('CMake', '4.2.1'),
     ('hatchling', '1.29.0'),
+    ('PDM', '2.28.0'),
     ('pybind11', '3.0.4'),
     ('scikit-build-core', '0.12.2'),
 ]
