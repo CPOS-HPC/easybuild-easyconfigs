@@ -6,7 +6,7 @@ versionsuffix = '-Python-%(pyver)s'
 local_commit = '68880de6bda9b0a892a4d8c7fcb08bd641c51dc2'
 
 homepage = 'https://github.com/BioinfoUNIBA/REDItools'
-description = "REDItools are Python scripts to investigate RNA editing at genomic scale."
+description = "REDItools: python scripts for RNA editing detection by RNA-Seq data"
 
 toolchain = {'name': 'GCC', 'version': '12.3.0'}
 
