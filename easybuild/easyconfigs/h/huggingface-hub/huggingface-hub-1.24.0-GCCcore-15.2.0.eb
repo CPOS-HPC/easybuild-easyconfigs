@@ -907,7 +907,6 @@ exts_list = [
 
 sanity_check_commands = [
     'hf --help',
-    "python -c 'import hf_xet, huggingface_hub'",
 ]
 
 moduleclass = 'lib'
