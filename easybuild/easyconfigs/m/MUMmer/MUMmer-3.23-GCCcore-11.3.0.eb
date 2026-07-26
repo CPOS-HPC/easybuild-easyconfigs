@@ -37,7 +37,7 @@ dependencies = [('Perl', '5.34.1')]
 fix_perl_shebang_for = ['bin/*']
 
 postinstallcmds = [
-    "perl -i -pe 's/defined \(%/\(%/' %(installdir)s/bin/mummerplot",
+    r"perl -i -pe 's/defined \(%/\(%/' %(installdir)s/bin/mummerplot",
 ]
 
 moduleclass = 'bio'
