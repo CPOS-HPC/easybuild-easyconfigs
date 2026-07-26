@@ -22,8 +22,6 @@ patches = [
     '%(name)s-%(version)s-find-boost.patch',
     # fix compilation with GCC 13, include missing cstdint
     '%(name)s-%(version)s-fix-gcc13.patch',
-    # fix missing include statement in boost_1_54_0.tar.gz
-    'bcl2fastq2-2.20.0-fix_missing_include.patch',
     # fix bundled Boost compatibility with GCC 15
     'bcl2fastq2-2.20.0_fix-bundled-Boost-GCC15.patch',
     # fix variable incorrectly labeled const
@@ -35,9 +33,8 @@ checksums = [
      '3f2736a8335b533646e25093f02bbbcf1aa629c68a0433b9bb5d66fadaa28edb'},
     {'bcl2fastq2-2.20.0-find-boost.patch': '8ca9ab8843fd21976781185b0d560f97fa83c26ab7962c339c2206b164d845c1'},
     {'bcl2fastq2-2.20.0-fix-gcc13.patch': 'f398263822f6640e1fb6b07e04e0ca4b15c9a6a6d3fd2bac5f0d72d8aef99cea'},
-    {'bcl2fastq2-2.20.0-fix_missing_include.patch': 'ced2e7e2043c2a57427ea8007db194513db4a8f8f4fd263d15b8d3e7cd6f1330'},
     {'bcl2fastq2-2.20.0_fix-bundled-Boost-GCC15.patch':
-     '870cfd4e226c993b9a7bdf7e7fbebde41ba8bc7e29f0b028e426f0a09759e03c'},
+     '5bec3349e983a2b1c77f83718752e5cbdd97d79882748498b1267216d66e9d35'},
     {'bcl2fastq2-2.20.0-fix_const_mode.patch': '56da8d3f94fd20e4e98fcdeb2f8f0a0d9c6ea04e045fb93d12fa7a4fa4efdc23'},
 ]
 
