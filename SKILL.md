@@ -194,6 +194,12 @@ Account for the fact that post-install downloads require network access and can 
 
 - Retain the dependency structure of the closest recipe.
 - Add `Perl-bundle-CPAN` when build scripts require standard CPAN helpers such as `File::Which`.
+- For installed Perl entry points, add a toolchain-matched `Perl` runtime dependency and set
+  `fix_perl_shebang_for`; the dependency alone does not fix a hardcoded `/usr/bin/perl` shebang.
+- Inspect the installed files and list the actual Perl entry points explicitly instead of using a broad `bin/*` glob
+  when practical.
+- Use raw Python strings or escaped backslashes for regular-expression commands in easyconfigs to avoid invalid
+  escape-sequence warnings without changing the command.
 - Do not replace a precise missing Perl module diagnosis with unrelated build changes.
 
 ### Legacy build systems
