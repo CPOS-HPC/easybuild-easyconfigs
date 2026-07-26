@@ -153,15 +153,18 @@ dependencies = [
 ### Rust and Cargo Python packages
 
 - Obtain dependencies from the exact `Cargo.lock` used by the build.
-- From the Rust project root, always generate the lockfile and crate list after loading EasyBuild:
+- Use an existing `Cargo.lock` unchanged. Run `cargo generate-lockfile` only when the selected source does not provide
+  a lockfile.
+- From the Rust project root containing the applicable lockfile, generate the crate list after loading EasyBuild:
 
 ```bash
 module load EasyBuild
+# Run only when Cargo.lock is absent:
 cargo generate-lockfile
 python3 -m easybuild.easyblocks.generic.cargo . > list_of_crates.txt
 ```
 
-- Re-run both commands whenever the source version, manifests, or lockfile changes.
+- Re-run the crate-list helper whenever the source version, manifests, or lockfile changes.
 - Compare `list_of_crates.txt` byte-for-byte with the easyconfig crate list. Preserve the generated order, versions,
   sources, and checksums exactly; do not omit entries or add speculative versions.
 - Keep every locked crate version needed by every built subpackage. Do not add versions speculatively.
