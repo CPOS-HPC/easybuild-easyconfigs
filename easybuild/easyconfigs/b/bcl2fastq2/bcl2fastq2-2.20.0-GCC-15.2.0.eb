@@ -12,9 +12,7 @@ toolchainopts = {'pic': True, 'cstd': 'c++11'}
 
 sources = [{
     'filename': '%s-v%s-tar.zip' % (name, version.replace('.', '-')),
-    # source file is a .zip containing a .tar.gz, which in turn contains the bundled Boost archive
-    'extract_cmd': 'unzip -p %s | tar -xzvf - && '
-                   'tar -xjvf bcl2fastq/redist/boost_1_54_0.tar.bz2 -C bcl2fastq',
+    'extract_cmd': 'unzip -p %s | tar -xzvf -',  # source file is a .zip that contains a .tar.gz
 }]
 download_instructions = f"Download {sources[0]['filename']} manually from " + \
                         "https://support.illumina.com/downloads/bcl2fastq-conversion-software-v2-20.html"
@@ -24,10 +22,12 @@ patches = [
     '%(name)s-%(version)s-find-boost.patch',
     # fix compilation with GCC 13, include missing cstdint
     '%(name)s-%(version)s-fix-gcc13.patch',
-    # fix bundled Boost and StaticMemPool compatibility with GCC 15
-    'bcl2fastq2-2.20.0_fix-bundled-Boost-GCC15.patch',
     # fix variable incorrectly labeled const
-    'bcl2fastq2-2.20.0-fix_const_mode.patch'
+    'bcl2fastq2-2.20.0-fix_const_mode.patch',
+    # fix bundled Boost compatibility with GCC 15
+    'bcl2fastq2-2.20.0_fix-bundled-Boost-GCC15.patch',
+    # fix incorrect StaticMemPool member names exposed by GCC 15
+    'bcl2fastq2-2.20.0_fix-StaticMemPool-member-name.patch'
 ]
 checksums = [
     {'bcl2fastq2-v2-20-0-tar.zip': '8dd3044767d044aa4ce46de0de562b111c44e5b8b7348e04e665eb1b4f101fe3'},
@@ -35,9 +35,11 @@ checksums = [
      '3f2736a8335b533646e25093f02bbbcf1aa629c68a0433b9bb5d66fadaa28edb'},
     {'bcl2fastq2-2.20.0-find-boost.patch': '8ca9ab8843fd21976781185b0d560f97fa83c26ab7962c339c2206b164d845c1'},
     {'bcl2fastq2-2.20.0-fix-gcc13.patch': 'f398263822f6640e1fb6b07e04e0ca4b15c9a6a6d3fd2bac5f0d72d8aef99cea'},
-    {'bcl2fastq2-2.20.0_fix-bundled-Boost-GCC15.patch':
-     '9a87091c42a41e8b886bb523caa25b3718092e4cdea017ea8d80c1990a3660d3'},
     {'bcl2fastq2-2.20.0-fix_const_mode.patch': '56da8d3f94fd20e4e98fcdeb2f8f0a0d9c6ea04e045fb93d12fa7a4fa4efdc23'},
+    {'bcl2fastq2-2.20.0_fix-bundled-Boost-GCC15.patch':
+     'bf5ca7e60640a53d098c0c55b2415b39cd61d457f7cb7fffccfb1cd81643b1a7'},
+    {'bcl2fastq2-2.20.0_fix-StaticMemPool-member-name.patch':
+     '24100827959bd213303cccb973a1f4c04e24d6594ad09edd504a73c3a3dbdeaf'},
 ]
 
 builddependencies = [
