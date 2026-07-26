@@ -1,29 +1,57 @@
-Fix GCC 15 compatibility in the bundled Boost:
-- add the missing filesys.h include needed to build Boost.Build;
-- remove unnecessary parentheses from Boost.MPL pointer-to-member declarations;
-- include <cstdint> so Boost.Atomic can declare atomic<uintptr_t>.
+Fix GCC 15 compatibility in bcl2fastq2 and its bundled Boost:
+- use the Boost source pre-extracted by EasyBuild so it can be patched directly;
+- add the missing filesys.h and cstdint headers;
+- correct the pool_ member name in StaticMemPool copy operations.
 Author: Emik Lin (HKUMed CPOS)
 --- a/src/cmake/bootstrap/installBoost.sh
 +++ b/src/cmake/bootstrap/installBoost.sh
-@@ -47,5 +47,16 @@
--cd ${SOURCE_DIR} \
--    && ./bootstrap.sh ${BOOTSTRAP_OPTIONS} --prefix=${INSTALL_DIR} --with-libraries=`echo ${BCL2FASTQ_BOOST_COMPONENTS} | sed "s/;/,/g"` \
--    && echo "using gcc : : ${CXX} ;" >${SOURCE_DIR}/tools/build/v2/user-config.jam \
--    && echo "modules.poke : NO_BZIP2 : 1 ;" >>${SOURCE_DIR}/tools/build/v2/user-config.jam \
--    && ./bjam -j$PARALLEL ${BJAM_OPTIONS} --libdir=${INSTALL_DIR}/lib --layout=system link=static threading=multi install
-+cd "${SOURCE_DIR}" && {
-+    patch -p0 -N --batch <<'EOF'
-+--- tools/build/v2/engine/modules/path.c
-++++ tools/build/v2/engine/modules/path.c
-+@@ -11,2 +11,3 @@
-+ #include "../timestamp.h"
-++#include "../filesys.h"
-+EOF
-+
-+    sed -i -e '187s/(Pred::/Pred::/;189s/);/;/;192s/(boost::/boost::/;194s/);/;/' boost/mpl/assert.hpp &&
-+    { grep -q '^#include <cstdint>$' boost/atomic/atomic.hpp || sed -i '12i#include <cstdint>' boost/atomic/atomic.hpp; } &&
-+    ./bootstrap.sh ${BOOTSTRAP_OPTIONS} --prefix="${INSTALL_DIR}" --with-libraries="$(echo "${BCL2FASTQ_BOOST_COMPONENTS}" | sed 's/;/,/g')" &&
-+    echo "using gcc : : ${CXX} ;" > "${SOURCE_DIR}/tools/build/v2/user-config.jam" &&
-+    echo "modules.poke : NO_BZIP2 : 1 ;" >> "${SOURCE_DIR}/tools/build/v2/user-config.jam" &&
-+    ./bjam -j"$PARALLEL" ${BJAM_OPTIONS} --libdir="${INSTALL_DIR}/lib" --layout=system link=static threading=multi install
-+}
+@@ -32,5 +32,4 @@
+ SCRIPT=`basename "$0"`
+ VERSION=`echo ${BCL2FASTQ_BOOST_VERSION} | sed "s/\./_/g"`
+-SOURCE_TARBALL=${REDIST_DIR}/boost_${VERSION}.tar.bz2
+-TARBALL_COMPRESSION=j
+-SOURCE_DIR=${BUILD_DIR}/boost_${VERSION}
++# Boost is pre-extracted so EasyBuild can patch it before configuration.
++SOURCE_DIR=$(readlink -f "${REDIST_DIR}/../boost_${VERSION}")
+@@ -40,5 +39,4 @@
+ if [[ $CLEAN ]] ; then
+-    echo removing $SOURCE_DIR
+-    rm -rf $SOURCE_DIR ${INCLUDE_DIR}/boost ${LIB_DIR}/libboost_*.{a,so}
++    rm -rf ${INCLUDE_DIR}/boost ${LIB_DIR}/libboost_*.{a,so}
+     exit 0
+ fi
+@@ -46,2 +44,1 @@
+-common_create_source
+ cd ${SOURCE_DIR} \
+--- a/src/cxx/include/common/StaticMemPool.hpp
++++ b/src/cxx/include/common/StaticMemPool.hpp
+@@ -46,6 +46,6 @@
+ : pool_()
+ , metadata_()
+ {
+-    std::copy(&that.pool_[0][0], &that.pool[PageCount-1][PageSize], &pool_[0][0]);
++    std::copy(&that.pool_[0][0], &that.pool_[PageCount-1][PageSize], &pool_[0][0]);
+     std::copy(&that.metadata_[0], &that.metadata_[PageCount], &metadata_[0]);
+ }
+@@ -55,7 +55,7 @@
+ {
+     if (this != &rhs)
+     {
+-        std::copy(&rhs.pool_[0][0], &rhs.pool[PageCount-1][PageSize], &pool_[0][0]);
++        std::copy(&rhs.pool_[0][0], &rhs.pool_[PageCount-1][PageSize], &pool_[0][0]);
+         std::copy(&rhs.metadata_[0], &rhs.metadata_[PageCount], &metadata_[0]);
+     }
+     return *this;
+--- a/boost_1_54_0/tools/build/v2/engine/modules/path.c
++++ b/boost_1_54_0/tools/build/v2/engine/modules/path.c
+@@ -9,3 +9,4 @@
+ #include "../lists.h"
+ #include "../native.h"
++#include "../filesys.h"
+ #include "../timestamp.h"
+--- a/boost_1_54_0/boost/atomic/atomic.hpp
++++ b/boost_1_54_0/boost/atomic/atomic.hpp
+@@ -11,2 +11,3 @@
+ #include <cstddef>
++#include <cstdint>
+ #include <boost/cstdint.hpp>
