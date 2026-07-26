@@ -115,6 +115,36 @@ When pip reports a constraint conflict, pin versions to the application’s decl
 
 When a package exposes no import matching its distribution name, set the correct `modulename` or disable only that extension’s import sanity check with evidence.
 
+### Bioconductor R packages
+
+- Determine the Bioconductor release corresponding to the target R version from the official release table. Do not
+  use the newest Bioconductor release when the requested toolchain uses an older R generation.
+- Confirm that matching `R` and `R-bundle-Bioconductor` easyconfigs exist locally before selecting versions.
+- Read the release-specific `PACKAGES` or `PACKAGES.gz` index to obtain the exact package version, dependency
+  metadata, and `NeedsCompilation` value.
+- Use the closest current recipe for the package as the structural template. Retain auxiliary extensions that are not
+  supplied by the matching R or Bioconductor bundles.
+- Express the release consistently:
+
+```python
+versionsuffix = '-R-%(rver)s'
+local_biocver = '3.20'
+
+dependencies = [
+    ('R', '4.4.2'),
+    ('R-bundle-Bioconductor', local_biocver, versionsuffix),
+]
+```
+
+- Fetch `%(name)s_%(version)s.tar.gz` from the release-specific Bioconductor `bioc/src/contrib` location. Keep the
+  Bioconductor archive and data-package URLs used by nearby recipes when building a bundle.
+- Hash the exact release artifact. If the primary Bioconductor endpoint is temporarily unavailable, use the official
+  Bioconductor archive object store for the same release artifact rather than substituting a different source.
+- Use `RPackage` for extensions in a Bundle recipe and preserve the extension ordering required by package
+  dependencies. Rely on extension sanity checks unless explicit paths or commands add useful coverage.
+- Validate the robot graph and, for a new package version or changed Bioconductor release, run an isolated build when
+  feasible because compiled R extensions and bundle contents can change across releases.
+
 ### Rust and Cargo Python packages
 
 - Obtain dependencies from the exact `Cargo.lock` used by the build.
