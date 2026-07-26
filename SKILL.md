@@ -83,6 +83,11 @@ Always confirm anchors from local easyconfigs instead of treating this table as 
 Author: Emik Lin (HKUMed CPOS)
 ```
 
+- Match the patch filename style used by neighboring recipes, typically
+  `%(name)s-%(version)s-fix-<issue>.patch`.
+- Keep each patch focused on one concern. Separate fixes to the application source from fixes to bundled dependencies.
+- Preserve the existing patch order and append new patches unless a dependency between patches requires otherwise.
+  Keep checksums in the same order as sources and patches.
 - Prefer patch-free configuration through documented build options when practical.
 - Do not add symlink farms, vendored copies, or patches unless the build system requires them.
 - Do not patch upstream packaging merely to install an auxiliary or historical script. If the unmodified installer provides the official entry points and passes the build and sanity checks, retain it unchanged.
@@ -197,6 +202,13 @@ Account for the fact that post-install downloads require network access and can 
 - Add include-directory symlinks only when the source hard-codes a `third/` vendor layout.
 - If a patch makes the build system discover external libraries normally, remove redundant symlinks.
 - Use `maxparallel = 1` only for demonstrated race conditions or non-parallel-safe builds.
+- Do not embed a patch heredoc inside another patch. If a bundled dependency is unpacked only during configure, keep
+  the normal extraction workflow and make small, explicit post-extraction edits in the installer script.
+- Use direct unified-diff hunks when the target files already exist during EasyBuild's patch step.
+- Run through configure when a bundled dependency is unpacked there; `--stop=patch` cannot validate changes made
+  after extraction.
+- Do not patch compiler warnings unless they are promoted to errors or otherwise stop the build. Start with the first
+  actionable error.
 
 ## Keep API compatibility in view
 
