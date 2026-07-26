@@ -1,11 +1,13 @@
-Remove parentheses that GCC 15 diagnoses as unnecessary in the bundled
-Boost.MPL pointer-to-member declarations.
+Fix GCC 15 compatibility in the bundled Boost:
+- remove unnecessary parentheses from Boost.MPL pointer-to-member declarations;
+- include <cstdint> so Boost.Atomic can declare atomic<uintptr_t>.
 Author: Emik Lin (HKUMed CPOS)
 --- a/src/cmake/bootstrap/installBoost.sh
 +++ b/src/cmake/bootstrap/installBoost.sh
-@@ -55,2 +55,3 @@ cd "${SOURCE_DIR}" && {
+@@ -55,2 +55,4 @@ cd "${SOURCE_DIR}" && {
 -
 -    ./bootstrap.sh ${BOOTSTRAP_OPTIONS} --prefix="${INSTALL_DIR}" --with-libraries="$(echo "${BCL2FASTQ_BOOST_COMPONENTS}" | sed 's/;/,/g')" &&
 +    sed -i -e '187s/(Pred::/Pred::/;189s/);/;/;192s/(boost::/boost::/;194s/);/;/' boost/mpl/assert.hpp
++    grep -q '^#include <cstdint>$' boost/atomic/atomic.hpp || sed -i '12i#include <cstdint>' boost/atomic/atomic.hpp
 +
 +    ./bootstrap.sh ${BOOTSTRAP_OPTIONS} --prefix="${INSTALL_DIR}" --with-libraries="$(echo "${BCL2FASTQ_BOOST_COMPONENTS}" | sed 's/;/,/g')" &&
