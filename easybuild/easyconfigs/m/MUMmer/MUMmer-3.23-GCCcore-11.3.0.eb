@@ -34,7 +34,9 @@ builddependencies = [('binutils', '2.38')]
 
 dependencies = [('Perl', '5.34.1')]
 
-fix_perl_shebang_for = ['bin/*']
+fix_perl_shebang_for = [
+    'bin/dnadiff', 'bin/mapview', 'bin/mummerplot', 'bin/nucmer', 'bin/nucmer2xfig', 'bin/promer',
+]
 
 postinstallcmds = [
     r"perl -i -pe 's/defined \(%/\(%/' %(installdir)s/bin/mummerplot",
