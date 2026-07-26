@@ -3,7 +3,6 @@ easyblock = 'Bundle'
 name = 'autoplotly'
 version = '0.1.5'
 versionsuffix = '-R-%(rver)s'
-local_commit = '1264c1aa95685f84890cd60d52c2bfcba0fb8fdf'
 
 homepage = 'https://github.com/terrytangyuan/autoplotly'
 description = """
@@ -31,9 +30,9 @@ exts_list = [
         'checksums': ['2c568cf85be4e5ee932af7b3cc248d4360320b00bb8b29a230b29dd6f3636abd'],
     }),
     (name, version, {
-        'source_urls': ['https://github.com/terrytangyuan/autoplotly/archive/'],
-        'sources': [{'download_filename': '%s.tar.gz' % local_commit, 'filename': SOURCE_TAR_GZ}],
-        'checksums': ['95122af37e0ab6a2706f56c3c28081126c0c1dac92920e13fb46587c7f09ca1b'],
+        'source_urls': ['https://github.com/terrytangyuan/autoplotly/archive/refs/tags/'],
+        'sources': [{'download_filename': 'v%(version)s.tar.gz', 'filename': SOURCE_TAR_GZ}],
+        'checksums': ['c4a28a4693ed9e771e9d0b62ad386cd0bae0c1c9a05d2ed562ba6df176fd5f2b'],
     }),
 ]
 
