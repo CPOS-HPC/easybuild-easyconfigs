@@ -1,28 +1,11 @@
-Backport the GCC diagnostic guard from newer Boost releases to suppress
--Wparentheses around intentional Boost.MPL pointer-to-member declarations.
+Remove parentheses that GCC 15 diagnoses as unnecessary in the bundled
+Boost.MPL pointer-to-member declarations.
 Author: Emik Lin (HKUMed CPOS)
 --- a/src/cmake/bootstrap/installBoost.sh
 +++ b/src/cmake/bootstrap/installBoost.sh
-@@ -55,2 +55,20 @@ cd "${SOURCE_DIR}" && {
+@@ -55,2 +55,3 @@ cd "${SOURCE_DIR}" && {
 -
 -    ./bootstrap.sh ${BOOTSTRAP_OPTIONS} --prefix="${INSTALL_DIR}" --with-libraries="$(echo "${BCL2FASTQ_BOOST_COMPONENTS}" | sed 's/;/,/g')" &&
++    sed -i -e '187s/(Pred::/Pred::/;189s/);/;/;192s/(boost::/boost::/;194s/);/;/' boost/mpl/assert.hpp
 +
-+    patch -p0 -N --batch <<'EOF'
-+--- boost/mpl/assert.hpp
-++++ boost/mpl/assert.hpp
-+@@ -185,0 +186,8 @@
-++// This syntax intentionally declares a function returning a pointer to a
-++// pointer to a member. GCC 8 and newer warn that the parentheses are
-++// unnecessary, but removing them changes the declaration.
-++#if defined(BOOST_GCC) && BOOST_GCC >= 80000
-++#define BOOST_MPL_IGNORE_PARENTHESES_WARNING
-++#pragma GCC diagnostic push
-++#pragma GCC diagnostic ignored "-Wparentheses"
-++#endif
-+@@ -195,0 +204,4 @@
-++#ifdef BOOST_MPL_IGNORE_PARENTHESES_WARNING
-++#undef BOOST_MPL_IGNORE_PARENTHESES_WARNING
-++#pragma GCC diagnostic pop
-++#endif
-+EOF
 +    ./bootstrap.sh ${BOOTSTRAP_OPTIONS} --prefix="${INSTALL_DIR}" --with-libraries="$(echo "${BCL2FASTQ_BOOST_COMPONENTS}" | sed 's/;/,/g')" &&

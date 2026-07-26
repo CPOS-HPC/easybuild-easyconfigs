@@ -24,7 +24,7 @@ patches = [
     '%(name)s-%(version)s-fix-gcc13.patch',
     # fix missing include statement in boost_1_54_0.tar.gz
     'bcl2fastq2-2.20.0-fix_missing_include.patch',
-    # suppress spurious -Wparentheses warnings from bundled Boost with recent GCC
+    # fix -Wparentheses warnings from bundled Boost with recent GCC
     'bcl2fastq2-2.20.0_fix-Boost-Wparentheses.patch',
     # fix variable incorrectly labeled const
     'bcl2fastq2-2.20.0-fix_const_mode.patch'
@@ -37,7 +37,7 @@ checksums = [
     {'bcl2fastq2-2.20.0-fix-gcc13.patch': 'f398263822f6640e1fb6b07e04e0ca4b15c9a6a6d3fd2bac5f0d72d8aef99cea'},
     {'bcl2fastq2-2.20.0-fix_missing_include.patch': 'ced2e7e2043c2a57427ea8007db194513db4a8f8f4fd263d15b8d3e7cd6f1330'},
     {'bcl2fastq2-2.20.0_fix-Boost-Wparentheses.patch':
-     'b39547466ae4688be1362c05383356b23493ad743b8798675ea0a3bfa41a22ce'},
+     '94c5480e9f4ab51370884e19d919d55e9127331a4242f7beb9d3f2b83ae3d1eb'},
     {'bcl2fastq2-2.20.0-fix_const_mode.patch': '56da8d3f94fd20e4e98fcdeb2f8f0a0d9c6ea04e045fb93d12fa7a4fa4efdc23'},
 ]
 
