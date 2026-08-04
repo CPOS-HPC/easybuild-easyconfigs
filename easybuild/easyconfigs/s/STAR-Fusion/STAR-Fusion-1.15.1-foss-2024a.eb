@@ -3,6 +3,7 @@
 # sciCORE - University of Basel
 # SIB Swiss Institute of Bioinformatics
 # rewrite 2023-08-07 John Dey - Fred Hutch Cancer Center - Seattle US
+# Update: Emik Lin - HKUMed CPOS
 
 easyblock = 'Bundle'
 
@@ -24,6 +25,7 @@ dependencies = [
     ('SAMtools', '1.21'),
     ('R', '4.4.2'),
     ('R-bundle-CRAN', '2024.11'),
+    ('FusionInspector', '2.11.4'),
 ]
 
 default_easyblock = 'Tarball'
