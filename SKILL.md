@@ -93,6 +93,9 @@ Author: Emik Lin (HKUMed CPOS)
 - Do not patch upstream packaging merely to install an auxiliary or historical script. If the unmodified installer provides the official entry points and passes the build and sanity checks, retain it unchanged.
 - Add explicit sanity paths only when they improve coverage beyond the easyblock defaults.
 - Use meaningful import and CLI sanity commands.
+- In `modextrapaths`, an empty relative path means the installation root. Retain `'PATH': ['']` when the primary
+  executable is installed directly under `%(installdir)s`; removing it makes the command unavailable after module
+  load. Do not expose internal directories such as `util` unless their programs are intended as public entry points.
 
 ## Handle common recipe families
 
@@ -100,8 +103,14 @@ Author: Emik Lin (HKUMed CPOS)
 
 - Use `PythonPackage` for one primary Python distribution.
 - Use `PythonBundle` when installing ordered extensions or when the application needs bundled PyPI dependencies.
+- For current `PythonPackage` recipes, rely on easyblock defaults for pip installation, dependency-download failure,
+  and pip sanity checks. Do not add legacy `use_pip`, `download_dep_fail`, or `sanity_pip_check` assignments unless
+  deliberately overriding a default with evidence.
+- Follow nearby current recipes on source URL declarations. Omit an explicit `PYPI_SOURCE` when the standard PyPI
+  sdist and implicit source handling are sufficient.
 - Order `exts_list` so build backends and dependencies are installed before their consumers.
-- Specify nonstandard module names with `modulename`.
+- Specify nonstandard module names with `modulename`, including distributions whose import name differs because a
+  hyphen becomes an underscore, such as `igv-reports` importing as `igv_reports`.
 - Specify nonstandard sdist names with `source_tmpl` or `sources`.
 - Add backend packages such as `pdm-backend`, `hatchling`, `poetry`, `maturin`, or `scikit-build-core` as build dependencies or earlier extensions when required by `pyproject.toml`.
 - Do not assume pip can resolve missing dependencies during an offline EasyBuild build.
@@ -200,6 +209,24 @@ Account for the fact that post-install downloads require network access and can 
 
 - Retain the dependency structure of the closest recipe.
 - Add `Perl-bundle-CPAN` when build scripts require standard CPAN helpers such as `File::Which`.
+- When an application tarball must install CPAN extensions into the same prefix, use a `Bundle` with the application
+  as a `Tarball` component, `exts_defaultclass = 'PerlModule'`, and one shared filter:
+
+```python
+exts_filter = ("perldoc -lm %(ext_name)s ", "")
+```
+
+- Avoid repeating an identical templated `exts_filter` inside every Perl extension entry when one shared filter
+  applies to all entries.
+- Export bundled Perl modules with the prevailing repository form:
+
+```python
+modextrapaths = {'PERL5LIB': 'lib/perl5/site_perl/%(perlver)s/'}
+```
+
+- Treat another application's bundled Perl extensions as its private implementation detail. If multiple
+  applications require the same modules, prefer standalone Perl easyconfigs used as direct dependencies. Otherwise,
+  keep each application's required extensions local rather than relying accidentally on a transitive `PERL5LIB`.
 - For installed Perl entry points, add a toolchain-matched `Perl` runtime dependency and set
   `fix_perl_shebang_for`; the dependency alone does not fix a hardcoded `/usr/bin/perl` shebang.
 - Inspect the installed files and list the actual Perl entry points explicitly instead of using a broad `bin/*` glob
