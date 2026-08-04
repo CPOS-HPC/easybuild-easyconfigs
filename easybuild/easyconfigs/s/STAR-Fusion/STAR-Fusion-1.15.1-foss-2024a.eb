@@ -25,6 +25,7 @@ dependencies = [
     ('Perl-bundle-CPAN', '5.38.2'),
     ('DB_File', '1.859'),
     ('STAR', '2.7.11b'),
+    ('SAMtools', '1.21'),
     ('R', '4.4.2'),
     ('R-bundle-CRAN', '2024.11'),
 ]
