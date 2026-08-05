@@ -33,7 +33,7 @@ checksums = [
     {'RStudio-Server-2026.06.0+242_fix-SOCI-4.1.4.patch':
      '4da3b40b4af1e8838bea6b6dae7f45f95e7446358999de80b40e062559b2bcd2'},
     {'RStudio-Server-2026.06.0+242_fix-fmt-include-order.patch':
-     '10155dbf1303d5f701e1e8239b064b77d2c4fa663da2d18211ace2cfb63f2827'},
+     '968a345b48eb5f71dabb9f24e249ca0dd9138bc4d6e750f7c4e112de4ea60270'},
 ]
 
 builddependencies = [

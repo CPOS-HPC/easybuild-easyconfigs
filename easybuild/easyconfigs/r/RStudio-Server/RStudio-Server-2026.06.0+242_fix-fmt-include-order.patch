@@ -6,11 +6,11 @@ index 8fd8f42..57494cb 100644
 --- a/src/cpp/CMakeLists.txt
 +++ b/src/cpp/CMakeLists.txt
 @@ -451,7 +451,7 @@ endif()
- 
+
  # external libraries
  add_subdirectory(ext)
 -include_directories(SYSTEM "${FMT_SOURCE_DIR}/include")
 +include_directories(BEFORE "${FMT_SOURCE_DIR}/include")
- 
+
  # shared library
  add_subdirectory(shared_core)
