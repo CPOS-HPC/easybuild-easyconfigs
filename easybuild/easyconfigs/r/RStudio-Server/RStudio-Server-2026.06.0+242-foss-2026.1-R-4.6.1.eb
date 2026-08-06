@@ -46,7 +46,7 @@ builddependencies = [
 
 dependencies = [
     ('Boost', '1.90.0'),
-    ('Java', '25', '', SYSTEM),
+    ('Java', '21', '', SYSTEM),
     ('R', '4.6.1'),
     ('R-bundle-CRAN', '2026.07'),
     ('SOCI', '4.1.4'),
