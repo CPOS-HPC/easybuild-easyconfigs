@@ -106,6 +106,21 @@ Author: Emik Lin (HKUMed CPOS)
 - For current `PythonPackage` recipes, rely on easyblock defaults for pip installation, dependency-download failure,
   and pip sanity checks. Do not add legacy `use_pip`, `download_dep_fail`, or `sanity_pip_check` assignments unless
   deliberately overriding a default with evidence.
+- Inspect the EasyBuild command trace before setting `prebuildopts` or `preinstallopts`. A pip-based `PythonPackage`
+  commonly has a no-op build step and builds its wheel during `pip install .`; put compile-time environment settings
+  in `preinstallopts` unless the trace confirms a separate build command. A command-prefix assignment does not persist
+  into a later phase.
+- Treat upstream's manual `python -m build` followed by `pip install dist/*.whl` as one valid frontend workflow, not a
+  requirement to reproduce two phases. The default local pip installation performs the PEP 517 wheel build and install;
+  add `build` only when the selected workflow actually invokes it.
+- Read how upstream parses build-control environment variables before assigning them. Values such as `enable`,
+  `disable`, and `system` are selectors, not installation prefixes; do not replace `system` with `$EBROOT...` unless
+  upstream explicitly accepts a path. EasyBuild dependency modules already expose their headers and libraries.
+- Distinguish an optimized bundled dependency from a different system-compatible implementation. For example, an
+  upstream `system` mode that links `-lz` does not consume a native zlib-ng module providing `libz-ng`; verify headers,
+  library names, symbol compatibility, and compatibility-mode configuration before externalizing it. When bundled
+  dependencies are intentional, omit conflicting EasyBuild dependencies and confirm the installed extension does not
+  dynamically link the unwanted system library.
 - Follow nearby current recipes on source URL declarations. Omit an explicit `PYPI_SOURCE` when the standard PyPI
   sdist and implicit source handling are sufficient.
 - Order `exts_list` so build backends and dependencies are installed before their consumers.
@@ -307,6 +322,8 @@ Before handoff:
 3. Run the EasyBuild robot dry run.
 4. Run a full isolated build for new recipes and risky migrations when feasible. For a simple copy-forward migration,
    the robot dry run is sufficient unless compatibility concerns or a prior failure justify a build.
+   Treat a compiled Python extension copied across multiple Python minor versions and compiler generations as a
+   compatibility-sensitive migration; build every requested ABI when feasible and exercise a representative data path.
 5. Confirm imports, executables, version output, extension sanity, and `pip check` when a build or matching installed
    module is available. Do not require these runtime checks for the robot-only simple copy-forward path.
 6. Run `git diff --check`; normalize patch-file blank context lines if needed, then recompute the patch checksum.
