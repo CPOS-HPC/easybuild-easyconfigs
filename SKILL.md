@@ -74,6 +74,8 @@ Always confirm anchors from local easyconfigs instead of treating this table as 
 
 - Preserve official capitalization in `name`, filenames, modules, homepage, and descriptions.
 - Follow the field order of the closest current recipe.
+- Keep every line in every easyconfig (`*.eb`) at or below 120 characters. Check the complete file, including
+  unchanged lines, whenever creating or modifying an easyconfig.
 - Use standard source constants such as `SOURCELOWER_TAR_GZ` when the source follows the standard naming convention.
 - Keep single-entry `sources` and `checksums` lists on one line. Use multiline form for multiple artifacts or entries that are not readable when compact.
 - Keep checksum filename comments on the checksum line.
@@ -326,8 +328,14 @@ Before handoff:
    compatibility-sensitive migration; build every requested ABI when feasible and exercise a representative data path.
 5. Confirm imports, executables, version output, extension sanity, and `pip check` when a build or matching installed
    module is available. Do not require these runtime checks for the robot-only simple copy-forward path.
-6. Run `git diff --check`; normalize patch-file blank context lines if needed, then recompute the patch checksum.
-7. Review `git status` and the exact diff.
+6. Check every created or modified easyconfig for lines longer than 120 characters:
+
+   ```bash
+   awk 'length($0) > 120 {print FILENAME ":" FNR ":" length($0); bad=1} END {exit bad}' path/to/recipe.eb
+   ```
+
+7. Run `git diff --check`; normalize patch-file blank context lines if needed, then recompute the patch checksum.
+8. Review `git status` and the exact diff.
 
 Treat `--check-contrib` failures caused by a missing local checker such as `pycodestyle` as an environment issue, but do not use that to excuse recipe parse, style, or build failures.
 
