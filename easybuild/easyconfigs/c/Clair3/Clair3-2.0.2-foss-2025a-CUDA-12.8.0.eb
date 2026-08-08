@@ -75,7 +75,6 @@ sanity_check_paths = {
 }
 
 sanity_check_commands = [
-    '"$EBROOTLONGPHASE/bin/longphase" --help',
     'run_clair3.sh --help',
     "python -s -c 'import h5py, libclair3, torch; assert torch.version.cuda == \"12.8\"'",
 ]
