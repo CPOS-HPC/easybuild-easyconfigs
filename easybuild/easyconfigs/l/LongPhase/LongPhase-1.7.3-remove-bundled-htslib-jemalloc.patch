@@ -1,4 +1,4 @@
-Adjust the build to use HTSlib and jemalloc from EasyBuild dependencies.
+Remove bundled HTSlib and jemalloc builds and use EasyBuild dependencies.
 Author: Emik Lin (HKUMed CPOS)
 diff --git a/Makefile b/Makefile
 index 8d265fe..6777b1c 100644

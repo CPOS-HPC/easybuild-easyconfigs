@@ -15,11 +15,11 @@ toolchainopts = {'openmp': True}
 github_account = 'twolinin'
 source_urls = [GITHUB_LOWER_SOURCE]
 sources = ['v%(version)s.tar.gz']
-patches = ['%(name)s-%(version)s-HTSlib-jemalloc.patch']
+patches = ['%(name)s-%(version)s-remove-bundled-htslib-jemalloc.patch']
 checksums = [
     {'v1.7.3.tar.gz': '58829b55ca55d796b836743466bc7b6caf82cfe9b88c25112bff6a0cd0353345'},
-    {'LongPhase-1.7.3-HTSlib-jemalloc.patch':
-     'f7aaf386d371d6659876518340089dd46534f644ad46e5d48271685e433a5f74'},
+    {'LongPhase-1.7.3-remove-bundled-htslib-jemalloc.patch':
+     'db188e7118d65504e868b1ecc09dcc7dfde08a644921aa342b01914ddbb894ac'},
 ]
 
 dependencies = [
