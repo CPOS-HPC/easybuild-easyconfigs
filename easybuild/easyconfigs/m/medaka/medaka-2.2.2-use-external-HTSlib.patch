@@ -1,0 +1,53 @@
+Use the HTSlib dependency instead of downloading and building the copy bundled with SAMtools.
+Author: Emik Lin (HKUMed CPOS)
+diff --git a/build.py b/build.py
+--- a/build.py
++++ b/build.py
+@@ -6,14 +6,12 @@
+
+ dir_path = os.path.dirname(os.path.realpath(__file__))
+
+-#samver is pulled from this file in the Makefile
+-samver = "1.20"
+-htslib_dir = os.path.join(dir_path, 'submodules', 'samtools-{}'.format(samver), 'htslib-{}'.format(samver))
++htslib_dir = os.getenv('EBROOTHTSLIB')
+ deflatever = "1.10"
+ deflate_dir = os.path.join(dir_path, 'submodules', 'libdeflate-{}'.format(deflatever))
+
+ libraries=['m', 'z', 'lzma', 'bz2', 'pthread', 'curl', 'crypto']
+-library_dirs=[htslib_dir]
++library_dirs=[os.path.join(htslib_dir, 'lib')]
+ if os.getenv('WITHDEFLATE') == "1":
+     print("Using deflate")
+     libraries.append('deflate')
+@@ -56,7 +54,7 @@
+     """,
+     libraries=libraries,
+     library_dirs=library_dirs,
+-    include_dirs=[src_dir, htslib_dir],
++    include_dirs=[src_dir, os.path.join(htslib_dir, 'include')],
+     sources=[
+         os.path.join(src_dir, x) for x in (
+             'medaka_bamiter.c', 'medaka_common.c', 'medaka_counts.c',
+@@ -64,7 +62,7 @@
+             'medaka_read_matrix.c',
+             'medaka_rnn_variants.c')],
+     extra_compile_args=extra_compile_args,
+-    extra_objects=['libhts.a'],
++    extra_objects=[os.path.join(htslib_dir, 'lib', 'libhts.so')],
+     extra_link_args=extra_link_args,
+ )
+
+diff --git a/setup.py b/setup.py
+--- a/setup.py
++++ b/setup.py
+@@ -95,9 +95,4 @@
+ class HTSBuild(build_ext):
+-    # uses the Makefile to build libhts.a, this will get done before the cffi extension
+     def run(self):
+
+-        def compile_hts():
+-            subprocess.check_call(['make', 'libhts.a'])
+-
+-        self.execute(compile_hts, [], 'Compiling htslib using Makefile')
+         build_ext.run(self)
