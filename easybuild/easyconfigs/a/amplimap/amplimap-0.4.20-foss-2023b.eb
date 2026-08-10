@@ -30,8 +30,6 @@ dependencies = [
     ('pyfaidx', '0.8.1.1'),
 ]
 
-use_pip = True
-
 exts_list = [
     ('Distance', '0.1.3', {
         'checksums': ['60807584f5b6003f5c521aa73f39f51f631de3be5cccc5a1d67166fcbf0d4551'],
@@ -43,12 +41,11 @@ exts_list = [
         'patches': ['%(name)s-%(version)s_modern-Python-stack.patch'],
         'checksums': [
             '34f8e4f26554cde8200cec52b28b01ed27e9991734a73921880360f58efe5b7f',  # amplimap-0.4.20.tar.gz
-            'c9838350588f04b29b34bbf6e70c90ba4f0626f5687589403c0d196da4f04906',  # amplimap-0.4.20_modern-Python-stack.patch
+            # amplimap-0.4.20_modern-Python-stack.patch
+            'c9838350588f04b29b34bbf6e70c90ba4f0626f5687589403c0d196da4f04906',
         ],
     }),
 ]
-
-sanity_pip_check = True
 
 sanity_check_paths = {
     'files': ['bin/amplimap', 'bin/amplimap_merge', 'bin/amplimap_setup'],
