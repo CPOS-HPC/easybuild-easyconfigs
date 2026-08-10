@@ -7,12 +7,12 @@
 # Updated to 1.5.0
 # Jasper Grimm (UoY)
 # Updated: Petr Král (INUITS)
-# Updated: Emik Lin (HKUMed CPOS)
 
 easyblock = 'PythonBundle'
 
 name = 'medaka'
-version = '2.2.2'
+version = '2.2.1'
+versionsuffix = '-CUDA-%(cudaver)s'
 
 homepage = 'https://github.com/nanoporetech/medaka'
 description = "medaka is a tool to create a consensus sequence from nanopore sequencing data."
@@ -30,12 +30,13 @@ builddependencies = [
 
 _minimap_ver = '2.30'
 dependencies = [
+    ('CUDA', '12.8.0', '', SYSTEM),
     ('Python', '3.13.1'),
     ('Python-bundle-PyPI', '2025.04'),  # includes cffi
     ('Pysam', '0.23.3'),
     ('SAMtools', '1.22.1'),
     ('minimap2', _minimap_ver),
-    ('HTSlib', '1.22.1'),  # for tabix and bgzip
+    ('HTSlib', '1.22.1'),  # for tabix, bgzip
     ('edlib', '1.3.9.post1'),
     ('pyspoa', '0.2.1'),
     ('python-parasail', '1.3.4'),
@@ -44,8 +45,8 @@ dependencies = [
     ('intervaltree-python', '3.2.1'),
     ('BCFtools', '1.22'),
     ('h5py', '3.14.0'),
-    ('PyTorch', '2.9.1', '-whl'),
-    ('PyTorch-bundle', '2.9.1', '-whl'),  # provides tensordict
+    ('PyTorch', '2.9.1', f'{versionsuffix}-whl'),
+    ('PyTorch-bundle', '2.9.1', f'{versionsuffix}-whl'),  # for tensordict
     ('tqdm', '4.67.1'),
     ('wurlitzer', '3.1.1'),
 ]
@@ -53,9 +54,10 @@ dependencies = [
 local_sed_commands = [
     # ont-parasail on PyPI is just pre-built wheels for (python-)parasail
     "sed -i 's/ont-parasail/parasail/g' requirements.txt",
-    # ont-mappy on PyPI is just pre-built wheels for mappy
+    # ont-parasail on PyPI is just pre-built wheels for mappy
     "sed -i 's/ont-mappy/mappy/g' requirements.txt",
-    # pysam was only restricted to <=0.23.0 to work with test coverage
+    # pysam was only restricted to <=0.23.0 to work with test-coverage
+    # https://github.com/nanoporetech/medaka/blob/v2.2.1/requirements.txt#L14
     "sed -i 's/pysam>=0.16.0.1,<=0.23.0/pysam>=0.16.0.1/g' requirements.txt",
 ]
 
@@ -65,36 +67,27 @@ exts_list = [
     }),
     ('pyabpoa', '1.5.6', {
         'checksums': ['265f638c7fed0cde78cf0593c9e36121c1e718de1c73d7fa527dd62a7f90f191'],
-        'preinstallopts': "sed -i 's/license = \"MIT\"/license = {text = \"MIT\"}/' pyproject.toml && SSE2=1 ",
     }),
     (name, version, {
         'patches': ['medaka-2.2.1_use-system-htslib.patch'],
         'preinstallopts': " && ".join(local_sed_commands) + " && ",
         'use_pip_extras': 'abpoa',
         'checksums': [
-            '28ed7402af5c82aa5d62c28325c1b1d6961b69d3ee16b624f44a5dbc34edf44e',  # medaka-2.2.2.tar.gz
-            '2d3d43c912d4d238032781df2b4e30c8e7bbd09c05ac2fee3cdb96edb09f8419',  # system HTSlib patch
+            {'medaka-2.2.1.tar.gz': 'c4a16872c8c1747f2329b931150e59016689366d0ca6d62ff98ad8707cd24cda'},
+            {'medaka-2.2.1_use-system-htslib.patch':
+             '2d3d43c912d4d238032781df2b4e30c8e7bbd09c05ac2fee3cdb96edb09f8419'},
         ],
     }),
 ]
 
 sanity_check_paths = {
-    'files': [
-        'bin/medaka',
-        'bin/medaka_consensus',
-        'bin/medaka_consensus_joint',
-        'bin/medaka_counts',
-        'bin/medaka_data_path',
-        'bin/medaka_variant',
-        'bin/medaka_version_report',
-        'bin/mini_align',
-    ],
-    'dirs': ['lib/python%(pyshortver)s/site-packages/medaka'],
+    'files': ['bin/medaka', 'bin/medaka_consensus', 'bin/medaka_version_report'],
+    'dirs': ['lib/python%(pyshortver)s/site-packages'],
 }
 
 sanity_check_commands = [
-    'medaka --help',
-    'medaka_version_report',
+    "medaka --help",
+    "medaka_version_report",
 ]
 
 moduleclass = 'bio'
