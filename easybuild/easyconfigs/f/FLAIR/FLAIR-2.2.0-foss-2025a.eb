@@ -31,8 +31,7 @@ dependencies = [
     ('pybedtools', '0.12.0'),
     ('minimap2', '2.30'),
     ('Pysam', '0.23.3'),
-    ('R-bundle-Bioconductor', '3.22', '-R-%(rver)s'),  # provides DESeq2, DRIMSeq, stageR
-    ('apeglm', '1.32.0', '-R-%(rver)s'),
+    ('R-bundle-Bioconductor', '3.22', '-R-%(rver)s'),  # provides DESeq2, DRIMSeq, stageR, apeglm
     ('matplotlib', '3.10.3'),
     ('Seaborn', '0.13.2'),
     ('Kent_tools', '487'),  # required for bedPartition command
