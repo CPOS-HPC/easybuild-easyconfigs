@@ -106,8 +106,10 @@ Author: Emik Lin (HKUMed CPOS)
 - Use `PythonPackage` for one primary Python distribution.
 - Use `PythonBundle` when installing ordered extensions or when the application needs bundled PyPI dependencies.
 - For current `PythonPackage` recipes, rely on easyblock defaults for pip installation, dependency-download failure,
-  and pip sanity checks. Do not add legacy `use_pip`, `download_dep_fail`, or `sanity_pip_check` assignments unless
-  deliberately overriding a default with evidence.
+  and pip sanity checks. Do not add the legacy `download_dep_fail` assignment unless deliberately overriding a
+  default with evidence.
+- Do not add `use_pip = True` or `sanity_pip_check = True` to `PythonPackage` or `PythonBundle` recipes; both are
+  enabled by default. Set either option only when deliberately overriding its default, with a documented reason.
 - Inspect the EasyBuild command trace before setting `prebuildopts` or `preinstallopts`. A pip-based `PythonPackage`
   commonly has a no-op build step and builds its wheel during `pip install .`; put compile-time environment settings
   in `preinstallopts` unless the trace confirms a separate build command. A command-prefix assignment does not persist
@@ -131,7 +133,6 @@ Author: Emik Lin (HKUMed CPOS)
 - Specify nonstandard sdist names with `source_tmpl` or `sources`.
 - Add backend packages such as `pdm-backend`, `hatchling`, `poetry`, `maturin`, or `scikit-build-core` as build dependencies or earlier extensions when required by `pyproject.toml`.
 - Do not assume pip can resolve missing dependencies during an offline EasyBuild build.
-- For `PythonBundle`, do not add `sanity_pip_check = True`; it is enabled by default. Set this option only when deliberately overriding the default, with a documented reason.
 - Validate both imports and console entry points.
 - When assessing a Python 2 project for Python 3, distinguish a mechanically converted script from package-wide compatibility. Compile all installed scripts and test a representative data path before declaring the package compatible.
 - Keep experimental Python 3 conversion changes out of a requested Python 2 recipe unless they are required for that build.
