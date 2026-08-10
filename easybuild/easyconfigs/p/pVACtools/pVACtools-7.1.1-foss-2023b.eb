@@ -1,0 +1,203 @@
+easyblock = 'PythonBundle'
+
+name = 'pVACtools'
+version = '7.1.1'
+
+homepage = 'https://github.com/griffithlab/pVACtools'
+description = """pVACtools is a cancer immunotherapy tools suite for identifying and prioritizing
+neoantigens from sequencing data."""
+
+toolchain = {'name': 'foss', 'version': '2023b'}
+
+_polars_wheel = {
+    'aarch64': 'polars-0.16.18-cp37-abi3-manylinux_2_17_aarch64.manylinux2014_aarch64.whl',
+    'x86_64': 'polars-0.16.18-cp37-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl',
+}
+
+builddependencies = [
+    ('binutils', '2.40'),
+    ('pkgconf', '2.0.3'),
+    ('Meson', '1.2.3'),
+    ('meson-python', '0.15.0'),
+    ('Ninja', '1.11.1'),
+    ('Cython', '3.0.10'),
+]
+
+dependencies = [
+    ('Python', '3.11.5'),
+    ('Python-bundle-PyPI', '2023.10'),
+    ('SciPy-bundle', '2023.11'),
+    ('Biopython', '1.84'),
+    ('networkx', '3.2.1'),
+    ('PyYAML', '6.0.1'),
+    ('Pysam', '0.22.0'),
+    ('Pillow', '10.2.0'),
+    ('pyfaidx', '0.8.1.1'),
+    ('XlsxWriter', '3.1.9'),
+    ('openpyxl', '3.1.2'),
+    ('Arrow', '16.1.0'),
+    ('scikit-learn', '1.6.1'),
+    ('TensorFlow', '2.15.1'),
+    ('astropy', '7.0.0'),
+    ('tqdm', '4.66.2'),
+    ('Tkinter', '3.11.5'),
+    ('Xvfb', '21.1.9'),
+    ('Pandoc', '3.1.2', '', SYSTEM),
+]
+
+exts_list = [
+    ('numpy', '1.26.4', {
+        'checksums': ['2a02aba9ed12e4ac4eb3ea9421c420301a0c6460d9830d74a9df87efa4912010'],
+    }),
+    ('pandas', '2.0.3', {
+        'checksums': ['c02f372a88e0d17f36d3093a644c73cfc1788e876a7c4bcb4020a77512e2043c'],
+    }),
+    ('polars', '0.16.18', {
+        'source_tmpl': _polars_wheel[ARCH],
+        'checksums': [{
+            'polars-0.16.18-cp37-abi3-manylinux_2_17_aarch64.manylinux2014_aarch64.whl':
+                '674645118122c0ddd93668735d736a080290f5d2de1ea9a751f3639a331a4784',
+            'polars-0.16.18-cp37-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl':
+                'ed6d2b07a43baf1563a68beb88b9a561f41967815fd57c9682aaac4502ee4499',
+        }],
+    }),
+    ('vcfpy', '0.13.8', {
+        'checksums': ['e7d00965105e7ca9567299f073ad60c6bbfc78d685d25ba33353988af9b33160'],
+    }),
+    ('simanneal', '0.5.0', {
+        'source_tmpl': '%(version)s.tar.gz',
+        'source_urls': ['https://github.com/perrygeo/simanneal/archive/'],
+        'checksums': ['8bb6f421398a425d1cd0c2bd316507c0e19148cee75824963d8ccd776518d8cb'],
+    }),
+    ('wget', '3.2', {
+        'source_tmpl': '%(name)s-%(version)s.zip',
+        'checksums': ['35e630eca2aa50ce998b9b1a127bb26b30dfee573702782aa982f875e3f16061'],
+    }),
+    ('pymp-pypi', '0.5.0', {
+        'modulename': 'pymp',
+        'checksums': ['ca23094ddace858f6a06389e6de5721bf799719a7e87e317870674fccca6ef69'],
+    }),
+    ('testfixtures', '12.3.0', {
+        'checksums': ['d807ceb9bdd6ea7cc0663370dd5568339056b35dc15c26effd1ae267e323acf1'],
+    }),
+    ('gtfparse', '2.0.1', {
+        'checksums': ['c45439af58cb48120910bebe4625371d8fb5735f12a749e8933c9d6f2b1a558c'],
+    }),
+    ('jsonpickle', '4.1.1', {
+        'checksums': ['f86e18f13e2b96c1c1eede0b7b90095bbb61d99fedc14813c44dc2f361dbbae1'],
+    }),
+    ('orderly-set', '5.5.0', {
+        'source_tmpl': 'orderly_set-%(version)s.tar.gz',
+        'checksums': ['e87185c8e4d8afa64e7f8160ee2c542a475b738bc891dc3f58102e654125e6ce'],
+    }),
+    ('deepdiff', '8.5.0', {
+        'checksums': ['a4dd3529fa8d4cd5b9cbb6e3ea9c95997eaa919ba37dac3966c1b8f872dc1cd1'],
+    }),
+    ('imbalanced-learn', '0.14.0', {
+        'modulename': 'imblearn',
+        'source_tmpl': 'imbalanced_learn-%(version)s.tar.gz',
+        'checksums': ['22b9ba6dbd681a9ec613cd6e08c21d39639fb5ccbf2a3c991f9c36415b70522c'],
+    }),
+    ('typechecks', '0.1.0', {
+        'checksums': ['7d801a6018f60d2a10aa3debc3af65f590c96c455de67159f39b9b183107c83b'],
+    }),
+    ('datacache', '1.7.0', {
+        'checksums': ['ecb50ee4b01b35f78568b10ede8e94617c193028010b9f716afb52d23429750d'],
+    }),
+    ('tinytimer', '0.0.0', {
+        'checksums': ['6ad13c8f01ab6094e58081a5367ffc4c5831f2d6b29034d2434d8ae106308fa5'],
+    }),
+    ('pyensembl', '1.8.1', {
+        'checksums': ['d0e62fb6376ad97480f35d10cbb33a7b8b832d1542acd85ef86c84793793fba6'],
+    }),
+    ('memoized-property', '1.0.3', {
+        'checksums': ['4be4d0209944b9b9b678dae9d7e312249fe2e6fb8bdc9bdaa1da4de324f0fcf5'],
+    }),
+    ('serializable', '1.1.0', {
+        'checksums': ['65e05de319ab50aa4612ff0616384bbf8f53b38444b4bf9d8780db8cff6c1eac'],
+    }),
+    ('sercol', '1.0.0', {
+        'checksums': ['6507f5efcee4596eb77c45f1580ff562533ef5d115918a6a28bc4eac09ec191c'],
+    }),
+    ('PyVCF3', '1.0.4', {
+        'source_tmpl': 'pyvcf3-%(version)s.tar.gz',
+        'checksums': ['6a251582b8f226f9cf363bb27f3323ace8a1c561a14c297f4bfafe1ffdb2e3d1'],
+    }),
+    ('varcode', '1.2.1', {
+        'checksums': ['f2f0f608b266304cb6ceaa353357ea089cc6ae3f1fa15c8824b44e61fcf567cb'],
+    }),
+    ('cached-property', '1.5.2', {
+        'checksums': ['9fa5755838eecbb2d234c3aa390bd80fbd3ac6b6869109bfc1b499f7bd89a130'],
+    }),
+    ('isovar', '1.1.1', {
+        'checksums': ['d21691f0c2612c7302b5624c8e3a772d63d87db6073a8832536561ae568dac0f'],
+    }),
+    ('mhcnames', '0.4.8', {
+        'checksums': ['0a18de129eaa4bf8ce802e5e2d856806639ab17b392688ea13dc20ec6d3cc8a2'],
+    }),
+    ('mhctools', '1.5.0', {
+        'checksums': ['700f54a31bfde574e745d75481cfe05e54ccd6c380d30e95e8b3aaff0d799370'],
+    }),
+    ('roman', '5.2', {
+        'checksums': ['275fe9f46290f7d0ffaea1c33251b92b8e463ace23660508ceef522e7587cb6f'],
+    }),
+    ('pdfkit', '1.0.0', {
+        'checksums': ['992f821e1e18fc8a0e701ecae24b51a2d598296a180caee0a24c0af181da02a9'],
+    }),
+    ('pypandoc', '1.13', {
+        'checksums': ['31652073c7960c2b03570bd1e94f602ca9bc3e70099df5ead4cea98ff5151c1e'],
+    }),
+    ('shellinford', '0.4.1', {
+        'checksums': ['c19f125a9d22d9676dbec64c0490ddd2d95d2449363052ddc2f4a588a52b04b3'],
+    }),
+    ('xvfbwrapper', '0.2.9', {
+        'checksums': ['bcf4ae571941b40254faf7a73432dfc119ad21ce688f1fdec533067037ecfc24'],
+    }),
+    ('vaxrank', '1.4.0', {
+        'patches': ['vaxrank-1.4.0_fix-modern-dependencies.patch'],
+        'checksums': [
+            {'vaxrank-1.4.0.tar.gz': '0a287076eae0542a26fd0131848b230c803714de3ff5ba14d9add0e8d7c99be7'},
+            {'vaxrank-1.4.0_fix-modern-dependencies.patch':
+             '323fb7317835b4d642da63784a3dfffb571a27a97bf915f5589955012a04f4eb'},
+        ],
+    }),
+    ('mhcgnomes', '3.0.1', {
+        'checksums': ['0c5d7113fa04983567e090fa94820efeb6808cbe0ff441b84f36b691bf93d267'],
+    }),
+    ('np-utils', '0.6.0', {
+        'modulename': 'np_utils',
+        'source_tmpl': 'np_utils-%(version)s.tar.gz',
+        'checksums': ['2aa5c7ece3d1cb512d1af718aa05a5909dd47c74e5978b7c389c9b4f1a6ef804'],
+    }),
+    ('mhcflurry', '2.0.6', {
+        'checksums': ['06f68b39a4d8cfd181bccbc8d1ef1b961658e5fb1068a5fc174f1dadd8ddc741'],
+    }),
+    ('mhcnuggets', '2.4.1', {
+        'checksums': ['c0c853031b8cc0b8d7e08674500d4d5929c0720e4e0a2e421272437022f30406'],
+    }),
+    (name, version, {
+        'modulename': 'pvactools',
+        'source_tmpl': 'pvactools-%(version)s-py3-none-any.whl',
+        'checksums': ['7e0158d312ce66d922b8a38db70f1cb42e66025ac63a60f2b7c3e51850cfd98a'],
+    }),
+]
+
+sanity_check_paths = {
+    'files': [
+        'bin/pvactools', 'bin/pvacseq', 'bin/pvacbind', 'bin/pvacfuse', 'bin/pvacvector', 'bin/pvacview',
+        'bin/pvacsplice',
+    ],
+    'dirs': ['lib/python%(pyshortver)s/site-packages'],
+}
+
+sanity_check_commands = [
+    'pvactools --version',
+    'pvacseq --help',
+    'pvacbind --help',
+    'pvacfuse --help',
+    'pvacvector --help',
+    'pvacview --help',
+    'pvacsplice --help',
+]
+
+moduleclass = 'bio'
