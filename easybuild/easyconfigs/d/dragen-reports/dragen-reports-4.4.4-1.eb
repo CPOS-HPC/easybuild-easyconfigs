@@ -1,0 +1,31 @@
+# This is broken because /opt/dragen-reports/ is hardcoded in the program
+easyblock = 'Binary'
+
+name = 'dragen-reports'
+version = '4.4.4-1'
+
+homepage = 'https://help.dragen.illumina.com/product-guides/dragen-v4.4/dragen-reports'
+description = """DRAGEN Reports are tools for generating rich, interactive and self-contained HTML
+ reports from DRAGEN's output files."""
+
+toolchain = SYSTEM
+
+source_urls = ['https://webdata.illumina.com/downloads/software/dragen/resource-files/4.4/']
+sources = ['dragen-reports-%(version)s.x86_64.rpm']
+checksums = ['2745cde13c0b443e19db04f17f6c19b80956b2e3c534c0bc6e5d65c052e93ea4']
+
+install_cmd = "rpm2cpio " + sources[0] + " | cpio -idmv && "
+install_cmd += "mkdir -p %(installdir)s/bin && "
+install_cmd += "cp -ar usr/bin/* %(installdir)s/bin && "
+install_cmd += "cp -ar opt %(installdir)s/"
+
+sanity_check_paths = {
+    'files': ['bin/dragen-reports'],
+    'dirs': ['opt/dragen-reports'],
+}
+
+sanity_check_commands = ["dragen-reports --help"]
+
+modloadmsg = "The data used by dragen-reports are installed at $EBROOTDRAGENMINREPORTS/opt/dragen-reports/"
+
+moduleclass = 'bio'
