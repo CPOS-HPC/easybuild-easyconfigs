@@ -67,6 +67,9 @@ Author: Emik Lin (HKUMed CPOS)
          except pd.errors.EmptyDataError:
              log.exception("No data found: %s", file)
 
+@@ -501 +501 @@
+-        df.sort_index(0, inplace=True)
++        df.sort_index(axis=0, inplace=True)
 --- a/amplimap/simulate.py
 +++ b/amplimap/simulate.py
 @@ -118,7 +118,7 @@ def merge_files(files, output):
