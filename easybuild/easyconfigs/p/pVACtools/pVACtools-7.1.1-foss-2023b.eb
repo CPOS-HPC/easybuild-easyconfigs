@@ -41,6 +41,14 @@ dependencies = [
     ('Pandoc', '3.1.2', '', SYSTEM),
 ]
 
+_numpy_wheel = {
+    'aarch64': 'numpy-1.26.4-cp311-cp311-manylinux_2_17_aarch64.manylinux2014_aarch64.whl',
+    'x86_64': 'numpy-1.26.4-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl',
+}
+_pandas_wheel = {
+    'aarch64': 'pandas-2.0.3-cp311-cp311-manylinux_2_17_aarch64.manylinux2014_aarch64.whl',
+    'x86_64': 'pandas-2.0.3-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl',
+}
 _polars_wheel = {
     'aarch64': 'polars-0.16.18-cp37-abi3-manylinux_2_17_aarch64.manylinux2014_aarch64.whl',
     'x86_64': 'polars-0.16.18-cp37-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl',
@@ -48,10 +56,22 @@ _polars_wheel = {
 
 exts_list = [
     ('numpy', '1.26.4', {
-        'checksums': ['2a02aba9ed12e4ac4eb3ea9421c420301a0c6460d9830d74a9df87efa4912010'],
+        'source_tmpl': _numpy_wheel[ARCH],
+        'checksums': [{
+            'numpy-1.26.4-cp311-cp311-manylinux_2_17_aarch64.manylinux2014_aarch64.whl':
+                '7ab55401287bfec946ced39700c053796e7cc0e3acbef09993a9ad2adba6ca6e',
+            'numpy-1.26.4-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl':
+                '666dbfb6ec68962c033a450943ded891bed2d54e6755e35e5835d63f4f6931d5',
+        }],
     }),
     ('pandas', '2.0.3', {
-        'checksums': ['c02f372a88e0d17f36d3093a644c73cfc1788e876a7c4bcb4020a77512e2043c'],
+        'source_tmpl': _pandas_wheel[ARCH],
+        'checksums': [{
+            'pandas-2.0.3-cp311-cp311-manylinux_2_17_aarch64.manylinux2014_aarch64.whl':
+                'b9cb1e14fdb546396b7e1b923ffaeeac24e4cedd14266c3497216dd4448e4f2d',
+            'pandas-2.0.3-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl':
+                'd9cd88488cceb7635aebb84809d087468eb33551097d600c6dad13602029c2df',
+        }],
     }),
     ('polars', '0.16.18', {
         'source_tmpl': _polars_wheel[ARCH],
@@ -66,9 +86,8 @@ exts_list = [
         'checksums': ['e7d00965105e7ca9567299f073ad60c6bbfc78d685d25ba33353988af9b33160'],
     }),
     ('simanneal', '0.5.0', {
-        'source_tmpl': '%(version)s.tar.gz',
-        'source_urls': ['https://github.com/perrygeo/simanneal/archive/'],
-        'checksums': ['8bb6f421398a425d1cd0c2bd316507c0e19148cee75824963d8ccd776518d8cb'],
+        'source_tmpl': 'simanneal-%(version)s-py2.py3-none-any.whl',
+        'checksums': ['f93d90958ff1df68bc4a6e440892a19bbc0569ad9c6442fff659dc011b790b34'],
     }),
     ('wget', '3.2', {
         'source_tmpl': '%(name)s-%(version)s.zip',
@@ -79,31 +98,35 @@ exts_list = [
         'checksums': ['ca23094ddace858f6a06389e6de5721bf799719a7e87e317870674fccca6ef69'],
     }),
     ('testfixtures', '12.3.0', {
-        'checksums': ['d807ceb9bdd6ea7cc0663370dd5568339056b35dc15c26effd1ae267e323acf1'],
+        'source_tmpl': 'testfixtures-%(version)s-py3-none-any.whl',
+        'checksums': ['da013e07f1e850b4d92ea6045c4a71f49d6ddcaab11c8b29f65ea38ff678aee8'],
     }),
     ('gtfparse', '2.0.1', {
         'checksums': ['c45439af58cb48120910bebe4625371d8fb5735f12a749e8933c9d6f2b1a558c'],
     }),
     ('jsonpickle', '4.1.1', {
-        'checksums': ['f86e18f13e2b96c1c1eede0b7b90095bbb61d99fedc14813c44dc2f361dbbae1'],
+        'source_tmpl': 'jsonpickle-%(version)s-py3-none-any.whl',
+        'checksums': ['bb141da6057898aa2438ff268362b126826c812a1721e31cf08a6e142910dc91'],
     }),
     ('orderly-set', '5.5.0', {
-        'source_tmpl': 'orderly_set-%(version)s.tar.gz',
-        'checksums': ['e87185c8e4d8afa64e7f8160ee2c542a475b738bc891dc3f58102e654125e6ce'],
+        'source_tmpl': 'orderly_set-%(version)s-py3-none-any.whl',
+        'checksums': ['46f0b801948e98f427b412fcabb831677194c05c3b699b80de260374baa0b1e7'],
     }),
     ('deepdiff', '8.5.0', {
-        'checksums': ['a4dd3529fa8d4cd5b9cbb6e3ea9c95997eaa919ba37dac3966c1b8f872dc1cd1'],
+        'source_tmpl': 'deepdiff-%(version)s-py3-none-any.whl',
+        'checksums': ['d4599db637f36a1c285f5fdfc2cd8d38bde8d8be8636b65ab5e425b67c54df26'],
     }),
     ('imbalanced-learn', '0.14.0', {
         'modulename': 'imblearn',
-        'source_tmpl': 'imbalanced_learn-%(version)s.tar.gz',
-        'checksums': ['22b9ba6dbd681a9ec613cd6e08c21d39639fb5ccbf2a3c991f9c36415b70522c'],
+        'source_tmpl': 'imbalanced_learn-%(version)s-py3-none-any.whl',
+        'checksums': ['8a8700c02ca185e113064815513f990fbf84eb4e7701f1d4e944ce67fb259a60'],
     }),
     ('typechecks', '0.1.0', {
         'checksums': ['7d801a6018f60d2a10aa3debc3af65f590c96c455de67159f39b9b183107c83b'],
     }),
     ('datacache', '1.7.0', {
-        'checksums': ['ecb50ee4b01b35f78568b10ede8e94617c193028010b9f716afb52d23429750d'],
+        'source_tmpl': 'datacache-%(version)s-py3-none-any.whl',
+        'checksums': ['1d6814c23c5a898597618d12101a0f1132008663771eb2af460586fd0aa79fad'],
     }),
     ('tinytimer', '0.0.0', {
         'checksums': ['6ad13c8f01ab6094e58081a5367ffc4c5831f2d6b29034d2434d8ae106308fa5'],
@@ -115,20 +138,24 @@ exts_list = [
         'checksums': ['4be4d0209944b9b9b678dae9d7e312249fe2e6fb8bdc9bdaa1da4de324f0fcf5'],
     }),
     ('serializable', '1.1.0', {
-        'checksums': ['65e05de319ab50aa4612ff0616384bbf8f53b38444b4bf9d8780db8cff6c1eac'],
+        'source_tmpl': 'serializable-%(version)s-py3-none-any.whl',
+        'checksums': ['122217f28d9cae17463ef909af94665e4ab2f9efdcb326870838382a1fd8101e'],
     }),
     ('sercol', '1.0.0', {
-        'checksums': ['6507f5efcee4596eb77c45f1580ff562533ef5d115918a6a28bc4eac09ec191c'],
+        'source_tmpl': 'sercol-%(version)s-py3-none-any.whl',
+        'checksums': ['15ffcc4927d3bf5a3d333f68ad3c40fe7fdfb42f8257e15185b4ac160087d8eb'],
     }),
     ('PyVCF3', '1.0.4', {
-        'source_tmpl': 'pyvcf3-%(version)s.tar.gz',
-        'checksums': ['6a251582b8f226f9cf363bb27f3323ace8a1c561a14c297f4bfafe1ffdb2e3d1'],
+        'source_tmpl': 'pyvcf3-%(version)s-py3-none-any.whl',
+        'checksums': ['750df57ec68784d3d96d614ed149ec9bfbaea43e702b2683badb78a6282a349b'],
     }),
     ('varcode', '1.2.1', {
-        'checksums': ['f2f0f608b266304cb6ceaa353357ea089cc6ae3f1fa15c8824b44e61fcf567cb'],
+        'source_tmpl': 'varcode-%(version)s-py3-none-any.whl',
+        'checksums': ['7f35b0ebb8c3752c014f7613e15bea38112f42a14652c4455a82b00716bfdc08'],
     }),
     ('cached-property', '1.5.2', {
-        'checksums': ['9fa5755838eecbb2d234c3aa390bd80fbd3ac6b6869109bfc1b499f7bd89a130'],
+        'source_tmpl': 'cached_property-%(version)s-py2.py3-none-any.whl',
+        'checksums': ['df4f613cf7ad9a588cc381aaf4a512d26265ecebd5eb9e1ba12f1319eb85a6a0'],
     }),
     ('isovar', '1.1.1', {
         'checksums': ['d21691f0c2612c7302b5624c8e3a772d63d87db6073a8832536561ae568dac0f'],
@@ -140,13 +167,16 @@ exts_list = [
         'checksums': ['700f54a31bfde574e745d75481cfe05e54ccd6c380d30e95e8b3aaff0d799370'],
     }),
     ('roman', '5.2', {
-        'checksums': ['275fe9f46290f7d0ffaea1c33251b92b8e463ace23660508ceef522e7587cb6f'],
+        'source_tmpl': 'roman-%(version)s-py3-none-any.whl',
+        'checksums': ['89d3b47400388806d06ff77ea77c79ab080bc127820dea6bf34e1f1c1b8e676e'],
     }),
     ('pdfkit', '1.0.0', {
-        'checksums': ['992f821e1e18fc8a0e701ecae24b51a2d598296a180caee0a24c0af181da02a9'],
+        'source_tmpl': 'pdfkit-%(version)s-py3-none-any.whl',
+        'checksums': ['a7a4ca0d978e44fa8310c4909f087052430a6e8e0b1dd7ceef657f139789f96f'],
     }),
     ('pypandoc', '1.13', {
-        'checksums': ['31652073c7960c2b03570bd1e94f602ca9bc3e70099df5ead4cea98ff5151c1e'],
+        'source_tmpl': 'pypandoc-%(version)s-py3-none-any.whl',
+        'checksums': ['4c7d71bf2f1ed122aac287113b5c4d537a33bbc3c1df5aed11a7d4a7ac074681'],
     }),
     ('shellinford', '0.4.1', {
         'checksums': ['c19f125a9d22d9676dbec64c0490ddd2d95d2449363052ddc2f4a588a52b04b3'],
@@ -163,7 +193,8 @@ exts_list = [
         ],
     }),
     ('mhcgnomes', '3.0.1', {
-        'checksums': ['0c5d7113fa04983567e090fa94820efeb6808cbe0ff441b84f36b691bf93d267'],
+        'source_tmpl': 'mhcgnomes-%(version)s-py3-none-any.whl',
+        'checksums': ['39f3b1980c4f49e38132571d8645cbac0319e0175d81a3e181b3c4fc1a12f06e'],
     }),
     ('np-utils', '0.6.0', {
         'modulename': 'np_utils',
@@ -171,10 +202,12 @@ exts_list = [
         'checksums': ['2aa5c7ece3d1cb512d1af718aa05a5909dd47c74e5978b7c389c9b4f1a6ef804'],
     }),
     ('mhcflurry', '2.0.6', {
-        'checksums': ['06f68b39a4d8cfd181bccbc8d1ef1b961658e5fb1068a5fc174f1dadd8ddc741'],
+        'source_tmpl': 'mhcflurry-%(version)s-py3-none-any.whl',
+        'checksums': ['9aae769f4093a93076dfa9662bd563f1245d15c0ad159da41af91bc6c405bdef'],
     }),
     ('mhcnuggets', '2.4.1', {
-        'checksums': ['c0c853031b8cc0b8d7e08674500d4d5929c0720e4e0a2e421272437022f30406'],
+        'source_tmpl': 'mhcnuggets-%(version)s-py2.py3-none-any.whl',
+        'checksums': ['ea1c54d020eef8bad3243dfa01af59fe30a789b0faa01ae66eb1f9ff9705cd36'],
     }),
     (name, version, {
         'modulename': 'pvactools',
