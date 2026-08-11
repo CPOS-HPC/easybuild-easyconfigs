@@ -144,7 +144,7 @@ exts_list = [
         'checksums': [
             {'mhctools-1.5.0.tar.gz': '700f54a31bfde574e745d75481cfe05e54ccd6c380d30e95e8b3aaff0d799370'},
             {'mhctools-1.5.0_fix-mhcnames-import.patch':
-             '914ffe3c8fad1ff93f5e9a649f136d3199f9bc4b9f265efa3e28dc8ad196dbc6'},
+             '6b2e172fbd736bb0316b744e17ac6d6a9c0c0acc83d13c8d9cd05b31bfc66c8a'},
         ],
     }),
     ('roman', '5.2', {
