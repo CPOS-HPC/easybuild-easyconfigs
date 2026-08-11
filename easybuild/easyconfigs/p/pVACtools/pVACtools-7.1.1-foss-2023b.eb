@@ -41,46 +41,19 @@ dependencies = [
     ('Pandoc', '3.1.2', '', SYSTEM),
 ]
 
-_numpy_wheel = {
-    'aarch64': 'numpy-1.26.4-cp311-cp311-manylinux_2_17_aarch64.manylinux2014_aarch64.whl',
-    'x86_64': 'numpy-1.26.4-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl',
-}
-_pandas_wheel = {
-    'aarch64': 'pandas-2.0.3-cp311-cp311-manylinux_2_17_aarch64.manylinux2014_aarch64.whl',
-    'x86_64': 'pandas-2.0.3-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl',
-}
-_polars_wheel = {
-    'aarch64': 'polars-0.16.18-cp37-abi3-manylinux_2_17_aarch64.manylinux2014_aarch64.whl',
-    'x86_64': 'polars-0.16.18-cp37-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl',
-}
-
 exts_list = [
     ('numpy', '1.26.4', {
-        'source_tmpl': _numpy_wheel[ARCH],
-        'checksums': [{
-            'numpy-1.26.4-cp311-cp311-manylinux_2_17_aarch64.manylinux2014_aarch64.whl':
-                '7ab55401287bfec946ced39700c053796e7cc0e3acbef09993a9ad2adba6ca6e',
-            'numpy-1.26.4-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl':
-                '666dbfb6ec68962c033a450943ded891bed2d54e6755e35e5835d63f4f6931d5',
-        }],
+        'easyblock': 'PythonPackage',
+        'source_tmpl': 'numpy-%(version)s-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl',
+        'checksums': ['666dbfb6ec68962c033a450943ded891bed2d54e6755e35e5835d63f4f6931d5'],
     }),
     ('pandas', '2.0.3', {
-        'source_tmpl': _pandas_wheel[ARCH],
-        'checksums': [{
-            'pandas-2.0.3-cp311-cp311-manylinux_2_17_aarch64.manylinux2014_aarch64.whl':
-                'b9cb1e14fdb546396b7e1b923ffaeeac24e4cedd14266c3497216dd4448e4f2d',
-            'pandas-2.0.3-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl':
-                'd9cd88488cceb7635aebb84809d087468eb33551097d600c6dad13602029c2df',
-        }],
+        'source_tmpl': 'pandas-%(version)s-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl',
+        'checksums': ['d9cd88488cceb7635aebb84809d087468eb33551097d600c6dad13602029c2df'],
     }),
     ('polars', '0.16.18', {
-        'source_tmpl': _polars_wheel[ARCH],
-        'checksums': [{
-            'polars-0.16.18-cp37-abi3-manylinux_2_17_aarch64.manylinux2014_aarch64.whl':
-                '674645118122c0ddd93668735d736a080290f5d2de1ea9a751f3639a331a4784',
-            'polars-0.16.18-cp37-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl':
-                'ed6d2b07a43baf1563a68beb88b9a561f41967815fd57c9682aaac4502ee4499',
-        }],
+        'source_tmpl': 'polars-%(version)s-cp37-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl',
+        'checksums': ['ed6d2b07a43baf1563a68beb88b9a561f41967815fd57c9682aaac4502ee4499'],
     }),
     ('vcfpy', '0.13.8', {
         'checksums': ['e7d00965105e7ca9567299f073ad60c6bbfc78d685d25ba33353988af9b33160'],
