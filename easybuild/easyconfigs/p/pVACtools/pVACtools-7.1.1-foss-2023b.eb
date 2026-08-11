@@ -11,6 +11,7 @@ toolchain = {'name': 'foss', 'version': '2023b'}
 
 builddependencies = [
     ('binutils', '2.40'),
+    ('hypothesis', '6.90.0'),  # required by NumPy tests
     ('pkgconf', '2.0.3'),
     ('Meson', '1.2.3'),
     ('meson-python', '0.15.0'),
