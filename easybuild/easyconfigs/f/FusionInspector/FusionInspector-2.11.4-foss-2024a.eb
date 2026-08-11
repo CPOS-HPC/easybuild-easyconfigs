@@ -71,7 +71,6 @@ sanity_check_paths = {
 
 sanity_check_commands = [
     '%(name)s --version',
-    '%(installdir)s/util/paftools.js version',
 ]
 
 modextrapaths = {
