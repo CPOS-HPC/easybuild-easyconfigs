@@ -11,12 +11,6 @@ toolchain = {'name': 'foss', 'version': '2023b'}
 
 builddependencies = [
     ('binutils', '2.40'),
-    ('hypothesis', '6.90.0'),  # required by NumPy tests
-    ('pkgconf', '2.0.3'),
-    ('Meson', '1.2.3'),
-    ('meson-python', '0.15.0'),
-    ('Ninja', '1.11.1'),
-    ('Cython', '3.0.10'),
 ]
 
 dependencies = [
@@ -70,6 +64,10 @@ exts_list = [
         'modulename': 'pymp',
         'checksums': ['ca23094ddace858f6a06389e6de5721bf799719a7e87e317870674fccca6ef69'],
     }),
+    ('typing-extensions', '4.12.2', {
+        'source_tmpl': 'typing_extensions-%(version)s-py3-none-any.whl',
+        'checksums': ['04e5ca0351e0f3f85c6853954072df659d0d13fac324d0072316b67d7794700d'],
+    }),
     ('testfixtures', '12.3.0', {
         'source_tmpl': 'testfixtures-%(version)s-py3-none-any.whl',
         'checksums': ['da013e07f1e850b4d92ea6045c4a71f49d6ddcaab11c8b29f65ea38ff678aee8'],
@@ -93,6 +91,10 @@ exts_list = [
         'modulename': 'imblearn',
         'source_tmpl': 'imbalanced_learn-%(version)s-py3-none-any.whl',
         'checksums': ['8a8700c02ca185e113064815513f990fbf84eb4e7701f1d4e944ce67fb259a60'],
+    }),
+    ('imblearn', '0.0', {
+        'source_tmpl': 'imblearn-%(version)s-py2.py3-none-any.whl',
+        'checksums': ['d42c2d709d22c00d2b9a91e638d57240a8b79b4014122d92181fcd2549a2f79a'],
     }),
     ('typechecks', '0.1.0', {
         'checksums': ['7d801a6018f60d2a10aa3debc3af65f590c96c455de67159f39b9b183107c83b'],
@@ -119,6 +121,7 @@ exts_list = [
         'checksums': ['15ffcc4927d3bf5a3d333f68ad3c40fe7fdfb42f8257e15185b4ac160087d8eb'],
     }),
     ('PyVCF3', '1.0.4', {
+        'modulename': 'vcf',
         'source_tmpl': 'pyvcf3-%(version)s-py3-none-any.whl',
         'checksums': ['750df57ec68784d3d96d614ed149ec9bfbaea43e702b2683badb78a6282a349b'],
     }),
@@ -137,7 +140,12 @@ exts_list = [
         'checksums': ['0a18de129eaa4bf8ce802e5e2d856806639ab17b392688ea13dc20ec6d3cc8a2'],
     }),
     ('mhctools', '1.5.0', {
-        'checksums': ['700f54a31bfde574e745d75481cfe05e54ccd6c380d30e95e8b3aaff0d799370'],
+        'patches': ['mhctools-1.5.0_fix-mhcnames-import.patch'],
+        'checksums': [
+            {'mhctools-1.5.0.tar.gz': '700f54a31bfde574e745d75481cfe05e54ccd6c380d30e95e8b3aaff0d799370'},
+            {'mhctools-1.5.0_fix-mhcnames-import.patch':
+             '914ffe3c8fad1ff93f5e9a649f136d3199f9bc4b9f265efa3e28dc8ad196dbc6'},
+        ],
     }),
     ('roman', '5.2', {
         'source_tmpl': 'roman-%(version)s-py3-none-any.whl',
@@ -206,5 +214,8 @@ sanity_check_commands = [
     'pvacview --help',
     'pvacsplice --help',
 ]
+
+# pVACtools 7.1.1 pins Biopython 1.77, which is not compatible with this Python 3.11 software stack.
+sanity_pip_check = False
 
 moduleclass = 'bio'
