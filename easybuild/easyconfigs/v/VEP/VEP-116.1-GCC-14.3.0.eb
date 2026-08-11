@@ -10,9 +10,28 @@ description = """Variant Effect Predictor (VEP) determines the effect of your
 
 toolchain = {'name': 'GCC', 'version': '14.3.0'}
 
-source_urls = ['https://github.com/Ensembl/ensembl-vep/archive/release/']
+source_urls = [
+    'https://github.com/Ensembl/ensembl-vep/archive/release/',
+    'https://raw.githubusercontent.com/griffithlab/pVACtools/v7.1.1/'
+    'pvactools/tools/pvacseq/VEP_plugins/',
+]
+
 sources = ['%(version)s.tar.gz']
-checksums = ['959545e10ed443ff21d040a4fd277c640b9258bb2a4f08fe4355f702ed53b6ec']
+
+# pVACseq-specific VEP plugins
+#
+# Non-.patch files in EasyBuild's patches list can be copied directly
+# into the unpacked source tree.
+patches = [
+    ('Frameshift.pm', 'Plugins/Frameshift.pm'),
+    ('Wildtype.pm', 'Plugins/Wildtype.pm'),
+]
+
+checksums = [
+    '959545e10ed443ff21d040a4fd277c640b9258bb2a4f08fe4355f702ed53b6ec',  # 116.1.tar.gz
+    '97df1765eecbc9135df1dc750fa08e3f7bf97d78579df59f2f49c7017701f44a',  # Frameshift.pm
+    '080c255ab5fb1a6d5a2ef1a0159a173a5398573171f279d97ef953f9aeb54ad4',  # Wildtype.pm
+]
 
 dependencies = [
     ('Perl', '5.40.2'),
@@ -39,6 +58,9 @@ exts_list = [
     }),
 ]
 
-sanity_check_commands = ['vep --help']
+sanity_check_commands = [
+    'vep --help',
+    'perl -I "$EBROOTVEP/Plugins" -MFrameshift -MWildtype -e 1',
+]
 
 moduleclass = 'bio'
