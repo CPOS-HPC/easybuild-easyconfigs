@@ -27,7 +27,6 @@ dependencies = [
 # To select all species use 'all' (but this was broken as of 2024.02.01 and species need to explicitly listed
 # with comma separation, see https://github.com/Ensembl/ensembl-vep/issues/1364#issuecomment-1753080504)
 species = 'cyprinus_carpio_carpio'
-installopts = '--USE_HTTPS_PROTO'
 
 exts_defaultclass = 'PerlModule'
 exts_filter = ("perl -e 'require %(ext_name)s'", "")
