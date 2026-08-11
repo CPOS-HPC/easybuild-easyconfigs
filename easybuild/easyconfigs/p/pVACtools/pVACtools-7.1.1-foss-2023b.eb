@@ -9,11 +9,6 @@ neoantigens from sequencing data."""
 
 toolchain = {'name': 'foss', 'version': '2023b'}
 
-_polars_wheel = {
-    'aarch64': 'polars-0.16.18-cp37-abi3-manylinux_2_17_aarch64.manylinux2014_aarch64.whl',
-    'x86_64': 'polars-0.16.18-cp37-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl',
-}
-
 builddependencies = [
     ('binutils', '2.40'),
     ('pkgconf', '2.0.3'),
@@ -44,6 +39,11 @@ dependencies = [
     ('Xvfb', '21.1.9'),
     ('Pandoc', '3.1.2', '', SYSTEM),
 ]
+
+_polars_wheel = {
+    'aarch64': 'polars-0.16.18-cp37-abi3-manylinux_2_17_aarch64.manylinux2014_aarch64.whl',
+    'x86_64': 'polars-0.16.18-cp37-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl',
+}
 
 exts_list = [
     ('numpy', '1.26.4', {
