@@ -76,6 +76,22 @@ Always confirm anchors from local easyconfigs instead of treating this table as 
 - Follow the field order of the closest current recipe.
 - Keep every line in every easyconfig (`*.eb`) at or below 120 characters. Check the complete file, including
   unchanged lines, whenever creating or modifying an easyconfig.
+- Treat E501 fixes as formatting-only changes: preserve values, ordering, checksums, URLs, and commits exactly.
+  Use the reported lines as starting points, then scan the complete file because wrapping shifts later line numbers.
+- For long Cargo checksum mappings and git-source crate tuples, match nearby multiline precedent rather than splitting
+  string values or regenerating dependency data. Prefer forms such as:
+
+  ```python
+  {
+      'very-long-crate-archive-name.tar.gz':
+      'sha256',
+  },
+  (
+      'crate', '1.2.3', 'https://example.invalid/repository',
+      'commit',
+  ),
+  ```
+
 - Use standard source constants such as `SOURCELOWER_TAR_GZ` when the source follows the standard naming convention.
 - Keep single-entry `sources` and `checksums` lists on one line. Use multiline form for multiple artifacts or entries that are not readable when compact.
 - Keep checksum filename comments on the checksum line.
