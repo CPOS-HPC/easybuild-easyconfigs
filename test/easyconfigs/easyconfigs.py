@@ -601,10 +601,13 @@ class EasyConfigTest(TestCase):
             'h5py': [(r'3\.9\.0; versionsuffix: -serial', [r'autoCAS'])],
             # jax 0.2.24 is used as dep for AlphaFold 2.1.2 (other easyconfigs with foss/2021a use jax 0.3.9)
             'jax': [(r'0\.2\.24', [r'AlphaFold-2\.1\.2-foss-2021a'])],
-            # Java 21 is used as dep for Octave 9.2.0, MDSplus 7.1, JPype 1.5.0 and IMAS-* modules
-            # (other 2023b easyconfigs use Java 11)
-            'Java': [(r'21', [r'Octave-9\.2\.0', r'MDSplus-7\.1', r'JPype-1\.5\.0',
-                              r'IMAS-.*-2023b', r'IMAS-.*-GCCcore-13\.2\.0'])],
+            'Java': [
+                # AnnotSV 3.5.10 requires Java 17 (other 2023b easyconfigs use Java 11)
+                (r'17', [r'AnnotSV-3\.5\.10-foss-2023b\.eb$']),
+                # Java 21 is used by Octave 9.2.0, MDSplus 7.1, JPype 1.5.0, and IMAS-* modules
+                (r'21', [r'Octave-9\.2\.0', r'MDSplus-7\.1', r'JPype-1\.5\.0',
+                          r'IMAS-.*-2023b', r'IMAS-.*-GCCcore-13\.2\.0']),
+            ],
             # libxc 4.x is required by libGridXC
             # (Qiskit depends on PySCF), Elk 7.x requires libxc >= 5
             'libxc': [
@@ -804,6 +807,17 @@ class EasyConfigTest(TestCase):
             'version: 1.8; versionsuffix:': ['foo-1.2.3.eb'],
             'version: 11.0.2; versionsuffix:': ['bar-4.5.6-Java-11.eb'],
             'version: 11; versionsuffix:': ['bar-4.5.6-Java-11.eb'],
+        }))
+
+        # AnnotSV 3.5.10 is allowed to use Java 17 without encoding Java in its versionsuffix
+        self.assertTrue(self.check_dep_vars('2023b', 'Java', {
+            'version: 11; versionsuffix:': ['R-4.4.1-gfbf-2023b.eb'],
+            'version: 17; versionsuffix:': ['AnnotSV-3.5.10-foss-2023b.eb'],
+        }))
+        # Keep the Java 17 exception scoped to AnnotSV 3.5.10
+        self.assertFalse(self.check_dep_vars('2023b', 'Java', {
+            'version: 11; versionsuffix:': ['R-4.4.1-gfbf-2023b.eb'],
+            'version: 17; versionsuffix:': ['other-1.0-foss-2023b.eb'],
         }))
 
         # two different versions of Boost is not OK
