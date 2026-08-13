@@ -1,0 +1,9 @@
+AlleleParseError was moved to the top-level mhcnames package.
+
+Author: Emik Lin (HKUMed CPOS)
+--- a/mhctools/base_commandline_predictor.py
++++ b/mhctools/base_commandline_predictor.py
+@@ -23,2 +23,1 @@
+-from mhcnames import normalize_allele_name
+-from mhcnames.parsing_helpers import AlleleParseError
++from mhcnames import AlleleParseError, normalize_allele_name
