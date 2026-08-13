@@ -22,6 +22,12 @@ dependencies = [
     ('variantconvert', '2.0.1'),
 ]
 
+build_info_msg = """Annotation datasets are intentionally not installed by this easyconfig.
+Users can download them with:
+  INSTALL_annotations.sh 3.5 2406
+and then pass the directory via AnnotSV -annotationsDir.
+"""
+
 skipsteps = ['configure', 'build']
 # Set PREFIX in Makefile to install to the correct directory and remove pip install related commands
 preinstallopts = "sed -i 's|^PREFIX[[:space:]]*?=.*$|PREFIX ?= %(installdir)s|' Makefile && "
@@ -35,11 +41,6 @@ postinstallcmds = [
 modextravars = {
     'ANNOTSV': '%(installdir)s',
 }
-
-# Annotation datasets are intentionally not installed by this easyconfig.
-# Users can download them with:
-#   INSTALL_annotations.sh 3.5 2406
-# and then pass the directory via AnnotSV -annotationsDir.
 
 sanity_check_paths = {
     'files': ['bin/%(name)s', 'bin/INSTALL_annotations.sh'],
