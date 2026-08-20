@@ -1,10 +1,10 @@
 easyblock = 'Bundle'
 
 name = 'scMetabolism'
-local_commit = '7208712eeb266184e5183f307897f8e710dc6ab7'
+local_commit = 'fbae0b7d49ba87cd616c80ac7b2906185b52cea1'
 # see DESCRIPTION to determine version,
 # but add date stamp of commit since version is not always bumped
-version = '0.2.1-20260218'
+version = '0.2.1-20260820'
 versionsuffix = '-R-%(rver)s'
 
 homepage = 'https://github.com/wu-yc/scMetabolism'
@@ -60,7 +60,7 @@ exts_list = [
             'download_filename': f'{local_commit}.tar.gz',
             'filename': SOURCE_TAR_GZ,
         }],
-        'checksums': ['73640a4c239231f00c6e5ff15e42467df61396f21db5758d98a0774d6d676860'],
+        'checksums': ['8815fcb22d20b928acd8a0d78b9d476e20e3136806972d245fabe67cb311e311'],
     }),
 ]
 
