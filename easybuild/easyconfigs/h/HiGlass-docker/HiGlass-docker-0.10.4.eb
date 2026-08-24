@@ -35,6 +35,8 @@ base_url="${HIGLASS_BASE_URL:-}"
 data_dir="${HIGLASS_DATA_DIR:-$HOME/hg-data}"
 tmp_dir="${HIGLASS_TMP_DIR:-$HOME/hg-tmp}"
 workers="${HIGLASS_WORKERS:-4}"
+uwsgi_section='[program:uwsgi]'
+nginx_section='[program:nginx]'
 supervisord_section='[supervisord]'
 
 if [[ ! "$port" =~ ^[0-9]+$ ]] || ((port < 1024 || port > 65535)); then
@@ -89,7 +91,7 @@ else
 fi
 
 cat > "$runtime_dir/supervisord.conf" <<SUPERVISOR_EOF
- [program:uwsgi]
+${uwsgi_section}
 directory=/home/higlass/projects/higlass-server
 command=bash -c "mkdir -p /data/log && python manage.py migrate && \
 (python manage.py loaddata default-viewconf-fixture.xml || true); \
@@ -97,7 +99,7 @@ exec uwsgi --chdir /home/higlass/projects/higlass-server \
 --module higlass_server.wsgi --socket /tmp/${socket_name} --chmod-socket=666 \
 --master --workers ${workers}"
 
- [program:nginx]
+${nginx_section}
 command=/usr/sbin/nginx
 
 ${supervisord_section}
