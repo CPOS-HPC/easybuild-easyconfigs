@@ -63,6 +63,8 @@ socket_name="higlass-$$.sock"
 sed \
     -e "s|server 127.0.0.1:8001;|server unix:/tmp/${socket_name};|" \
     -e "s|listen      80;|listen      ${port};|" \
+    -e '/include .*uwsgi_params;/a\\
+        uwsgi_param HTTP_X_FORWARDED_HOST $host;' \
     %(installdir)s/etc/hgserver_nginx.conf.in > "$runtime_dir/hgserver_nginx.conf"
 
 sed \
@@ -143,6 +145,7 @@ sanity_check_commands = [
     'bash -n %(installdir)s/bin/higlass-docker',
     "grep -q 'window.HGAC_SERVER' %(installdir)s/etc/config.js.in",
     "grep -q 'server 127.0.0.1:8001;' %(installdir)s/etc/hgserver_nginx.conf.in",
+    "grep -q 'uwsgi_param HTTP_X_FORWARDED_HOST' %(installdir)s/bin/higlass-docker",
     'apptainer exec %(installdir)s/%(namelower)s-%(version)s.sif sh -c '
     '"grep -q HGAC_BASEPATH /home/higlass/projects/higlass-app/static/js/main.*.chunk.js"',
 ]
