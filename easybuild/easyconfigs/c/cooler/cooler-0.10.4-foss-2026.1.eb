@@ -37,4 +37,4 @@ exts_list = [
 
 sanity_check_commands = ['cooler --help']
 
-moduleclass = 'data'
+moduleclass = 'bio'
