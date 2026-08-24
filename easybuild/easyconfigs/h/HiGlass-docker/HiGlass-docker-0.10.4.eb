@@ -35,6 +35,7 @@ base_url="${HIGLASS_BASE_URL:-}"
 data_dir="${HIGLASS_DATA_DIR:-$HOME/hg-data}"
 tmp_dir="${HIGLASS_TMP_DIR:-$HOME/hg-tmp}"
 workers="${HIGLASS_WORKERS:-4}"
+supervisord_section='[supervisord]'
 
 if [[ ! "$port" =~ ^[0-9]+$ ]] || ((port < 1024 || port > 65535)); then
     echo "ERROR: HIGLASS_PORT must be an integer from 1024 through 65535." >&2
@@ -75,12 +76,12 @@ sed \
 
 if [[ -n "$base_url" ]]; then
     sed \
-        -e "s|href=\"/|href=\"${base_url}/|g" \
-        -e "s|src=\"/|src=\"${base_url}/|g" \
-        -e "s|l\\.p=\"/\"|l.p=\"${base_url}/\"|g" \
+        -e "s|href=\\\"/|href=\\\"${base_url}/|g" \
+        -e "s|src=\\\"/|src=\\\"${base_url}/|g" \
+        -e "s|l\\.p=\\\"/\\\"|l.p=\\\"${base_url}/\\\"|g" \
         %(installdir)s/etc/index.html.in > "$runtime_dir/index.html"
     sed \
-        -e "s|window.HGAC_SERVER=\"\";|window.HGAC_SERVER=\"${base_url}\";|" \
+        -e "s|window.HGAC_SERVER=\\\"\\\";|window.HGAC_SERVER=\\\"${base_url}\\\";|" \
         %(installdir)s/etc/config.js.in > "$runtime_dir/config.js"
 else
     cp %(installdir)s/etc/index.html.in "$runtime_dir/index.html"
@@ -99,7 +100,7 @@ exec uwsgi --chdir /home/higlass/projects/higlass-server \
  [program:nginx]
 command=/usr/sbin/nginx
 
- [supervisord]
+${supervisord_section}
 nodaemon=true
 logfile=/tmp/supervisord-$$.log
 pidfile=/tmp/supervisord-$$.pid
