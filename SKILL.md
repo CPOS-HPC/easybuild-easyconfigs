@@ -1,6 +1,6 @@
 ---
 name: easybuild-easyconfigs
-description: Create, migrate, review, debug, validate, and maintain EasyBuild easyconfig recipes and patches. Use for .eb files, toolchain bumps, dependency recipes, PythonBundle/PythonPackage extensions, CargoPythonBundle vendoring, binary tarball installations, checksum failures, offline Cargo or pip errors, sanity checks, and repository commit/push work.
+description: Create, migrate, review, debug, validate, and maintain EasyBuild easyconfigs and patches, including containerized web launchers and Open OnDemand integration. Use for .eb files, toolchain bumps, dependency recipes, vendoring, binary installations, checksum or offline-build failures, sanity checks, and repository commit/push work.
 ---
 
 # EasyBuild Easyconfigs
@@ -238,6 +238,45 @@ postinstallcmds = ['dorado download --model all']
 ```
 
 Account for the fact that post-install downloads require network access and can be large.
+
+### Apptainer web applications behind Open OnDemand
+
+- Treat the launcher as the integration layer for an immutable container. Extract upstream configuration templates at
+  installation time, generate per-session copies at runtime, and bind those copies into the container. Give concurrent
+  sessions unique sockets, PID files, temporary directories, and supervisor state.
+- Trace every browser-visible URL producer when serving an application below an Open OnDemand proxy prefix such as
+  `/rnode/HOST/PORT`: HTML asset URLs, the bundler public path, client-side router basename, API server, data-source
+  catalogue, export/share endpoints, and stored or generated view configurations. Fixing only HTML `href` and `src`
+  attributes does not prevent JavaScript from navigating to an origin-root path.
+- Distinguish a router basename from a route. Inspect the pinned frontend source before assigning it. If the router
+  basename is `/rnode/HOST/PORT` and the application route is `/app`, the browser entry point is
+  `/rnode/HOST/PORT/app`; including `/app` in both commonly produces a doubled or unmatched route.
+- Keep frontend API URLs under the same OOD prefix unless the application explicitly supports a different public API
+  origin. For applications whose default view contains data-source URLs, generate an OOD-specific view configuration
+  rather than relying on origin-root values such as `/api/v1`.
+- A successful Apptainer bind proves only filesystem visibility. Data services may also require a database/catalogue
+  registration. Verify both the stored path and a representative catalogue API response before concluding that the
+  frontend can discover the data.
+- Diagnose proxy-host failures at the header boundary. Django can reject a comma-separated `X-Forwarded-Host` as
+  syntactically invalid even with permissive `ALLOWED_HOSTS`. Do not blindly replace the public forwarded host with
+  nginx `$host`, which may be an internal compute-node hostname. When duplicate proxy values are unavoidable, retain
+  the first valid forwarded host and fall back only when the header is absent, for example:
+
+  ```nginx
+  map $http_x_forwarded_host $ood_forwarded_host {
+      ~^[[:space:]]*(?<first_forwarded_host>[^,[:space:]]+) $first_forwarded_host;
+      default $host;
+  }
+  ```
+
+  Pass the sanitized value explicitly to the application protocol, such as
+  `uwsgi_param HTTP_X_FORWARDED_HOST $ood_forwarded_host;`.
+- Do not equate an open TCP port or a running nginx process with application readiness. Database migrations, fixture
+  loading, and uWSGI startup may finish later. Have the OOD readiness hook poll a small representative API request with
+  a timeout and fail clearly if the application process exits or the deadline is reached.
+- Validate the generated configuration, not only the templates: run the launcher shell syntax check and server config
+  test, syntax-check generated frontend configuration, request a representative API endpoint with the real duplicated
+  proxy headers, confirm client navigation retains the OOD prefix, and confirm registered data appears in the catalogue.
 
 ### Perl extensions
 
