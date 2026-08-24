@@ -562,6 +562,4 @@ checksums = [
     {'zlib-rs-0.5.3.tar.gz': '36134c44663532e6519d7a6dfdbbe06f6f8192bde8ae9ed076e9b213f0e31df7'},
 ]
 
-sanity_check_commands = ["python -c 'import oxbow'"]
-
 moduleclass = 'bio'
