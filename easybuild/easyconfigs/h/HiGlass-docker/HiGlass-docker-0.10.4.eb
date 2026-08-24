@@ -85,6 +85,7 @@ if [[ -n "$base_url" ]]; then
     sed \
         -e "s|window.HGAC_SERVER=\\\"\\\";|window.HGAC_SERVER=\\\"${base_url}\\\";|" \
         %(installdir)s/etc/config.js.in > "$runtime_dir/config.js"
+    echo "window.HGAC_BASEPATH=\\\"${base_url}\\\";" >> "$runtime_dir/config.js"
 else
     cp %(installdir)s/etc/index.html.in "$runtime_dir/index.html"
     cp %(installdir)s/etc/config.js.in "$runtime_dir/config.js"
@@ -142,6 +143,8 @@ sanity_check_commands = [
     'bash -n %(installdir)s/bin/higlass-docker',
     "grep -q 'window.HGAC_SERVER' %(installdir)s/etc/config.js.in",
     "grep -q 'server 127.0.0.1:8001;' %(installdir)s/etc/hgserver_nginx.conf.in",
+    'apptainer exec %(installdir)s/%(namelower)s-%(version)s.sif sh -c '
+    '"grep -q HGAC_BASEPATH /home/higlass/projects/higlass-app/static/js/main.*.chunk.js"',
 ]
 
 modextravars = {
