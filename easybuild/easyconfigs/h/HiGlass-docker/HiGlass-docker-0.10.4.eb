@@ -1,0 +1,62 @@
+easyblock = 'Apptainer'
+
+name = 'HiGlass-docker'
+version = '0.10.4'
+
+homepage = 'https://github.com/higlass/higlass-docker'
+description = "HiGlass Docker wraps higlass-client and higlass-server in an nginx web server."
+
+toolchain = SYSTEM
+
+# Parameters passed to the build_container_image.sh script
+apptainer_type = 'sif'
+
+local_image_digest = 'sha256:44086069ee7d4d3f6f3f0012569789ec138f42b84aa44357826c0b6753eb28de'
+installopts = '-s higlass/higlass-docker@%s ' % local_image_digest
+installopts += '-i image '
+
+# Docker runs the image as root with a writable root filesystem and maps port 8888 to port 80. Adapt its nginx
+# configuration and launch options so the service can instead run as an unprivileged Apptainer process on port 8888.
+postinstallcmds = [
+    'mkdir -p %(installdir)s/bin %(installdir)s/etc',
+    'apptainer exec %(installdir)s/%(namelower)s-%(version)s.sif '
+    'cat /etc/nginx/sites-enabled/hgserver_nginx.conf > %(installdir)s/etc/hgserver_nginx.conf',
+    "sed -i 's/listen      80;/listen      8888;/' %(installdir)s/etc/hgserver_nginx.conf",
+    """cat > %(installdir)s/bin/higlass-docker << 'EOF'
+#!/bin/bash
+set -euo pipefail
+
+data_dir="${HIGLASS_DATA_DIR:-$HOME/hg-data}"
+tmp_dir="${HIGLASS_TMP_DIR:-$HOME/hg-tmp}"
+mkdir -p "$data_dir/log" "$tmp_dir"
+
+exec apptainer run \\
+    --writable-tmpfs \\
+    --cwd /home/higlass/projects \\
+    --bind "$data_dir":/data \\
+    --bind "$tmp_dir":/tmp \\
+    --bind %(installdir)s/etc/hgserver_nginx.conf:/etc/nginx/sites-enabled/hgserver_nginx.conf \\
+    %(installdir)s/%(namelower)s-%(version)s.sif "$@"
+EOF""",
+    'chmod +x %(installdir)s/bin/higlass-docker',
+]
+
+sanity_check_paths = {
+    'files': ['%(namelower)s-%(version)s.sif', 'bin/higlass-docker', 'etc/hgserver_nginx.conf'],
+    'dirs': ['bin', 'etc'],
+}
+
+sanity_check_commands = [
+    'apptainer inspect %(installdir)s/%(namelower)s-%(version)s.sif',
+    "grep -q 'listen      8888;' %(installdir)s/etc/hgserver_nginx.conf",
+]
+
+modextravars = {
+    'HIGLASS_DOCKER_SIF': '%(installdir)s/%(namelower)s-%(version)s.sif',
+}
+
+modloadmsg = "%(name)s %(version)s is provided via an Apptainer container.\n\n"
+modloadmsg += 'Start HiGlass at http://localhost:8888 with:\n    higlass-docker\n\n'
+modloadmsg += 'Set HIGLASS_DATA_DIR and HIGLASS_TMP_DIR to override the default ~/hg-data and ~/hg-tmp directories.\n'
+
+moduleclass = 'bio'
