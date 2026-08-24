@@ -15,40 +15,130 @@ local_image_digest = 'sha256:44086069ee7d4d3f6f3f0012569789ec138f42b84aa44357826
 installopts = '-s higlass/higlass-docker@%s ' % local_image_digest
 installopts += '-i image '
 
-# Docker runs the image as root with a writable root filesystem and maps port 8888 to port 80. Adapt its nginx
-# configuration and launch options so the service can instead run as an unprivileged Apptainer process on port 8888.
+# Install configuration templates used by the launcher to run the Docker image as an unprivileged Apptainer process.
 postinstallcmds = [
     'mkdir -p %(installdir)s/bin %(installdir)s/etc',
     'apptainer exec %(installdir)s/%(namelower)s-%(version)s.sif '
-    'cat /etc/nginx/sites-enabled/hgserver_nginx.conf > %(installdir)s/etc/hgserver_nginx.conf',
-    "sed -i 's/listen      80;/listen      8888;/' %(installdir)s/etc/hgserver_nginx.conf",
-    """cat > %(installdir)s/bin/higlass-docker << 'EOF'
+    'cat /etc/nginx/sites-enabled/hgserver_nginx.conf > %(installdir)s/etc/hgserver_nginx.conf.in',
+    'apptainer exec %(installdir)s/%(namelower)s-%(version)s.sif '
+    'cat /etc/nginx/nginx.conf > %(installdir)s/etc/nginx.conf.in',
+    'apptainer exec %(installdir)s/%(namelower)s-%(version)s.sif '
+    'cat /home/higlass/projects/higlass-app/index.html > %(installdir)s/etc/index.html.in',
+    'apptainer exec %(installdir)s/%(namelower)s-%(version)s.sif '
+    'cat /home/higlass/projects/higlass-app/config.js > %(installdir)s/etc/config.js.in',
+    """cat > %(installdir)s/bin/higlass-docker << 'HIGLASS_WRAPPER'
 #!/bin/bash
 set -euo pipefail
 
+port="${HIGLASS_PORT:-8888}"
+base_url="${HIGLASS_BASE_URL:-}"
 data_dir="${HIGLASS_DATA_DIR:-$HOME/hg-data}"
 tmp_dir="${HIGLASS_TMP_DIR:-$HOME/hg-tmp}"
-mkdir -p "$data_dir/log" "$tmp_dir"
+workers="${HIGLASS_WORKERS:-4}"
 
-exec apptainer run \\
+if [[ ! "$port" =~ ^[0-9]+$ ]] || ((port < 1024 || port > 65535)); then
+    echo "ERROR: HIGLASS_PORT must be an integer from 1024 through 65535." >&2
+    exit 2
+fi
+if [[ ! "$workers" =~ ^[0-9]+$ ]] || ((workers < 1)); then
+    echo "ERROR: HIGLASS_WORKERS must be a positive integer." >&2
+    exit 2
+fi
+if [[ -n "$base_url" ]]; then
+    base_url="/${base_url#/}"
+    base_url="${base_url%/}"
+    if [[ ! "$base_url" =~ ^/[A-Za-z0-9._/-]+$ ]]; then
+        echo "ERROR: HIGLASS_BASE_URL contains unsupported characters." >&2
+        exit 2
+    fi
+fi
+
+mkdir -p "$data_dir/log" "$tmp_dir"
+runtime_dir="$(mktemp -d "${TMPDIR:-/tmp}/higlass-docker.XXXXXX")"
+socket_name="higlass-$$.sock"
+
+sed \
+    -e "s|server 127.0.0.1:8001;|server unix:/tmp/${socket_name};|" \
+    -e "s|listen      80;|listen      ${port};|" \
+    %(installdir)s/etc/hgserver_nginx.conf.in > "$runtime_dir/hgserver_nginx.conf"
+
+sed \
+    -e 's|worker_processes auto;|worker_processes 1;|' \
+    -e "s|pid /run/nginx.pid;|pid /tmp/nginx-$$.pid;|" \
+    -e '/^http {/a\\
+    client_body_temp_path /tmp/nginx-client-body;\\
+    proxy_temp_path /tmp/nginx-proxy;\\
+    fastcgi_temp_path /tmp/nginx-fastcgi;\\
+    uwsgi_temp_path /tmp/nginx-uwsgi;\\
+    scgi_temp_path /tmp/nginx-scgi;' \
+    %(installdir)s/etc/nginx.conf.in > "$runtime_dir/nginx.conf"
+
+if [[ -n "$base_url" ]]; then
+    sed \
+        -e "s|href=\"/|href=\"${base_url}/|g" \
+        -e "s|src=\"/|src=\"${base_url}/|g" \
+        -e "s|l\\.p=\"/\"|l.p=\"${base_url}/\"|g" \
+        %(installdir)s/etc/index.html.in > "$runtime_dir/index.html"
+    sed \
+        -e "s|window.HGAC_SERVER=\"\";|window.HGAC_SERVER=\"${base_url}\";|" \
+        %(installdir)s/etc/config.js.in > "$runtime_dir/config.js"
+else
+    cp %(installdir)s/etc/index.html.in "$runtime_dir/index.html"
+    cp %(installdir)s/etc/config.js.in "$runtime_dir/config.js"
+fi
+
+cat > "$runtime_dir/supervisord.conf" <<SUPERVISOR_EOF
+ [program:uwsgi]
+directory=/home/higlass/projects/higlass-server
+command=bash -c "mkdir -p /data/log && python manage.py migrate && \
+(python manage.py loaddata default-viewconf-fixture.xml || true); \
+exec uwsgi --chdir /home/higlass/projects/higlass-server \
+--module higlass_server.wsgi --socket /tmp/${socket_name} --chmod-socket=666 \
+--master --workers ${workers}"
+
+ [program:nginx]
+command=/usr/sbin/nginx
+
+ [supervisord]
+nodaemon=true
+logfile=/tmp/supervisord-$$.log
+pidfile=/tmp/supervisord-$$.pid
+childlogdir=/tmp
+SUPERVISOR_EOF
+
+exec apptainer exec \\
     --writable-tmpfs \\
     --cwd /home/higlass/projects \\
     --bind "$data_dir":/data \\
     --bind "$tmp_dir":/tmp \\
-    --bind %(installdir)s/etc/hgserver_nginx.conf:/etc/nginx/sites-enabled/hgserver_nginx.conf \\
-    %(installdir)s/%(namelower)s-%(version)s.sif "$@"
-EOF""",
+    --bind "$runtime_dir/nginx.conf":/etc/nginx/nginx.conf \\
+    --bind "$runtime_dir/hgserver_nginx.conf":/etc/nginx/sites-enabled/hgserver_nginx.conf \\
+    --bind "$runtime_dir/index.html":/home/higlass/projects/higlass-app/index.html \\
+    --bind "$runtime_dir/config.js":/home/higlass/projects/higlass-app/config.js \\
+    --bind "$runtime_dir/supervisord.conf":/home/higlass/projects/supervisord-ood.conf \\
+    %(installdir)s/%(namelower)s-%(version)s.sif \\
+    supervisord -n -c /home/higlass/projects/supervisord-ood.conf "$@"
+HIGLASS_WRAPPER""",
     'chmod +x %(installdir)s/bin/higlass-docker',
 ]
 
 sanity_check_paths = {
-    'files': ['%(namelower)s-%(version)s.sif', 'bin/higlass-docker', 'etc/hgserver_nginx.conf'],
+    'files': [
+        '%(namelower)s-%(version)s.sif',
+        'bin/higlass-docker',
+        'etc/config.js.in',
+        'etc/hgserver_nginx.conf.in',
+        'etc/index.html.in',
+        'etc/nginx.conf.in',
+    ],
     'dirs': ['bin', 'etc'],
 }
 
 sanity_check_commands = [
     'apptainer inspect %(installdir)s/%(namelower)s-%(version)s.sif',
-    "grep -q 'listen      8888;' %(installdir)s/etc/hgserver_nginx.conf",
+    'bash -n %(installdir)s/bin/higlass-docker',
+    "grep -q 'window.HGAC_SERVER' %(installdir)s/etc/config.js.in",
+    "grep -q 'server 127.0.0.1:8001;' %(installdir)s/etc/hgserver_nginx.conf.in",
 ]
 
 modextravars = {
@@ -57,6 +147,7 @@ modextravars = {
 
 modloadmsg = "%(name)s %(version)s is provided via an Apptainer container.\n\n"
 modloadmsg += 'Start HiGlass at http://localhost:8888 with:\n    higlass-docker\n\n'
-modloadmsg += 'Set HIGLASS_DATA_DIR and HIGLASS_TMP_DIR to override the default ~/hg-data and ~/hg-tmp directories.\n'
+modloadmsg += 'For Open OnDemand, set HIGLASS_PORT and HIGLASS_BASE_URL to the assigned connection values.\n'
+modloadmsg += 'Optional settings: HIGLASS_DATA_DIR, HIGLASS_TMP_DIR, and HIGLASS_WORKERS.\n'
 
 moduleclass = 'bio'
