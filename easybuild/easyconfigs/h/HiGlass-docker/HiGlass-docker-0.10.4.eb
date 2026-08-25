@@ -164,6 +164,7 @@ command=bash -c "mkdir -p /data/log && python manage.py migrate && \
 (python manage.py loaddata default-viewconf-fixture.xml || true); \
 exec uwsgi --chdir /home/higlass/projects/higlass-server \
 --module higlass_server.wsgi --socket /tmp/${socket_name} --chmod-socket=666 \
+--buffer-size 65535 \
 --master --workers ${workers}"
 
 ${nginx_section}
@@ -218,6 +219,7 @@ sanity_check_commands = [
     "grep -q 'server 127.0.0.1:8001;' %(installdir)s/etc/hgserver_nginx.conf.in",
     "grep -q 'map .http_x_forwarded_host .higlass_forwarded_host' %(installdir)s/bin/higlass-docker",
     "grep -q 'HTTP_X_FORWARDED_HOST .higlass_forwarded_host' %(installdir)s/bin/higlass-docker",
+    "grep -q -- '--buffer-size 65535' %(installdir)s/bin/higlass-docker",
     "grep -q 'HGAC_DEFAULT_VIEW_CONFIG' %(installdir)s/bin/higlass-docker",
     "grep -q 'genomePositionSearchBoxVisible:true' %(installdir)s/bin/higlass-docker",
     "grep -q 'HIGLASS_CHROM_INFO_ID' %(installdir)s/bin/higlass-docker",
