@@ -35,6 +35,8 @@ base_url="${HIGLASS_BASE_URL:-}"
 data_dir="${HIGLASS_DATA_DIR:-$HOME/hg-data}"
 tmp_dir="${HIGLASS_TMP_DIR:-$HOME/hg-tmp}"
 workers="${HIGLASS_WORKERS:-4}"
+chrom_info_id="${HIGLASS_CHROM_INFO_ID:-}"
+genome_length="${HIGLASS_GENOME_LENGTH:-}"
 uwsgi_section='[program:uwsgi]'
 nginx_section='[program:nginx]'
 supervisord_section='[supervisord]'
@@ -46,6 +48,16 @@ fi
 if [[ ! "$workers" =~ ^[0-9]+$ ]] || ((workers < 1)); then
     echo "ERROR: HIGLASS_WORKERS must be a positive integer." >&2
     exit 2
+fi
+if [[ -n "$chrom_info_id" || -n "$genome_length" ]]; then
+    if [[ ! "$chrom_info_id" =~ ^[A-Za-z0-9._-]+$ ]]; then
+        echo "ERROR: HIGLASS_CHROM_INFO_ID contains unsupported characters." >&2
+        exit 2
+    fi
+    if [[ ! "$genome_length" =~ ^[0-9]+$ ]] || ((genome_length < 1)); then
+        echo "ERROR: HIGLASS_GENOME_LENGTH must be a positive integer." >&2
+        exit 2
+    fi
 fi
 if [[ -n "$base_url" ]]; then
     base_url="/${base_url#/}"
@@ -101,8 +113,22 @@ window.HGAC_DEFAULT_VIEW_CONFIG={
   exportViewUrl:"${base_url}/api/v1/viewconfs/",
   views:[{
     uid:"ood-view",
-    tracks:{top:[],left:[],center:[],right:[],bottom:[],whole:[],gallery:[]},
-    layout:{w:12,h:12,x:0,y:0}
+OOD_CONFIG_EOF
+    if [[ -n "$chrom_info_id" ]]; then
+        cat >> "$runtime_dir/config.js" <<OOD_SEARCH_CONFIG_EOF
+    genomePositionSearchBoxVisible:true,
+    genomePositionSearchBox:{
+      chromInfoServer:"${base_url}/api/v1",
+      chromInfoId:"${chrom_info_id}",
+      visible:true
+    },
+    initialXDomain:[0,${genome_length}],
+    initialYDomain:[0,${genome_length}],
+OOD_SEARCH_CONFIG_EOF
+    fi
+    cat >> "$runtime_dir/config.js" <<OOD_CONFIG_EOF
+    tracks:{top:[],left:[],center:[],right:[],bottom:[]},
+    layout:{w:12,h:12,x:0,y:0,i:"ood-view",moved:false,static:false}
   }]
 };
 OOD_CONFIG_EOF
@@ -166,6 +192,8 @@ sanity_check_commands = [
     "grep -q 'map .http_x_forwarded_host .higlass_forwarded_host' %(installdir)s/bin/higlass-docker",
     "grep -q 'HTTP_X_FORWARDED_HOST .higlass_forwarded_host' %(installdir)s/bin/higlass-docker",
     "grep -q 'HGAC_DEFAULT_VIEW_CONFIG' %(installdir)s/bin/higlass-docker",
+    "grep -q 'genomePositionSearchBoxVisible:true' %(installdir)s/bin/higlass-docker",
+    "grep -q 'HIGLASS_CHROM_INFO_ID' %(installdir)s/bin/higlass-docker",
     'apptainer exec %(installdir)s/%(namelower)s-%(version)s.sif sh -c '
     '"grep -q HGAC_BASEPATH /home/higlass/projects/higlass-app/static/js/main.*.chunk.js"',
 ]
@@ -177,6 +205,7 @@ modextravars = {
 modloadmsg = "%(name)s %(version)s is provided via an Apptainer container.\n\n"
 modloadmsg += 'Start HiGlass at http://localhost:8888 with:\n    higlass-docker\n\n'
 modloadmsg += 'For Open OnDemand, set HIGLASS_PORT and HIGLASS_BASE_URL to the assigned connection values.\n'
-modloadmsg += 'Optional settings: HIGLASS_DATA_DIR, HIGLASS_TMP_DIR, and HIGLASS_WORKERS.\n'
+modloadmsg += 'Optional settings: HIGLASS_DATA_DIR, HIGLASS_TMP_DIR, HIGLASS_WORKERS, '
+modloadmsg += 'HIGLASS_CHROM_INFO_ID, and HIGLASS_GENOME_LENGTH.\n'
 
 moduleclass = 'bio'
