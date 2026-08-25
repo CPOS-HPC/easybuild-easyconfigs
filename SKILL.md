@@ -163,6 +163,21 @@ When pip reports a constraint conflict, pin versions to the application’s decl
 
 When a package exposes no import matching its distribution name, set the correct `modulename` or disable only that extension’s import sanity check with evidence.
 
+### CRAN R packages
+
+For CRAN extensions in a `Bundle`, use the standard source filename and URL fallback order:
+
+```python
+exts_default_options = {
+    'sources': ['%(name)s_%(version)s.tar.gz'],
+    'source_urls': [
+        'https://cran.r-project.org/src/contrib/Archive/%(name)s',  # package archive
+        'https://cran.r-project.org/src/contrib/',  # current version of packages
+        'https://cran.freestatistics.org/src/contrib',  # mirror alternative for current packages
+    ],
+}
+```
+
 ### Bioconductor R packages
 
 - Determine the Bioconductor release corresponding to the target R version from the official release table. Do not
