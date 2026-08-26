@@ -97,6 +97,8 @@ sed \
 sed \
     -e 's|worker_processes auto;|worker_processes 1;|' \
     -e "s|pid /run/nginx.pid;|pid /tmp/nginx-$$.pid;|" \
+    -e 's|access_log /data/log/access.log main;|access_log /tmp/nginx-access.log main;|' \
+    -e 's|error_log /data/log/error.log;|error_log /tmp/nginx-error.log;|' \
     -e '/^http {/a\\
     map $http_x_forwarded_host $higlass_forwarded_host {\\
         ~^[[:space:]]*(?<first_forwarded_host>[^,[:space:]]+) $first_forwarded_host;\\
@@ -168,7 +170,7 @@ exec uwsgi --chdir /home/higlass/projects/higlass-server \
 --master --workers ${workers}"
 
 ${nginx_section}
-command=/usr/sbin/nginx
+command=bash -c "until test -S /tmp/${socket_name}; do sleep 0.1; done; exec /usr/sbin/nginx"
 
 ${supervisord_section}
 nodaemon=true
@@ -217,6 +219,8 @@ sanity_check_commands = [
     "grep -Fq 's|url(/fonts/|url(${base_url}/fonts/|g' %(installdir)s/bin/higlass-docker",
     "grep -Fq 's|url(/static/media/|url(${base_url}/static/media/|g' %(installdir)s/bin/higlass-docker",
     "grep -q 'server 127.0.0.1:8001;' %(installdir)s/etc/hgserver_nginx.conf.in",
+    "grep -q '/tmp/nginx-error.log' %(installdir)s/bin/higlass-docker",
+    "grep -q 'until test -S' %(installdir)s/bin/higlass-docker",
     "grep -q 'map .http_x_forwarded_host .higlass_forwarded_host' %(installdir)s/bin/higlass-docker",
     "grep -q 'HTTP_X_FORWARDED_HOST .higlass_forwarded_host' %(installdir)s/bin/higlass-docker",
     "grep -q -- '--buffer-size 65535' %(installdir)s/bin/higlass-docker",
