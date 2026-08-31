@@ -37,12 +37,13 @@ unchanged:
 - Check the default branch tip immediately before finalizing a commit-based recipe. Do not confuse the commit that introduced a file with the repository’s latest commit.
 - Never use a commit that is unavailable from the declared repository.
 - Download and hash the exact artifact referenced by the recipe.
-- Add filename comments only when a checksum list contains multiple artifacts. Put each filename comment after its checksum value. Do not add comments to single-entry one-line checksum lists:
+- Represent top-level checksums as filename-keyed one-item dictionaries rather than positional strings. Use the
+  effective local filename, including a renamed source's `filename` value rather than its `download_filename`:
 
 ```python
 checksums = [
-    'source-sha256',  # package-1.2.3.tar.gz
-    'patch-sha256',  # package-1.2.3_fix-build.patch
+    {'package-1.2.3.tar.gz': 'source-sha256'},
+    {'package-1.2.3_fix-build.patch': 'patch-sha256'},
 ]
 ```
 
@@ -93,8 +94,8 @@ Always confirm anchors from local easyconfigs instead of treating this table as 
   ```
 
 - Use standard source constants such as `SOURCELOWER_TAR_GZ` when the source follows the standard naming convention.
-- Keep single-entry `sources` and `checksums` lists on one line. Use multiline form for multiple artifacts or entries that are not readable when compact.
-- Keep checksum filename comments on the checksum line.
+- Keep single-entry `sources` and filename-keyed `checksums` lists on one line when they fit. Use multiline form for
+  multiple artifacts or entries that are not readable when compact.
 - Keep patches minimal, descriptive, reusable across toolchains when their changes are source-version-specific, and authored:
 
 ```text
