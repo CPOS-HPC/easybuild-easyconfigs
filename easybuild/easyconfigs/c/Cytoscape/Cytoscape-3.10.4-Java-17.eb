@@ -13,14 +13,15 @@ description = """Cytoscape is an open source software platform for visualizing
 toolchain = SYSTEM
 
 _underscore_version = version.replace('.', '_')
+local_installer = '%%(name)s_%s_unix.sh' % _underscore_version
 
 source_urls = ['https://github.com/cytoscape/cytoscape/releases/download/%(version)s/']
-sources = ['%%(name)s_%s_unix.sh' % _underscore_version]
+sources = [local_installer]
 checksums = ['e3208b503b3a153b3b62cfdceb9b9a94dd5f680d4d9093da187c3a6580e66927']
 
 dependencies = [('Java', '17')]
 
-install_cmd = 'chmod +x %s && ./%s -q -dir %%(installdir)s' % (sources[0], sources[0])
+install_cmd = 'chmod +x %s && ./%s -q -dir %%(installdir)s' % (local_installer, local_installer)
 
 sanity_check_paths = {
     'files': ['cytoscape.sh', 'Cytoscape'],
