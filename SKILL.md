@@ -37,8 +37,15 @@ unchanged:
 - Check the default branch tip immediately before finalizing a commit-based recipe. Do not confuse the commit that introduced a file with the repository’s latest commit.
 - Never use a commit that is unavailable from the declared repository.
 - Download and hash the exact artifact referenced by the recipe.
-- Represent top-level checksums as filename-keyed one-item dictionaries rather than positional strings. Use the
-  effective local filename, including a renamed source's `filename` value rather than its `download_filename`:
+- Use a positional checksum string when the recipe has exactly one top-level source or patch file in total:
+
+```python
+checksums = ['source-sha256']
+```
+
+- When a recipe has more than one top-level source or patch file, represent checksums as filename-keyed one-item
+  dictionaries. Use each effective local filename, including a renamed source's `filename` value rather than its
+  `download_filename`:
 
 ```python
 checksums = [
@@ -53,6 +60,8 @@ checksums = [
 - Use `GCC` for compiled software needing the full compiler but no MPI or BLAS/LAPACK stack.
 - Use `gfbf` for BLAS/LAPACK-linked scientific software without MPI.
 - Use `foss` when MPI or the complete scientific stack is required.
+- In a `SYSTEM` easyconfig, use a two-field dependency tuple when no version suffix or toolchain override is needed,
+  for example `dependencies = [('Java', '17')]`; do not redundantly add `'', SYSTEM`.
 - Match dependencies to the target toolchain generation; do not mix Python ABI generations.
 - Verify every dependency recipe exists with robot resolution.
 - Prefer `pkgconf` over the legacy `pkg-config` dependency.
@@ -94,8 +103,8 @@ Always confirm anchors from local easyconfigs instead of treating this table as 
   ```
 
 - Use standard source constants such as `SOURCELOWER_TAR_GZ` when the source follows the standard naming convention.
-- Keep single-entry `sources` and filename-keyed `checksums` lists on one line when they fit. Use multiline form for
-  multiple artifacts or entries that are not readable when compact.
+- Keep single-entry `sources` and positional `checksums` lists on one line when they fit. Use filename-keyed checksum
+  dictionaries for multiple artifacts, and multiline form when those entries are not readable when compact.
 - Keep patches minimal, descriptive, reusable across toolchains when their changes are source-version-specific, and authored:
 
 ```text
