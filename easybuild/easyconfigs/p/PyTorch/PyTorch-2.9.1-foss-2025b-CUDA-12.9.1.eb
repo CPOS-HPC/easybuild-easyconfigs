@@ -220,7 +220,7 @@ checksums = [
     {'PyTorch-2.9.1_skip-tests-requiring-MKLDNN.patch':
      '03756a8069bad01018f422f41aa24c7c543519fd857db88a0c6de661976c8859'},
     {'PyTorch-2.9.1_fix-nativert-libdl.patch':
-     'b996b9efb8d572c921be5c47d550977c24db49908c7fb86a928025a0068aa025'},
+     '305554e14c207cafdc24a41e257c9979b5a1dce2a83390aefdb9b180a1a938ff'},
 ]
 
 osdependencies = [OS_PKG_IBVERBS_DEV]

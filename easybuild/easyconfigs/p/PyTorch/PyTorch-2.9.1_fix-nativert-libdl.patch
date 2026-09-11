@@ -1,7 +1,7 @@
 Fix linking of the NativeRT test executable on Linux.
 
 CpuTritonKernelManager uses libdl; link test_nativert with CMAKE_DL_LIBS.
-See https://github.com/pytorch/pytorch/issues/162640.
+See https://github.com/pytorch/pytorch/issues/162824.
 
 Author: Emik Lin (HKUMed CPOS)
 
