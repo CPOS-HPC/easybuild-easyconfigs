@@ -1,0 +1,28 @@
+easyblock = 'Binary'
+
+name = 'ORFfinder'
+version = '0.4.3'
+
+homepage = 'https://www.ncbi.nlm.nih.gov/orffinder/'
+description = """ORFfinder searches for open reading frames in DNA sequences and reports their locations and
+protein translations."""
+
+toolchain = SYSTEM
+
+source_urls = ['https://ftp.ncbi.nlm.nih.gov/genomes/TOOLS/ORFfinder/linux-i64/']
+sources = [{'download_filename': '%(name)s.gz', 'filename': '%(name)s-%(version)s.gz'}]
+checksums = ['f30a0806b984931a967d8024066a53dbb811035ca14564f36f7f7045a6a509f2']
+
+osdependencies = ['libuv']
+
+install_cmd = "gzip -cd %(name)s-%(version)s.gz > %(installdir)s/%(name)s"
+install_cmd += " && chmod a+rx %(installdir)s/%(name)s"
+
+sanity_check_paths = {
+    'files': ['%(name)s'],
+    'dirs': [],
+}
+
+sanity_check_commands = ["%(name)s -version | grep '%(name)s: %(version)s'"]
+
+moduleclass = 'bio'

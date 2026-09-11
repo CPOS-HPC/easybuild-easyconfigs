@@ -52,6 +52,9 @@ _jaxlib_buildopts += '--clang_path=$EBROOTLLVM/bin/clang '
 _jaxlib_buildopts += '--bazel_options="--action_env=JAXLIB_RELEASE" '
 _jaxlib_buildopts += '--bazel_options="--repo_env=ML_WHEEL_TYPE=release" '
 
+# Work around Eigen AVX-512 FP16 compilation failure with Clang 21
+_jaxlib_buildopts += '--bazel_options="--copt=-mno-avx512fp16" '
+
 _prebuildopts = 'export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1; '
 
 components = [

@@ -1,0 +1,244 @@
+easyblock = 'Apptainer'
+
+name = 'HiGlass-docker'
+version = '0.10.4'
+
+homepage = 'https://github.com/higlass/higlass-docker'
+description = "HiGlass Docker wraps higlass-client and higlass-server in an nginx web server."
+
+toolchain = SYSTEM
+
+# Parameters passed to the build_container_image.sh script
+apptainer_type = 'sif'
+
+local_image_digest = 'sha256:44086069ee7d4d3f6f3f0012569789ec138f42b84aa44357826c0b6753eb28de'
+installopts = '-s higlass/higlass-docker@%s ' % local_image_digest
+installopts += '-i image '
+
+# Install configuration templates used by the launcher to run the Docker image as an unprivileged Apptainer process.
+postinstallcmds = [
+    'mkdir -p %(installdir)s/bin %(installdir)s/etc',
+    'apptainer exec %(installdir)s/%(namelower)s-%(version)s.sif '
+    'cat /etc/nginx/sites-enabled/hgserver_nginx.conf > %(installdir)s/etc/hgserver_nginx.conf.in',
+    'apptainer exec %(installdir)s/%(namelower)s-%(version)s.sif '
+    'cat /etc/nginx/nginx.conf > %(installdir)s/etc/nginx.conf.in',
+    'apptainer exec %(installdir)s/%(namelower)s-%(version)s.sif '
+    'cat /home/higlass/projects/higlass-app/index.html > %(installdir)s/etc/index.html.in',
+    'apptainer exec %(installdir)s/%(namelower)s-%(version)s.sif '
+    'cat /home/higlass/projects/higlass-app/config.js > %(installdir)s/etc/config.js.in',
+    r'''main_css_path="$(
+        apptainer exec %(installdir)s/%(namelower)s-%(version)s.sif sh -c \
+        "grep -oE 'static/css/main\.[A-Za-z0-9]+\.chunk\.css' \
+        /home/higlass/projects/higlass-app/index.html | head -n 1"
+    )"; \
+    test -n "$main_css_path"; \
+    echo "$main_css_path" > %(installdir)s/etc/main.css.path; \
+    apptainer exec %(installdir)s/%(namelower)s-%(version)s.sif \
+        cat "/home/higlass/projects/higlass-app/$main_css_path" > %(installdir)s/etc/main.css.in''',
+    """cat > %(installdir)s/bin/higlass-docker << 'HIGLASS_WRAPPER'
+#!/bin/bash
+set -euo pipefail
+
+port="${HIGLASS_PORT:-8888}"
+base_url="${HIGLASS_BASE_URL:-}"
+data_dir="${HIGLASS_DATA_DIR:-$HOME/hg-data}"
+tmp_dir="${HIGLASS_TMP_DIR:-$HOME/hg-tmp}"
+workers="${HIGLASS_WORKERS:-4}"
+chrom_info_id="${HIGLASS_CHROM_INFO_ID:-}"
+genome_length="${HIGLASS_GENOME_LENGTH:-}"
+uwsgi_section='[program:uwsgi]'
+nginx_section='[program:nginx]'
+supervisord_section='[supervisord]'
+main_css_path="$(< %(installdir)s/etc/main.css.path)"
+
+if [[ ! "$main_css_path" =~ ^static/css/main\\.[A-Za-z0-9]+\\.chunk\\.css$ ]]; then
+    echo "ERROR: Installed HiGlass CSS path is invalid: ${main_css_path}" >&2
+    exit 2
+fi
+
+if [[ ! "$port" =~ ^[0-9]+$ ]] || ((port < 1024 || port > 65535)); then
+    echo "ERROR: HIGLASS_PORT must be an integer from 1024 through 65535." >&2
+    exit 2
+fi
+if [[ ! "$workers" =~ ^[0-9]+$ ]] || ((workers < 1)); then
+    echo "ERROR: HIGLASS_WORKERS must be a positive integer." >&2
+    exit 2
+fi
+if [[ -n "$chrom_info_id" || -n "$genome_length" ]]; then
+    if [[ ! "$chrom_info_id" =~ ^[A-Za-z0-9._-]+$ ]]; then
+        echo "ERROR: HIGLASS_CHROM_INFO_ID contains unsupported characters." >&2
+        exit 2
+    fi
+    if [[ ! "$genome_length" =~ ^[0-9]+$ ]] || ((genome_length < 1)); then
+        echo "ERROR: HIGLASS_GENOME_LENGTH must be a positive integer." >&2
+        exit 2
+    fi
+fi
+if [[ -n "$base_url" ]]; then
+    base_url="/${base_url#/}"
+    base_url="${base_url%/}"
+    if [[ ! "$base_url" =~ ^/[A-Za-z0-9._/-]+$ ]]; then
+        echo "ERROR: HIGLASS_BASE_URL contains unsupported characters." >&2
+        exit 2
+    fi
+fi
+
+mkdir -p "$data_dir/log" "$tmp_dir"
+runtime_dir="$(mktemp -d "${TMPDIR:-/tmp}/higlass-docker.XXXXXX")"
+socket_name="higlass-$$.sock"
+
+sed \
+    -e "s|server 127.0.0.1:8001;|server unix:/tmp/${socket_name};|" \
+    -e "s|listen      80;|listen      ${port};|" \
+    -e '/include .*uwsgi_params;/a\\
+        uwsgi_param HTTP_X_FORWARDED_HOST $higlass_forwarded_host;' \
+    %(installdir)s/etc/hgserver_nginx.conf.in > "$runtime_dir/hgserver_nginx.conf"
+
+sed \
+    -e 's|worker_processes auto;|worker_processes 1;|' \
+    -e "s|pid /run/nginx.pid;|pid /tmp/nginx-$$.pid;|" \
+    -e 's|access_log /data/log/access.log main;|access_log /tmp/nginx-access.log main;|' \
+    -e 's|error_log /data/log/error.log;|error_log /tmp/nginx-error.log;|' \
+    -e '/^http {/a\\
+    map $http_x_forwarded_host $higlass_forwarded_host {\\
+        ~^[[:space:]]*(?<first_forwarded_host>[^,[:space:]]+) $first_forwarded_host;\\
+        default $host;\\
+    }\\
+    client_body_temp_path /tmp/nginx-client-body;\\
+    proxy_temp_path /tmp/nginx-proxy;\\
+    fastcgi_temp_path /tmp/nginx-fastcgi;\\
+    uwsgi_temp_path /tmp/nginx-uwsgi;\\
+    scgi_temp_path /tmp/nginx-scgi;' \
+    %(installdir)s/etc/nginx.conf.in > "$runtime_dir/nginx.conf"
+
+if [[ -n "$base_url" ]]; then
+    sed \
+        -e "s|href=\\\"/|href=\\\"${base_url}/|g" \
+        -e "s|src=\\\"/|src=\\\"${base_url}/|g" \
+        -e "s|l\\.p=\\\"/\\\"|l.p=\\\"${base_url}/\\\"|g" \
+        %(installdir)s/etc/index.html.in > "$runtime_dir/index.html"
+    sed \
+        -e "s|window.HGAC_SERVER=\\\"\\\";|window.HGAC_SERVER=\\\"${base_url}\\\";|" \
+        %(installdir)s/etc/config.js.in > "$runtime_dir/config.js"
+    sed \
+        -e "s|url(/fonts/|url(${base_url}/fonts/|g" \
+        -e "s|url(/static/media/|url(${base_url}/static/media/|g" \
+        %(installdir)s/etc/main.css.in > "$runtime_dir/main.css"
+    cat >> "$runtime_dir/config.js" <<OOD_CONFIG_EOF
+
+window.HGAC_BASEPATH="${base_url}";
+window.HGAC_DEFAULT_VIEW_CONFIG={
+  editable:true,
+  zoomFixed:false,
+  trackSourceServers:["${base_url}/api/v1"],
+  exportViewUrl:"${base_url}/api/v1/viewconfs/",
+  views:[{
+    uid:"ood-view",
+OOD_CONFIG_EOF
+    if [[ -n "$chrom_info_id" ]]; then
+        cat >> "$runtime_dir/config.js" <<OOD_SEARCH_CONFIG_EOF
+    genomePositionSearchBoxVisible:true,
+    genomePositionSearchBox:{
+      chromInfoServer:"${base_url}/api/v1",
+      chromInfoId:"${chrom_info_id}",
+      visible:true
+    },
+    initialXDomain:[0,${genome_length}],
+    initialYDomain:[0,${genome_length}],
+OOD_SEARCH_CONFIG_EOF
+    fi
+    cat >> "$runtime_dir/config.js" <<OOD_CONFIG_EOF
+    tracks:{top:[],left:[],center:[],right:[],bottom:[]},
+    layout:{w:12,h:12,x:0,y:0,i:"ood-view",moved:false,static:false}
+  }]
+};
+OOD_CONFIG_EOF
+else
+    cp %(installdir)s/etc/index.html.in "$runtime_dir/index.html"
+    cp %(installdir)s/etc/config.js.in "$runtime_dir/config.js"
+    cp %(installdir)s/etc/main.css.in "$runtime_dir/main.css"
+fi
+
+cat > "$runtime_dir/supervisord.conf" <<SUPERVISOR_EOF
+${uwsgi_section}
+directory=/home/higlass/projects/higlass-server
+command=bash -c "mkdir -p /data/log && python manage.py migrate && \
+(python manage.py loaddata default-viewconf-fixture.xml || true); \
+exec uwsgi --chdir /home/higlass/projects/higlass-server \
+--module higlass_server.wsgi --socket /tmp/${socket_name} --chmod-socket=666 \
+--buffer-size 65535 \
+--master --workers ${workers}"
+
+${nginx_section}
+command=bash -c "until test -S /tmp/${socket_name}; do sleep 0.1; done; exec /usr/sbin/nginx"
+
+${supervisord_section}
+nodaemon=true
+logfile=/tmp/supervisord-$$.log
+pidfile=/tmp/supervisord-$$.pid
+childlogdir=/tmp
+SUPERVISOR_EOF
+
+exec apptainer exec \\
+    --writable-tmpfs \\
+    --cwd /home/higlass/projects \\
+    --bind "$data_dir":/data \\
+    --bind "$tmp_dir":/tmp \\
+    --bind "$runtime_dir/nginx.conf":/etc/nginx/nginx.conf \\
+    --bind "$runtime_dir/hgserver_nginx.conf":/etc/nginx/sites-enabled/hgserver_nginx.conf \\
+    --bind "$runtime_dir/index.html":/home/higlass/projects/higlass-app/index.html \\
+    --bind "$runtime_dir/config.js":/home/higlass/projects/higlass-app/config.js \\
+    --bind "$runtime_dir/main.css":"/home/higlass/projects/higlass-app/${main_css_path}" \\
+    --bind "$runtime_dir/supervisord.conf":/home/higlass/projects/supervisord-ood.conf \\
+    %(installdir)s/%(namelower)s-%(version)s.sif \\
+    supervisord -n -c /home/higlass/projects/supervisord-ood.conf "$@"
+HIGLASS_WRAPPER""",
+    'chmod +x %(installdir)s/bin/higlass-docker',
+]
+
+sanity_check_paths = {
+    'files': [
+        '%(namelower)s-%(version)s.sif',
+        'bin/higlass-docker',
+        'etc/config.js.in',
+        'etc/hgserver_nginx.conf.in',
+        'etc/index.html.in',
+        'etc/main.css.in',
+        'etc/main.css.path',
+        'etc/nginx.conf.in',
+    ],
+    'dirs': ['bin', 'etc'],
+}
+
+sanity_check_commands = [
+    'apptainer inspect %(installdir)s/%(namelower)s-%(version)s.sif',
+    'bash -n %(installdir)s/bin/higlass-docker',
+    "grep -q 'window.HGAC_SERVER' %(installdir)s/etc/config.js.in",
+    "grep -q 'url(/fonts/' %(installdir)s/etc/main.css.in",
+    "grep -q 'url(/static/media/' %(installdir)s/etc/main.css.in",
+    "grep -Fq 's|url(/fonts/|url(${base_url}/fonts/|g' %(installdir)s/bin/higlass-docker",
+    "grep -Fq 's|url(/static/media/|url(${base_url}/static/media/|g' %(installdir)s/bin/higlass-docker",
+    "grep -q 'server 127.0.0.1:8001;' %(installdir)s/etc/hgserver_nginx.conf.in",
+    "grep -q '/tmp/nginx-error.log' %(installdir)s/bin/higlass-docker",
+    "grep -q 'until test -S' %(installdir)s/bin/higlass-docker",
+    "grep -q 'map .http_x_forwarded_host .higlass_forwarded_host' %(installdir)s/bin/higlass-docker",
+    "grep -q 'HTTP_X_FORWARDED_HOST .higlass_forwarded_host' %(installdir)s/bin/higlass-docker",
+    "grep -q -- '--buffer-size 65535' %(installdir)s/bin/higlass-docker",
+    "grep -q 'HGAC_DEFAULT_VIEW_CONFIG' %(installdir)s/bin/higlass-docker",
+    "grep -q 'genomePositionSearchBoxVisible:true' %(installdir)s/bin/higlass-docker",
+    "grep -q 'HIGLASS_CHROM_INFO_ID' %(installdir)s/bin/higlass-docker",
+    'apptainer exec %(installdir)s/%(namelower)s-%(version)s.sif sh -c '
+    '"grep -q HGAC_BASEPATH /home/higlass/projects/higlass-app/static/js/main.*.chunk.js"',
+]
+
+modextravars = {
+    'HIGLASS_DOCKER_SIF': '%(installdir)s/%(namelower)s-%(version)s.sif',
+}
+
+modloadmsg = "%(name)s %(version)s is provided via an Apptainer container.\n\n"
+modloadmsg += 'Start HiGlass at http://localhost:8888 with:\n    higlass-docker\n\n'
+modloadmsg += 'For Open OnDemand, set HIGLASS_PORT and HIGLASS_BASE_URL to the assigned connection values.\n'
+modloadmsg += 'Optional settings: HIGLASS_DATA_DIR, HIGLASS_TMP_DIR, HIGLASS_WORKERS, '
+modloadmsg += 'HIGLASS_CHROM_INFO_ID, and HIGLASS_GENOME_LENGTH.\n'
+
+moduleclass = 'bio'
