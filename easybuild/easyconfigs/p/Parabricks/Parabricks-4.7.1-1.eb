@@ -1,0 +1,44 @@
+easyblock = 'Apptainer'
+
+name = 'Parabricks'
+version = '4.7.1'
+# build_container_image.sh requires a dotted numeric version, so keep NVIDIA's image revision in the module suffix.
+versionsuffix = '-1'
+
+homepage = 'https://docs.nvidia.com/clara/parabricks/'
+description = """NVIDIA Parabricks is an accelerated compute framework for genomic analysis workflows."""
+
+toolchain = SYSTEM
+
+# Parameters passed to the build_container_image.sh script
+apptainer_type = 'sif'
+
+local_image = 'nvcr.io/nvidia/clara/clara-parabricks:%(version)s%(versionsuffix)s'
+installopts = '-s %s ' % local_image
+installopts += '-i image '
+
+# Install a pbrun wrapper matching NVIDIA's documented container interface.
+postinstallcmds = [
+    """cat > %(installdir)s/pbrun << 'EOF'
+#!/bin/bash
+
+exec apptainer exec --nv \\
+    "%(installdir)s/%(namelower)s-%(version)s.sif" \\
+    pbrun "$@"
+EOF""",
+    'chmod +x %(installdir)s/pbrun',
+]
+
+sanity_check_paths = {
+    'files': ['%(namelower)s-%(version)s.sif', 'pbrun'],
+    'dirs': [],
+}
+sanity_check_commands = ['pbrun fq2bam --help']
+
+modextrapaths = {'PATH': ['']}
+
+modloadmsg = "%(name)s %(version)s%(versionsuffix)s is provided via an Apptainer container.\n\n"
+modloadmsg += "The pbrun wrapper enables NVIDIA GPU support with Apptainer's --nv option.\n"
+modloadmsg += "Use it with:\n    pbrun <command> [options]\n"
+
+moduleclass = 'bio'

@@ -1,0 +1,31 @@
+# Use binary distribution to avoid building Dorado and its bundled dependencies from source
+
+easyblock = 'Tarball'
+
+name = 'dorado'
+version = '1.4.0'
+
+homepage = 'https://github.com/nanoporetech/dorado'
+description = "Dorado is a high-performance, easy-to-use, open source basecaller for Oxford Nanopore reads."
+
+toolchain = SYSTEM
+
+source_urls = ['https://cdn.oxfordnanoportal.com/software/analysis/']
+sources = ['%(name)s-%(version)s-linux-x64.tar.gz']
+checksums = ['ea15250d911c6b6efdb21cc142008b2be8a5c781c8b0a4593b82f27b07385731']
+
+postinstallcmds = [
+    "mkdir %(installdir)s/models && cd %(installdir)s/models && "
+    "%(installdir)s/bin/%(name)s download --model all",
+]
+
+modextravars = {'DORADO_MODELS_DIRECTORY': '%(installdir)s/models'}
+
+sanity_check_paths = {
+    'files': ['bin/%(name)s'],
+    'dirs': [],
+}
+
+sanity_check_commands = ["%(name)s basecaller --help"]
+
+moduleclass = 'bio'

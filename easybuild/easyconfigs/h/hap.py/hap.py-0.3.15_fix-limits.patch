@@ -1,0 +1,11 @@
+# Fix ‘numeric_limits’ is not a member of ‘std’
+--- src/c++/lib/tools/Roc.cpp.orig	2021-12-04 08:31:12.000000000 +0800
++++ src/c++/lib/tools/Roc.cpp	2026-03-30 14:04:01.756727000 +0800
+@@ -37,6 +37,7 @@
+ 
+ #include <algorithm>
+ #include <cmath>
++#include <limits>
+ #include <fstream>
+ #include <helpers/StringUtil.hh>
+ 

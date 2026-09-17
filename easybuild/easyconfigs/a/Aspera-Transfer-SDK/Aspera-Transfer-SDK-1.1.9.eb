@@ -1,0 +1,27 @@
+easyblock = 'Tarball'
+
+name = 'Aspera-Transfer-SDK'
+version = '1.1.9'
+
+homepage = 'https://www.ibm.com/products/aspera'
+description = 'IBM Aspera Transfer SDK, including the ascp FASP transfer client.'
+
+toolchain = SYSTEM
+
+source_urls = ['https://production-transfer-sdk.s3.us-west-2.amazonaws.com/%(version)s']
+sources = ['ibm-aspera-transfer-sdk-linux-amd64-%(version)s.tar.gz']
+checksums = ['97ea42b564d4c4f09202fb2b6525b39d8d1f4f6e4a643671dec0d689bd2098d4']
+
+modextrapaths = {
+    'LD_LIBRARY_PATH': ['lib'],
+    'PATH': ['bin'],
+}
+
+sanity_check_paths = {
+    'files': ['bin/ascp', 'bin/async', 'sbin/transferd', 'lib/libafwsfeed.so'],
+    'dirs': [],
+}
+
+sanity_check_commands = ['ascp --version']
+
+moduleclass = 'tools'

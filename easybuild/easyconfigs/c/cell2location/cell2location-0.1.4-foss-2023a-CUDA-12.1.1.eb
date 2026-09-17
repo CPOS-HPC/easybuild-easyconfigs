@@ -1,0 +1,33 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+# Update: Emik Lin (HKUMed CPOS)
+easyblock = 'PythonBundle'
+
+name = 'cell2location'
+version = '0.1.4'
+versionsuffix = '-CUDA-%(cudaver)s'
+
+homepage = "https://cell2location.readthedocs.io/en/latest/"
+description = """Comprehensive mapping of tissue cell architecture via integrated single cell and spatial
+ transcriptomics (cell2location model)"""
+
+toolchain = {'name': 'foss', 'version': '2023a'}
+
+dependencies = [
+    ('Python', '3.11.3'),
+    ('CUDA', '12.1.1', '', SYSTEM),
+    ('OpenCV', '4.8.1', '%s-contrib' % versionsuffix),
+    ('PyTorch', '2.1.2', versionsuffix),
+    ('SciPy-bundle', '2023.07'),
+    ('scanpy', '1.9.8'),
+    ('scvi-tools', '1.1.2', versionsuffix),
+]
+
+
+exts_list = [
+    (name, version, {
+        'preinstallopts': 'sed -i "s/opencv-python//" setup.cfg &&',
+        'checksums': ['329f1bf88d3687d9055bd81ea792f5565001812a157f470865f522ecc37a6a98'],
+    }),
+]
+
+moduleclass = 'bio'
