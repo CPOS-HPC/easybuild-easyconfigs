@@ -1,7 +1,7 @@
 easyblock = 'PythonBundle'
 
 name = 'anndata'
-version = '0.13.3'
+version = '0.13.3.post0'
 
 homepage = 'https://github.com/scverse/anndata'
 description = """anndata is a Python package for handling annotated data matrices in memory and on disk,
@@ -53,7 +53,7 @@ exts_list = [
         'source_urls': ['https://github.com/scverse/anndata/archive/refs/tags/'],
         'source_tmpl': '%(version)s.tar.gz',
         'preinstallopts': 'export SETUPTOOLS_SCM_PRETEND_VERSION=%(version)s && ',
-        'checksums': ['340692dcc07fb386592030fb943950e8f073fc681517f920d2810aceae995a6b'],
+        'checksums': ['4a7af661eb8c5179d3ebbbda6cca7a16cde8ac99c3ef6ff51544abfb7f2cb50d'],
     }),
 ]
 
