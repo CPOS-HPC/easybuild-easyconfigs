@@ -79,7 +79,7 @@ exts_list = [
     ('xarray-dataclass', '3.0.0', {
         'modulename': 'xarray_dataclass',
         'source_urls': ['https://github.com/xarray-contrib/xarray-dataclass/archive/refs/tags/'],
-        'source_tmpl': 'v%(version)s.tar.gz',
+        'sources': ['v%(version)s.tar.gz'],
         'checksums': ['f1b602bbef535f68849b4bc02d4873986bf86110caeede85d0f90cf33af0195a'],
     }),
     ('spatial_image', '1.2.3', {
