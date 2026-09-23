@@ -215,6 +215,12 @@ dependencies = [
   Bioconductor archive object store for the same release artifact rather than substituting a different source.
 - Use `RPackage` for extensions in a Bundle recipe and preserve the extension ordering required by package
   dependencies. Rely on extension sanity checks unless explicit paths or commands add useful coverage.
+- For standalone Bioconductor R bundles, use the standard library-load extension filter:
+
+  ```python
+  exts_filter = ("R -q --no-save", "library(%(ext_name)s)")
+  ```
+
 - Validate the robot graph and, for a new package version or changed Bioconductor release, run an isolated build when
   feasible because compiled R extensions and bundle contents can change across releases.
 
