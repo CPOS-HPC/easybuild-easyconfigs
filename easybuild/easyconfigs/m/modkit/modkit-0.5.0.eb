@@ -1,0 +1,26 @@
+# Use binary to avoid pain of building from source
+
+easyblock = 'Tarball'
+
+name = 'modkit'
+version = '0.5.0'
+
+homepage = 'https://github.com/nanoporetech/modkit'
+description = 'A bioinformatics tool for working with modified bases.'
+
+toolchain = SYSTEM
+
+source_urls = ['https://github.com/nanoporetech/modkit/releases/download/v%(version)s/']
+sources = ['%(namelower)s_v%(version)s_u16_x86_64.tar.gz']
+checksums = ['6bf250378d1a62847359aec5927c12b38f79d37137e8810ba089d6547e5766b2']
+
+modextrapaths = {'PATH': ''}
+
+sanity_check_paths = {
+    'files': ['%(namelower)s'],
+    'dirs': [],
+}
+
+sanity_check_commands = ["%(namelower)s --version | grep %(version)s"]
+
+moduleclass = 'bio'
