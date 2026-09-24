@@ -1,0 +1,43 @@
+easyblock = 'Apptainer'
+
+name = 'QIIME'
+version = '1.9.1'
+
+homepage = 'https://qiime.org/'
+description = """QIIME is an open-source bioinformatics pipeline for performing microbiome analysis
+ from raw DNA sequencing data."""
+
+toolchain = SYSTEM
+
+# parameters that will be passed to the build_container_image.sh script
+apptainer_type = 'sif'
+
+# required: source ~ link to the online docker image for the tool
+installopts  = '-s quay.io/biocontainers/qiime:1.9.1--np112py27_1 '
+
+# required: source type ~ image, since the tool is available online as a docker image
+installopts += '-i image '
+
+# create wrapper script to call the container
+postinstallcmds = [
+    """cat > %(installdir)s/%(namelower)s << 'EOF'
+#!/bin/bash
+
+exec apptainer exec \\
+    /software/easybuild/software/QIIME/1.9.1/qiime-1.9.1.sif \\
+    "$@"
+EOF""",
+    "chmod +x %(installdir)s/%(namelower)s",
+]
+
+# files and directories which are checked after the container has been built
+sanity_check_paths = {
+    'files': ['%(namelower)s-%(version)s.sif', '%(namelower)s'],
+    'dirs': [],
+}
+
+modloadmsg = "%(name)s %(version)s is provided via Apptainer.\n\n"
+modloadmsg += "Use it by prefixing commands with:\n    %(namelower)s <command>\n\n"
+modloadmsg += "Example:\n    %(namelower)s summarize_taxa.py --help"
+
+moduleclass = 'bio'
