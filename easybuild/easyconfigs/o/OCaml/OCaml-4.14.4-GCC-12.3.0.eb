@@ -18,14 +18,9 @@ sources = [
     '%s.tar.gz' % version,
     'opam-full-%s.tar.gz' % local_opam_ver,
 ]
-patches = [
-    {'name': 'OCaml-4.14.4-opam-retry-repository-archive.patch', 'sourcepath': '../opam-full-2.1.5'},
-]
 checksums = [
     {'4.14.4.tar.gz': '71415c000ebfce604defafaa584ab5ed10ad81ff180897db4e6fea8dac6e4b0d'},
     {'opam-full-2.1.5.tar.gz': '09f8d9e410b2f5723c2bfedbf7970e3b305f5017895fcd91759f05e753ddcea5'},
-    {'OCaml-4.14.4-opam-retry-repository-archive.patch':
-     '0dffaf76c0eed3a6293b4e6dd71cc5021308bcf9c4147c57d76a5f6684953f3c'},
 ]
 
 builddependencies = [
