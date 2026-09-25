@@ -28,6 +28,21 @@ exts_list = [
     ('docopt', '0.6.2', {
         'checksums': ['49b3a825280bd66b3aa83585ef59c4a8c82f2c8a522dbe754a8bc8d08c85c491'],
     }),
+    ('idna', '2.10', {
+        'checksums': ['b307872f855b18632ce0c21c5e45be78c0ea7ae4c15c828c20788b26921eb3f6'],
+    }),
+    ('chardet', '4.0.0', {
+        'checksums': ['0d6f53a15db4120f2b08c94f11e7d93d2c911ee118b6b30a04ec3ee8310179fa'],
+    }),
+    ('certifi', '2021.5.30', {
+        'checksums': ['2bbf76fd432960138b3ef6dda3dde0544f27cbf8546c458e60baf371917ba9ee'],
+    }),
+    ('urllib3', '1.26.6', {
+        'checksums': ['f57b4c16c62fa2760b7e3d97c35b255512fb6b59a259730f36ba32ce9f8e342f'],
+    }),
+    ('requests', '2.26.0', {
+        'checksums': ['b8aa58f8cf793ffd8782d3d8cb19e66ef36f7aba4353eec859e74678b01b07a7'],
+    }),
     (name, version, {
         'modulename': 'circ2',
         'checksums': ['8261ee884f6d895131ce681d5eda6554376e973851a9de4dc50e2b3e242ccc80'],
