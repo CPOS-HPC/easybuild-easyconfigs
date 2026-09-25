@@ -9,7 +9,7 @@ description = """OCaml is a general purpose industrial-strength programming lang
 
 toolchain = {'name': 'GCC', 'version': '12.3.0'}
 
-local_opam_ver = '2.1.5'
+local_opam_ver = '2.5.2'
 source_urls = [
     'https://github.com/ocaml/ocaml/archive',
     'https://github.com/ocaml/opam/releases/download/%s' % local_opam_ver,
@@ -20,7 +20,7 @@ sources = [
 ]
 checksums = [
     {'4.14.4.tar.gz': '71415c000ebfce604defafaa584ab5ed10ad81ff180897db4e6fea8dac6e4b0d'},
-    {'opam-full-2.1.5.tar.gz': '09f8d9e410b2f5723c2bfedbf7970e3b305f5017895fcd91759f05e753ddcea5'},
+    {'opam-full-2.5.2.tar.gz': 'b3623809567f19ed6b5d679b8c7bbc0bdec9418bff4a875ff0799d446d8555c3'},
 ]
 
 builddependencies = [
