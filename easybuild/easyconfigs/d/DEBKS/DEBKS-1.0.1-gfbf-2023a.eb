@@ -1,0 +1,26 @@
+easyblock = 'PythonPackage'
+
+name = 'DEBKS'
+version = '1.0.1'
+
+homepage = 'https://github.com/yangence/DEBKS'
+description = """DEBKS is a convenient and user-friendly program to streamline the discovery of differentially
+ expressed circRNA (DEC) between two RNA-seq sample groups with replicates."""
+
+toolchain = {'name': 'gfbf', 'version': '2023a'}
+
+sources = [SOURCE_TAR_GZ]
+checksums = ['b721b4781b6a6ea5cd869da17a15ff05e8bbb18b48b5d669f86815d561f9ebe4']
+
+dependencies = [
+    ('Python', '3.11.3'),
+    ('SciPy-bundle', '2023.07'),  # SciPy, pandas, and NumPy
+    ('Pysam', '0.22.0'),
+    ('Python-bundle-PyPI', '2023.06'),  # docopt
+]
+
+options = {'modulename': 'debks'}
+
+sanity_check_commands = ['DEBKS --help', 'DEBKS merge --help']
+
+moduleclass = 'bio'
