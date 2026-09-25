@@ -21,6 +21,9 @@ dependencies = [
 
 options = {'modulename': 'debks'}
 
-sanity_check_commands = ['DEBKS --help', 'DEBKS merge --help']
+sanity_check_commands = [
+    "DEBKS --help 2>&1 | grep 'Usage: DEBKS <command>'",
+    'DEBKS merge --help',
+]
 
 moduleclass = 'bio'
