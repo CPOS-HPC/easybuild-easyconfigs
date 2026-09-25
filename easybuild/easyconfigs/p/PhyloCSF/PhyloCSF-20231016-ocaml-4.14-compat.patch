@@ -1,0 +1,62 @@
+Author: Emik Lin (HKUMed CPOS)
+Update legacy calls for the OCaml 4.14 standard library and Batteries APIs.
+--- a/lib/CamlPaml/PhyloLik.ml
++++ b/lib/CamlPaml/PhyloLik.ml
+@@ -6 +6 @@
+-	let compare = compare
++	let compare = Stdlib.compare
+--- a/lib/CamlPaml/Code.ml
++++ b/lib/CamlPaml/Code.ml
+@@ -16 +16 @@
+-	let compare = compare
++	let compare = Stdlib.compare
+@@ -55 +55 @@
+-		let s' = String.create l
++		let s' = Bytes.create l
+@@ -57,2 +57,2 @@
+-			s'.[l-i-1] <- comp s.[i]
+-		s'
++			Bytes.set s' (l-i-1) (comp s.[i])
++		Bytes.to_string s'
+@@ -68 +68 @@
+-	let compare = compare
++	let compare = Stdlib.compare
+@@ -136 +136 @@
+-	let compare = compare
++	let compare = Stdlib.compare
+@@ -196 +196 @@
+-	let compare c1 c2 = compare (index c1) (index c2)
++	let compare c1 c2 = Stdlib.compare (index c1) (index c2)
+--- a/lib/CamlPaml/Parsimony.ml
++++ b/lib/CamlPaml/Parsimony.ml
+@@ -48 +48 @@
+-					inferred.(i) <- fst (hd (sort (fun (_,ct1) (_,ct2) -> compare ct2 ct1) counts.(i)))
++					inferred.(i) <- fst (hd (sort (fun (_,ct1) (_,ct2) -> Stdlib.compare ct2 ct1) counts.(i)))
+--- a/src/PhyloCSF.ml
++++ b/src/PhyloCSF.ml
+@@ -10,2 +10,2 @@
+-module SMap = Map.Make(struct type t = string let compare = compare end)
+-module SSet = Set.Make(struct type t = string let compare = compare end)
++module SMap = Map.Make(struct type t = string let compare = Stdlib.compare end)
++module SSet = Set.Make(struct type t = string let compare = Stdlib.compare end)
+@@ -270 +270 @@
+-	let pp = String.create aalen
++	let pp = Bytes.create aalen
+@@ -275 +275 @@
+-			pp.[i] <- aa
++			Bytes.set pp i aa
+@@ -277,2 +277,2 @@
+-			pp.[i] <- '?'
+-	pp
++			Bytes.set pp i '?'
++	Bytes.to_string pp
+@@ -424 +424,2 @@
+-	let nt = File.with_file_in fn_tree (fun input -> NewickParser.parse NewickLexer.token (Lexing.from_input input))
++	let nt = File.with_file_in fn_tree (fun input -> NewickParser.parse NewickLexer.token
++		(Lexing.from_string (IO.read_all input)))
+--- a/src/testSim.ml
++++ b/src/testSim.ml
+@@ -45 +45,2 @@
+-	let nt = File.with_file_in fn_tree (fun input -> NewickParser.parse NewickLexer.token (Lexing.from_input input))
++	let nt = File.with_file_in fn_tree (fun input -> NewickParser.parse NewickLexer.token
++		(Lexing.from_string (IO.read_all input)))
