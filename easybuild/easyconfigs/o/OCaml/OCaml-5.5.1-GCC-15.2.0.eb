@@ -34,8 +34,10 @@ dependencies = [
     ('zstd', '1.5.7'),
 ]
 
-# Let configure detect libm instead of finding it in EasyBuild's LIBS.
+# EasyBuild's LIBS already contains -lm, so configure would omit it from OCaml's runtime link flags.
+# Clear LIBS and let configure detect libm and pthreads; do not add linker libraries to CFLAGS.
 preconfigopts = 'unset LIBS && '
+# Retain the GNU assembler selection used by the older OCaml recipes.
 preconfigopts += 'export AS=as && '
 
 # parallel build tends to break
