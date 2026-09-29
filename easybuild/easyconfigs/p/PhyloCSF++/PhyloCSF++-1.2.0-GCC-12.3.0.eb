@@ -5,7 +5,10 @@ version = '1.2.0'
 local_bigwig_commit = 'f390fe405dede0a4f9e8e2a49808e3d1bfcd402a'
 
 homepage = 'https://github.com/cpockrandt/PhyloCSFpp'
-description = "Fast implementation of PhyloCSF for scoring multiple sequence alignments and annotating coding regions."
+description = """PhyloCSF can identify protein-coding regions in the genome based on multiple-sequence alignments.
+ PhyloCSF++ is an implementation of the original methods PhyloCSF and PhyloCSF HMM. It allows you to easily create
+ browser tracks for any genome to identify coding regions, score local alignments or annotate GFF/GTF files with
+ PhyloCSF and its confidence scores."""
 
 toolchain = {'name': 'GCC', 'version': '12.3.0'}
 
