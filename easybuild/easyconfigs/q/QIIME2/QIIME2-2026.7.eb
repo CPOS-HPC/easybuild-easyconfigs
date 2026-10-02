@@ -1,0 +1,43 @@
+easyblock = 'Apptainer'
+
+name = 'QIIME2'
+version = '2026.7'
+
+homepage = 'https://qiime2.org/'
+description = """QIIME is an open-source bioinformatics pipeline for performing microbiome analysis
+ from raw DNA sequencing data."""
+
+toolchain = SYSTEM
+
+# Parameters passed to the build_container_image.sh script
+apptainer_type = 'sif'
+installopts = '-s quay.io/qiime2/qiime2-workshop:%(version)s '
+installopts += '-i image '
+
+# Create a qiime wrapper with a writable cache in the user's home directory.
+postinstallcmds = [
+    """cat > %(installdir)s/qiime << 'EOF'
+#!/bin/bash
+
+CACHE_DIR="$HOME/.local/share/qiime2"
+mkdir -p "$CACHE_DIR"
+
+exec apptainer exec \\
+    --bind "$CACHE_DIR":/home/qiime2 \\
+    "%(installdir)s/%(namelower)s-%(version)s.sif" \\
+    qiime "$@"
+EOF""",
+    'chmod +x %(installdir)s/qiime',
+]
+
+sanity_check_paths = {
+    'files': ['%(namelower)s-%(version)s.sif', 'qiime'],
+    'dirs': [],
+}
+sanity_check_commands = ['qiime --version']
+
+modextrapaths = {'PATH': ['']}
+
+modloadmsg = "%(name)s %(version)s is provided via an Apptainer container.\n"
+
+moduleclass = 'bio'
