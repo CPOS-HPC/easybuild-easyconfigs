@@ -1,0 +1,47 @@
+easyblock = 'MakeCp'
+
+name = 'PhyloCSF'
+version = '20231016'
+local_commit = '3d29221f8a0d408d48a09ad32cb51400daf253f9'
+
+homepage = 'http://compbio.mit.edu/PhyloCSF'
+description = "Phylogenetic analysis of multi-species alignments to identify conserved protein-coding regions."
+
+toolchain = {'name': 'GCC', 'version': '12.3.0'}
+
+source_urls = ['https://github.com/mlin/PhyloCSF/archive/']
+sources = [{'download_filename': '%s.tar.gz' % local_commit, 'filename': SOURCE_TAR_GZ}]
+patches = ['%(name)s-%(version)s-ocaml-4.14-compat.patch']
+checksums = [
+    {'PhyloCSF-20231016.tar.gz': '149258939176929fd0ba91a573a150802fe24b2da1da7c89a33d1039035394dd'},
+    {'PhyloCSF-20231016-ocaml-4.14-compat.patch':
+     'ccc8f0a871643893e9e1f575d1480efd4f4a2ca7d7133b6cdfac9284cbe33906'},
+]
+
+dependencies = [
+    ('OCaml', '4.14.4'),
+    ('GSL', '2.7'),
+]
+
+# Keep CamlPaml out of the dependency's shared OCaml installation.
+prebuildopts = ('mkdir -p %(builddir)s/camlpaml && '
+                'export OCAMLFIND_DESTDIR=%(builddir)s/camlpaml OCAMLPATH=%(builddir)s/camlpaml && ')
+maxparallel = 1
+
+files_to_copy = [
+    (['PhyloCSF', 'PhyloCSF.Linux.x86_64'], 'bin'),
+    (['PhyloCSF_Parameters'], 'bin'),
+    (['PhyloCSF_Examples'], 'share'),
+]
+
+sanity_check_paths = {
+    'files': ['bin/PhyloCSF', 'bin/PhyloCSF.Linux.x86_64', 'bin/PhyloCSF_Parameters/100vertebrates.nh'],
+    'dirs': ['share/PhyloCSF_Examples'],
+}
+
+sanity_check_commands = [
+    'PhyloCSF 12flies %(installdir)s/share/PhyloCSF_Examples/tal-AA.fa | grep decibans',
+    'PhyloCSF 100vertebrates %(installdir)s/share/PhyloCSF_Examples/ALDH2.exon5.fa --frames=3 | grep decibans',
+]
+
+moduleclass = 'bio'

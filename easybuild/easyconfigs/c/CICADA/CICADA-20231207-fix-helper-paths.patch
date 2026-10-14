@@ -1,0 +1,55 @@
+Author: Emik Lin (HKUMed CPOS)
+Run bundled SRAMP helpers and models from the installed CICADA directory.
+--- a/CICADA.py
++++ b/CICADA.py
+@@ -824,5 +824,5 @@ def add_m6a_info(seq):
+         seq_sramp.write(seq)
+     uuid_fa = str(uuid.uuid1()) + "_temp_m6a.txt"
+-    os.system("perl runsramp.pl %s/seq_sramp.fa  %s full" % (Circ_Dir,uuid_fa))
++    os.system("perl %s/runsramp.pl %s/seq_sramp.fa  %s full" % (curPath,Circ_Dir,uuid_fa))
+     if not os.path.isfile(uuid_fa):
+         return [0,0]
+--- a/runsramp.pl
++++ b/runsramp.pl
+@@ -1,3 +1,5 @@
++use FindBin;
++$ENV{CICADA_ROOT} = $FindBin::Bin;
+ $fi=$ARGV[0];
+ $fo=$ARGV[1];
+ $mode=$ARGV[2];
+@@ -124,11 +126,11 @@
+ print "Encoding Finished\n";
+ if ($mode eq "full")
+ {
+-$Rcmdline="Rscript ./sramp-full.R ".$fi." >gc.tmp";
++$Rcmdline="Rscript $FindBin::Bin/sramp-full.R ".$fi." >gc.tmp";
+ system($Rcmdline);
+ }
+ if ($mode eq "mature")
+ {
+-$Rcmdline="Rscript ./sramp-mature.R ".$fi." >gc.tmp";
++$Rcmdline="Rscript $FindBin::Bin/sramp-mature.R ".$fi." >gc.tmp";
+ system($Rcmdline);
+ }
+--- a/sramp-full.R
++++ b/sramp-full.R
+@@ -3,7 +3,7 @@
+ fn1=paste(args[6],".binarytmp",sep="")
+ fn2=paste(args[6],".spectmp",sep="")
+ fn3=paste(args[6],".pvtmp",sep="")
+-progdir="./models/full/"
++progdir=paste(Sys.getenv("CICADA_ROOT"),"/models/full/",sep="")
+ tissue=""
+ encoding="binary";
+ tt<-read.table(fn1,header=TRUE)
+--- a/sramp-mature.R
++++ b/sramp-mature.R
+@@ -3,7 +3,7 @@
+ fn1=paste(args[6],".binarytmp",sep="")
+ fn2=paste(args[6],".spectmp",sep="")
+ fn3=paste(args[6],".pvtmp",sep="")
+-progdir="./models/mature/"
++progdir=paste(Sys.getenv("CICADA_ROOT"),"/models/mature/",sep="")
+ tissue=""
+ encoding="binary";
+ tt<-read.table(fn1,header=TRUE)

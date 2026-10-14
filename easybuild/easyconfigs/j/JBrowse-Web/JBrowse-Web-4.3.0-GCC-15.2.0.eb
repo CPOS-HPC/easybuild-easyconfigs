@@ -1,0 +1,70 @@
+easyblock = 'Binary'
+
+name = 'JBrowse-Web'
+version = '4.3.0'
+local_serve_version = '14.2.6'
+
+homepage = 'https://jbrowse.org/jb2/'
+description = "JBrowse 2 is a pluggable, open-source genome browser."
+
+toolchain = {'name': 'GCC', 'version': '15.2.0'}
+
+source_urls = [
+    'https://github.com/GMOD/jbrowse-components/releases/download/v%(version)s/',
+    'https://registry.npmjs.org/@jbrowse/cli/-/',
+    'https://registry.npmjs.org/serve/-/',
+]
+sources = [
+    'jbrowse-web-v%(version)s.zip',
+    {
+        'download_filename': 'cli-%(version)s.tgz',
+        'filename': 'jbrowse-cli-%(version)s.tgz',
+    },
+    'serve-%s.tgz' % local_serve_version,
+]
+checksums = [
+    {'jbrowse-web-v4.3.0.zip': 'a9d42417102ee088a1cbf85c6d857c1065d66984ea6c56f3115ef9dd56d76702'},
+    {'jbrowse-cli-4.3.0.tgz': '7a820dfd88c3941023d27d6471fbfb3d78cbc116259be73f1d5c1895fff5a129'},
+    {'serve-14.2.6.tgz': '126b5ec79d81a85307ebd1953084526ae181c203276cf64b961a7bee31cb7b81'},
+]
+
+builddependencies = [('UnZip', '6.0')]
+
+dependencies = [
+    ('nodejs', '24.16.0'),
+    ('SAMtools', '1.23.1'),
+    ('HTSlib', '1.23.1'),
+]
+
+install_cmd = "mkdir -p %(installdir)s/share/jbrowse-web && "
+install_cmd += "unzip -q jbrowse-web-v%(version)s.zip -d %(installdir)s/share/jbrowse-web && "
+install_cmd += "npm install --no-package-lock --no-audit --no-fund --cache %(builddir)s/npm-cache "
+install_cmd += "-g --prefix %(installdir)s jbrowse-cli-%(version)s.tgz serve-" + local_serve_version + ".tgz"
+
+sanity_check_paths = {
+    'files': [
+        'bin/jbrowse',
+        'bin/serve',
+        'share/jbrowse-web/index.html',
+        'share/jbrowse-web/manifest.json',
+        'share/jbrowse-web/umd_plugin.js',
+        'share/jbrowse-web/version.txt',
+    ],
+    'dirs': [
+        'lib/node_modules/@jbrowse/cli',
+        'lib/node_modules/serve',
+        'share/jbrowse-web/static/js',
+        'share/jbrowse-web/test_data',
+    ],
+}
+
+sanity_check_commands = [
+    'jbrowse --version',
+    'serve --version',
+]
+
+modextravars = {'JBROWSE_WEB_ROOT': '%(installdir)s/share/jbrowse-web'}
+
+modloadmsg = "JBrowse Web files are available in $JBROWSE_WEB_ROOT and must be served by a web server.\n"
+
+moduleclass = 'bio'

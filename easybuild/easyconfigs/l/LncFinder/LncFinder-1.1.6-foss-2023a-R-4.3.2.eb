@@ -1,0 +1,31 @@
+easyblock = 'RPackage'
+
+name = 'LncFinder'
+version = '1.1.6'
+versionsuffix = '-R-%(rver)s'
+
+homepage = 'https://CRAN.R-project.org/package=LncFinder'
+description = "LncRNA identification and analysis using heterologous features."
+
+toolchain = {'name': 'foss', 'version': '2023a'}
+
+source_urls = [
+    'https://cran.r-project.org/src/contrib/Archive/%(name)s',
+    'https://cran.r-project.org/src/contrib/',
+]
+sources = ['%(name)s_%(version)s.tar.gz']
+checksums = ['4dce6739176e9d42a1510dc0949b7198cda22d2e7f0aef710a0540cd712b74a0']
+
+dependencies = [
+    ('R', '4.3.2'),
+    ('R-bundle-CRAN', '2023.12'),
+]
+
+sanity_check_paths = {
+    'files': ['LncFinder/R/LncFinder'],
+    'dirs': [],
+}
+
+sanity_check_commands = ["Rscript -e 'library(LncFinder)'"]
+
+moduleclass = 'bio'
