@@ -1,0 +1,43 @@
+Add missing cstdint header to fix build with GCC 13 and replace free() with delete[] for memory allocated using new[]
+--- src/primer_bed.h.orig	2021-02-06 03:24:50.000000000 +0800
++++ src/primer_bed.h	2026-05-19 09:17:21.874388232 +0800
+@@ -3,6 +3,7 @@
+ #include <sstream>
+ #include <fstream>
+ #include <algorithm>
++#include <cstdint>
+ 
+ #ifndef primer_bed
+ #define primer_bed
+
+--- src/parse_gff.h.orig	2021-02-06 03:24:50.000000000 +0800
++++ src/parse_gff.h	2026-05-19 09:39:42.481534165 +0800
+@@ -4,6 +4,7 @@
+ #include <regex>
+ #include <map>
+ #include <iterator>
++#include <cstdint>
+
+ #ifndef parse_gff
+ #define parse_gff
+
+--- src/call_consensus_pileup.cpp.orig	2021-02-06 03:24:50.000000000 +0800
++++ src/call_consensus_pileup.cpp	2026-05-19 09:50:20.160741167 +0800
+@@ -1,4 +1,5 @@
+ #include "call_consensus_pileup.h"
++#include <cstring>
+
+ void format_alleles(std::vector<allele> &ad){
+   std::vector<allele>::iterator it = ad.begin();
+
+--- src/ivar.cpp.orig	2021-02-06 03:24:50.000000000 +0800
++++ src/ivar.cpp	2026-05-19 09:46:31.103979316 +0800
+@@ -484,7 +484,7 @@
+       for (int i = 0; i < nfiles; ++i) {
+        free(files[i]);
+       }
+-      free(files);
++      delete[] files;
+     } else {
+       res = common_variants(g_args.prefix, g_args.min_threshold, argv + optind, argc - optind);
+     }

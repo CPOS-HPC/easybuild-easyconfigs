@@ -1,0 +1,28 @@
+# Official version of 7-Zip
+
+easyblock = 'Tarball'
+
+name = '7-Zip'
+version = '25.01'
+
+homepage = 'https://www.7-zip.org/'
+description = "7-Zip is a file archiver with a high compression ratio."
+
+toolchain = SYSTEM
+
+source_urls = ['https://www.7-zip.org/a/']
+sources = ['7z%s-linux-x64.tar.xz' % version.replace('.', '')]
+checksums = ['4ca3b7c6f2f67866b92622818b58233dc70367be2f36b498eb0bdeaaa44b53f4']
+
+postinstallcmds = [
+    "mkdir %(installdir)s/{bin,doc}",
+    "mv %(installdir)s/{7zz,7zzs} %(installdir)s/bin/",
+    "mv %(installdir)s/{History.txt,License.txt,MANUAL,readme.txt} %(installdir)s/doc/",
+]
+
+sanity_check_paths = {
+    'files': ['bin/7zz', 'bin/7zzs'],
+    'dirs': [],
+}
+
+moduleclass = 'tools'

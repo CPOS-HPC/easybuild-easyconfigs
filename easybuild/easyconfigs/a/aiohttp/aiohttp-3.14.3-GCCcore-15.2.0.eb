@@ -10,14 +10,15 @@ toolchain = {'name': 'GCCcore', 'version': '15.2.0'}
 
 builddependencies = [
     ('binutils', '2.45'),
+    ('hatchling', '1.29.0'),
     ('poetry', '2.3.4'),
     ('Cython', '3.2.4'),
-    ('hatchling', '1.29.0'),
 ]
 
 dependencies = [
     ('Python', '3.14.2'),
     ('Python-bundle-PyPI', '2026.04'),
+    ('wrapt', '2.2.1'),
 ]
 
 # aioredis and aiosignal do not depend on aiohttp, but are commonly used together and share dependencies
@@ -57,9 +58,6 @@ exts_list = [
     }),
     ('aioitertools', '0.13.0', {
         'checksums': ['620bd241acc0bbb9ec819f1ab215866871b4bbd1f73836a55f799200ee86950c'],
-    }),
-    ('wrapt', '2.4.0', {
-        'checksums': ['7082fc1f94b020ac275870c4af71b09cff22876fe6e9c4c0ad01ea21d217b288'],
     }),
     ('aiobotocore', '3.9.1', {
         'checksums': ['617d4a78da5adb6ae7d532835727ad388f73555f2ef129b9de1b1add73a43ee6'],

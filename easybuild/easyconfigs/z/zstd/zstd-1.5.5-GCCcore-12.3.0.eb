@@ -14,6 +14,7 @@ toolchain = {'name': 'GCCcore', 'version': '12.3.0'}
 github_account = 'facebook'
 source_urls = [GITHUB_SOURCE]
 sources = ['v%(version)s.tar.gz']
+patches = ['zstd-fix_make_check.patch']
 checksums = ['98e9c3d949d1b924e28e01eccb7deed865eefebf25c2f21c702e5cd5b63b85e1']
 
 builddependencies = [

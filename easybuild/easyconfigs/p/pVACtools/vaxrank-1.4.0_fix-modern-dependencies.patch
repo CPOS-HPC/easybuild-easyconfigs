@@ -1,0 +1,30 @@
+Jinja2 3 removed the redundant autoescape extension. Import pdfkit only when the optional PDF report is requested,
+so loading vaxrank does not require the external wkhtmltopdf program.
+
+Author: Emik Lin (HKUMed CPOS)
+--- a/vaxrank/report.py
++++ b/vaxrank/report.py
+@@ -24,7 +24,6 @@ from six.moves import cStringIO as StringIO
+ from astropy.io import ascii as asc
+ import jinja2
+ import pandas as pd
+-import pdfkit
+ import requests
+ import roman
+ from varcode import load_vcf_fast
+@@ -37,6 +36,5 @@ from .manufacturability import ManufacturabilityScores
+ JINJA_ENVIRONMENT = jinja2.Environment(
+     loader=jinja2.FileSystemLoader(os.path.dirname(__file__)),
+-    extensions=['jinja2.ext.autoescape'],
+     autoescape=False,
+     trim_blocks=True,
+     lstrip_blocks=True,
+@@ -397,6 +395,8 @@ def make_pdf_report(
+ def make_pdf_report(
+         template_data,
+         pdf_report_path):
++    import pdfkit
++
+     with tempfile.NamedTemporaryFile(mode='w', suffix='.html') as f:
+         _make_report(template_data, f, 'templates/template.html')
+         f.flush()

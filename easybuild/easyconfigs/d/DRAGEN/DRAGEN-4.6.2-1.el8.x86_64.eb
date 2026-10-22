@@ -1,0 +1,41 @@
+easyblock = 'Binary'
+
+name = 'DRAGEN'
+version = '4.6.2-1'
+versionsuffix = '.el8.x86_64'
+local_dragen_version = version.rsplit('-', 1)[0]
+
+homepage = 'https://help.dragen.illumina.com/dragen-v4.6/reference/software-mode'
+description = """DRAGEN Software Mode runs DRAGEN secondary analysis on general-purpose CPU servers.
+ It does not require a DRAGEN FPGA card, so you can run DRAGEN on an existing high performance computing (HPC)
+ cluster, on a commodity Linux server, or on a standard cloud instance."""
+
+toolchain = SYSTEM
+
+sources = [f'dragen-softwaremode-{local_dragen_version}-%(version)s%(versionsuffix)s.rpm']
+checksums = ['5cd621b54847a71b5263df42c621a9fe9134a9d35fc46c615a5fb6584abf7174']
+download_instructions = "Download the RPM manually from the DRAGEN - Getting Started app at " + \
+                        "https://app.dragen.illumina.com (Illumina BioInsight Platform)."
+
+osdependencies = ['rpm', 'cpio']
+
+# The RPM payload is rooted at /opt/dragen/4.6.2; DRAGEN resolves its data relative to bin/dragen.
+install_cmd = "set -o pipefail && rpm2cpio " + sources[0] + " | cpio -idmv && "
+install_cmd += "mkdir -p %(installdir)s && "
+install_cmd += f"cp -ar opt/dragen/{local_dragen_version}/. %(installdir)s/"
+
+sanity_check_paths = {
+    'files': [
+        'bin/dragen',
+        'config/.dragen-internal-defaults.cfg',
+        'config/dragen-user-defaults.cfg',
+        'config/software_mode',
+        'share/nirvana/Annotator',
+        'share/nirvana/libBlockCompression.so',
+    ],
+    'dirs': ['resources', 'reference_autodetect'],
+}
+
+sanity_check_commands = ['dragen --version', 'dragen --help']
+
+moduleclass = 'bio'
