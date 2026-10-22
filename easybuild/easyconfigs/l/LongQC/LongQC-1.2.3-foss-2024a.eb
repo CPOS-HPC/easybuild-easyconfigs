@@ -43,9 +43,9 @@ local_wrapper = '%(installdir)s/bin/longqc'
 
 postinstallcmds = [
     'mkdir -p %(installdir)s/bin',
-    "echo '#!/bin/sh' > %s" % local_wrapper,
-    """echo 'exec python "$EBROOTLONGQC/LongQC/longQC.py" "$@"' >> %s""" % local_wrapper,
-    'chmod 755 %s' % local_wrapper,
+    f"echo '#!/bin/sh' > {local_wrapper}",
+    f"""echo 'exec python "$EBROOTLONGQC/LongQC/longQC.py" "$@"' >> {local_wrapper}""",
+    f'chmod 755 {local_wrapper}',
 ]
 
 sanity_check_paths = {
@@ -64,11 +64,8 @@ sanity_check_paths = {
 
 sanity_check_commands = [
     'longqc --version',
-    '%s/minimap2-coverage --version' % local_minimap2_dir,
-    '%s/sdust %s/refs/Sequel_control_reference.fasta >/dev/null' % (
-        local_minimap2_dir,
-        local_longqc_dir,
-    ),
+    f'{local_minimap2_dir}/minimap2-coverage --version',
+    f'{local_minimap2_dir}/sdust {local_longqc_dir}/refs/Sequel_control_reference.fasta >/dev/null',
 ]
 
 modloadmsg = "To execute LongQC, use: longqc <command> [options]\n"
