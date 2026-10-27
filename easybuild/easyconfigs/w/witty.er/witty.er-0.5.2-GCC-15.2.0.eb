@@ -1,0 +1,135 @@
+easyblock = 'ConfigureMake'
+
+name = 'witty.er'
+version = '0.5.2'
+
+homepage = 'https://github.com/Illumina/witty.er'
+description = """What is true, thank you, ernestly. A large variant benchmarking
+ tool analogous to hap.py for small variants."""
+
+# Match HTSlib's native utilities to the 2026.1 generation; the application itself uses .NET.
+toolchain = {'name': 'GCC', 'version': '15.2.0'}
+
+source_urls = ['https://github.com/Illumina/witty.er/archive/refs/tags/']
+sources = [{'download_filename': 'v%(version)s.tar.gz', 'filename': SOURCE_TAR_GZ}]
+checksums = [
+    {'witty.er-0.5.2.tar.gz': '314451a59c7fc41076282b6ce2f1f4993363517c0812a8750f1595f46a80b487'},
+]
+
+# Complete NuGet package closure for the CLI and library projects, restored with .NET SDK 6.0.420.
+# Keep the packages in a local feed so restore cannot download undeclared dependencies.
+local_nuget_packages = [
+    ('jetbrains.annotations', '11.1.0',
+     '1c4c95c3e4c95a2fd8bb16e852983a3e3fc70489b8059b1807208c6a4835d3bf'),
+    ('microsoft.netcore.platforms', '1.1.0',
+     '15e338d24b5c39b4099389cc612841eb51ff13c07bb4829f97d39b27420e7023'),
+    ('microsoft.netcore.targets', '1.1.0',
+     'd00a90da0312f22365624ac3f81c6d220edc5cc9ebf71647b4a02e3786e37da4'),
+    ('netbio.core', '3.0.0-alpha',
+     '187404fefa29de12c390c9ca9d1ed0550977f424f64758ab64ea0c29f136b65a'),
+    ('newtonsoft.json', '13.0.1',
+     '2b6b52556e27e1b7913f33eedeb95568110c746bd64afff74357f1683878323a'),
+    ('runtime.native.system', '4.3.0',
+     '64165aa1d9e3bcb5c04d6a575da90581ccba3fe82386c8455e6825acbe710f96'),
+    ('sourcelink.embed.allsourcefiles', '2.8.1',
+     '551787b5117d6a339b271dfd3cfdc5e960bf030a5950c2fe759c4e2983fc1ab4'),
+    ('system.buffers', '4.3.0',
+     '5ea6566f829dd38f7ad21e14f6c7a2be32ac78603f60422976995f1d81d0f639'),
+    ('system.collections.immutable', '1.5.0',
+     '0658aa6252fd9ed6cc5e8e5decd52b297c1837e3ea772a83212e5ba78a95afb4'),
+    ('system.componentmodel.primitives', '4.3.0',
+     '20e30995eb88069a663f8102077b9fb5b75c80bec209de7afa8003fd2aab6eeb'),
+    ('system.componentmodel', '4.3.0',
+     '8b4d2eba330ee091032043ca2e674b637409eaf752a70e8687da0ece41580625'),
+    ('system.composition.attributedmodel', '1.1.0',
+     'fb050cc0bce86898bc56626a94faa4f445cc2f824bec5c1a4560df966e5d1a5a'),
+    ('system.diagnostics.debug', '4.3.0',
+     '7e403bf528cf6d27a211cadb6d4b1bef4bbd07bc2a6ec74cf6cd4b9e82a3d203'),
+    ('system.diagnostics.tracing', '4.3.0',
+     '8421136691c719584f62f6f80b47e1e33b3ef33bf818fa22c5a8242d98e96bd4'),
+    ('system.globalization', '4.3.0',
+     '71a2f4a51985484b1aa1e65e58de414d0b46ac0b5a40fc058bc60e64f646e6b2'),
+    ('system.io.filesystem.primitives', '4.3.0',
+     '2cc9df83c5706afb3d70c9eaf67347f085ad02d49f934fc5cb8b3846df6bd648'),
+    ('system.io.filesystem', '4.3.0',
+     'bcd2189ef95acae563d167d17d82a90eb843a6d961a75a4df026269557764d7c'),
+    ('system.io.memorymappedfiles', '4.3.0',
+     'a1c81e208e88afb6edf7d4a97043c452c8d0a7f3fa31a155fcf3570413f253b4'),
+    ('system.io.unmanagedmemorystream', '4.3.0',
+     '3e651c6d84df60a4dea9fd8f654f9e3e6752f1e91795ce19dde528455df0768b'),
+    ('system.io', '4.3.0',
+     'aeeca74077a414fe703eb0e257284d891217799fc8f4da632b9a54f873c38916'),
+    ('system.reflection.primitives', '4.3.0',
+     'e68830581e2f9504e5de38e4d718e7886da8cdb1488d94cbf6e834bac650b813'),
+    ('system.reflection', '4.3.0',
+     '35049946964bbed3d60e5be6308746c5c56ec949f0f76654468d215ec12c8576'),
+    ('system.resources.resourcemanager', '4.3.0',
+     '89d88e0fddf16dbadbc304a70f898e440f51622fc3fd4e3c79152c9ff5a7586a'),
+    ('system.runtime.extensions', '4.3.0',
+     'c0b0c79a8cebf38bf55b6cd8096631c63d0547424360749545a46e0e6d1b77fa'),
+    ('system.runtime.handles', '4.3.0',
+     '289e5a5e81a9079e98ebe89ea4191da71fc07da243022b71e2fae42ea47b826b'),
+    ('system.runtime.interopservices', '4.3.0',
+     'f2c0c7f965097c247eedee277e97ed8fffa5b2d122662c56501b9e476ce61e02'),
+    ('system.runtime', '4.3.0',
+     'e75f35dd65e9048b2e03a7d4b44e57691423716750dbf966128909b7deeed118'),
+    ('system.text.encoding', '4.3.0',
+     '19cb475462d901afebaa404d86c0469ec89674acafe950ee6d8a4692e3a404b8'),
+    ('system.threading.tasks', '4.3.0',
+     '679ad77c9d445e9dc6df620a646899ea4a0c8d1bb49fc0b5346af0a5d21e9f8c'),
+    ('system.threading', '4.3.0',
+     '643437751e29cd5c266aa060e2169c65a55e9d0ff7c8017fb95ec15d95e38967'),
+    ('system.valuetuple', '4.4.0',
+     '2eaa48ddb49a5ea54fa9f11d7ec584daa5fdb73155e953d4eb1e00fdf573cdf3'),
+]
+
+sources += [{
+    'filename': '%s.%s.nupkg' % (pkg, ver),
+    'source_urls': ['https://api.nuget.org/v3-flatcontainer/%s/%s/' % (pkg, ver)],
+    'extract_cmd': 'mkdir -p %(builddir)s/nuget && cp %s %(builddir)s/nuget/',
+} for pkg, ver, _ in local_nuget_packages]
+checksums += [{'%s.%s.nupkg' % (pkg, ver): sha256} for pkg, ver, sha256 in local_nuget_packages]
+
+dependencies = [
+    ('dotNET-Core', '6.0.420', '', SYSTEM),
+    ('HTSlib', '1.23.1'),
+]
+
+# Keep SDK initialization and NuGet caches inside the build tree.
+local_dotnet_env = 'DOTNET_CLI_HOME=%(builddir)s/dotnet-home DOTNET_CLI_TELEMETRY_OPTOUT=1 '
+preconfigopts = local_dotnet_env
+configure_cmd = 'dotnet restore Wittyer/Wittyer.csproj'
+configure_without_installdir = True
+configopts = '--source %(builddir)s/nuget --packages %(builddir)s/packages'
+
+# Publishing compiles the application and installs all managed runtime dependencies.
+skipsteps = ['build']
+preinstallopts = local_dotnet_env
+install_cmd = 'dotnet publish Wittyer/Wittyer.csproj --no-restore -c Release -p:UseAppHost=false'
+installopts = '-o %(installdir)s/libexec/wittyer'
+
+postinstallcmds = [
+    'mkdir -p %(installdir)s/bin',
+    """printf '#!/bin/sh\\nexec dotnet "%(installdir)s/libexec/wittyer/Wittyer.dll" "$@"\\n' """
+    '> %(installdir)s/bin/wittyer',
+    'chmod +x %(installdir)s/bin/wittyer',
+]
+
+sanity_check_paths = {
+    'files': [
+        'bin/wittyer',
+        'libexec/wittyer/Wittyer.dll',
+        'libexec/wittyer/Wittyer.deps.json',
+        'libexec/wittyer/Wittyer.runtimeconfig.json',
+        'libexec/wittyer/Ilmn.Das.App.Wittyer.dll',
+        'libexec/wittyer/Config-default.json',
+    ],
+    'dirs': [],
+}
+
+sanity_check_commands = [
+    "wittyer --version | grep 'witty.er %(version)s'",
+    "wittyer --help | grep -- '--inputVcf'",
+]
+
+moduleclass = 'bio'
