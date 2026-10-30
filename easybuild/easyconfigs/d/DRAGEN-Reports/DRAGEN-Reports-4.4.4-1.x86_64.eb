@@ -1,0 +1,57 @@
+easyblock = 'Binary'
+
+name = 'DRAGEN-Reports'
+version = '4.4.4-1'
+versionsuffix = '.x86_64'
+
+homepage = 'https://help.dragen.illumina.com/dragen-v4.4/product-guide/dragen-v4.4/dragen-reports'
+description = """DRAGEN Reports are tools for generating rich, interactive and self-contained HTML
+ reports from DRAGEN's output files."""
+
+toolchain = SYSTEM
+
+source_urls = ['https://webdata.illumina.com/downloads/software/dragen/resource-files/4.4/']
+sources = ['%(namelower)s-%(version)s%(versionsuffix)s.rpm']
+checksums = ['2745cde13c0b443e19db04f17f6c19b80956b2e3c534c0bc6e5d65c052e93ea4']
+
+osdependencies = ['rpm', 'cpio']
+
+install_cmd = "set -o pipefail && rpm2cpio " + sources[0] + " | cpio -idmv && "
+install_cmd += "mkdir -p %(installdir)s/bin && "
+install_cmd += "cp -ar usr/bin/* %(installdir)s/bin && "
+install_cmd += "cp -ar opt %(installdir)s/"
+
+# Override the vendor's /opt/dragen-reports default with the installed resources.
+postinstallcmds = [
+    'mkdir -p %(installdir)s/libexec',
+    'mv %(installdir)s/bin/dragen-reports %(installdir)s/libexec/',
+    """cat > %(installdir)s/bin/dragen-reports << 'EOF'
+#!/bin/sh
+exec "%(installdir)s/libexec/dragen-reports" --root "%(installdir)s/opt/dragen-reports" "$@"
+EOF""",
+    'chmod +x %(installdir)s/bin/dragen-reports',
+]
+
+sanity_check_paths = {
+    'files': [
+        'bin/dragen-reports',
+        'libexec/dragen-reports',
+        'opt/dragen-reports/manifests/bcl_convert.json',
+        'opt/dragen-reports/templates/nextseq2k/workflow.liquid',
+    ],
+    'dirs': ['opt/dragen-reports'],
+}
+
+sanity_check_commands = [
+    'dragen-reports --help',
+    'dragen-reports --version',
+    # The executable can exit successfully after a resource lookup error, so check the report exists too.
+    'report_dir=$(mktemp -d) && '
+    'dragen-reports -d %(installdir)s/opt/dragen-reports/data/bcl_convert/mixed_04_000_only_n450 '
+    '-m %(installdir)s/opt/dragen-reports/manifests/bcl_convert.json -o "$report_dir/report.html" && '
+    'test -s "$report_dir/report.html" && rm -rf "$report_dir"',
+]
+
+modloadmsg = "The data used by DRAGEN-Reports are installed at $EBROOTDRAGENMINREPORTS/opt/dragen-reports/"
+
+moduleclass = 'bio'
