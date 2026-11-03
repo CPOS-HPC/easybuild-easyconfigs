@@ -1268,8 +1268,8 @@ class EasyConfigTest(TestCase):
                     file_versions.append((LooseVersion(version), ec))
 
         most_recent = sorted(file_versions)[-1]
-        self.assertEqual(most_recent[0], LooseVersion('5.4.1'))
-        self.assertEqual(most_recent[1], 'EasyBuild-5.4.1.eb')
+        self.assertEqual(most_recent[0], LooseVersion('5.4.2'))
+        self.assertEqual(most_recent[1], 'EasyBuild-5.4.2.eb')
 
     def test_easyconfig_name_clashes(self):
         """Make sure there is not a name clash when all names are lowercase"""
@@ -1944,7 +1944,7 @@ def template_easyconfig_test(self, spec):
     dummy_template_values = {
         'builddir': '/dummy/builddir',
         'installdir': '/dummy/installdir',
-        'startdir': '/dummy/startdir',
+        'start_dir': '/dummy/startdir',
         'parallel': '2',
     }
     ec.template_values.update(dummy_template_values)
