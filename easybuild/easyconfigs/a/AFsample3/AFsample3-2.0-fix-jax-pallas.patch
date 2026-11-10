@@ -1,0 +1,28 @@
+Pass Triton compiler settings as a Pallas CompilerParams object.
+JAX 0.6.2 rejects the nested dictionary used by the fused gated linear unit.
+
+Author: Emik Lin (HKUMed CPOS)
+
+--- a/src/alphafold3/jax/gated_linear_unit/matmul_ext.py
++++ b/src/alphafold3/jax/gated_linear_unit/matmul_ext.py
+@@ -21,6 +21,7 @@
+ import jax
+ from jax._src.state import discharge
+ from jax.experimental import pallas as pl
++from jax.experimental.pallas import triton as pl_triton
+ import jax.numpy as jnp
+ import jaxtyping
+ from jaxtyping import Array, Float, Int  # pylint: disable=g-importing-member,g-multiple-import
+@@ -216,10 +217,10 @@
+       grid=(pl.cdiv(m, config.block_m) * pl.cdiv(n, config.block_n),),
+       out_shape=jax.ShapeDtypeStruct((m, n), x.dtype) if dst is None else dst,
+       input_output_aliases=input_output_aliases,
+-      compiler_params=dict(
+-          triton=dict(num_warps=config.num_warps, num_stages=config.num_stages)
++      compiler_params=pl_triton.CompilerParams(
++          num_warps=config.num_warps, num_stages=config.num_stages
+       ),
+   )(x, weights_projection, weights_gate, dst, epilogue_args)
+
+
+ @jaxtyping.jaxtyped(typechecker=typeguard.typechecked)

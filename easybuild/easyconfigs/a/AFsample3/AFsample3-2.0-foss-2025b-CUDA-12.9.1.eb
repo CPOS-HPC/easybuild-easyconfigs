@@ -1,0 +1,169 @@
+easyblock = 'PythonBundle'
+
+name = 'AFsample3'
+version = '2.0'
+versionsuffix = '-CUDA-%(cudaver)s'
+
+homepage = 'https://github.com/wallnerlab/afsample3'
+description = "Modelling protein conformations with Alphafold3"
+
+toolchain = {'name': 'foss', 'version': '2025b'}
+
+builddependencies = [
+    ('CMake', '4.0.3'),
+    ('Ninja', '1.13.0'),
+    ('scikit-build-core', '0.11.5'),
+    ('pybind11', '3.0.0'),
+    ('pybind11_abseil', '202402.0'),
+    ('hatchling', '1.27.0'),
+]
+
+dependencies = [
+    ('CUDA', '12.9.1', '', SYSTEM),
+    ('Python', '3.13.5'),
+    ('SciPy-bundle', '2025.07'),
+    ('cuDNN', '9.15.0.57', versionsuffix, SYSTEM),
+    ('absl-py', '2.3.1'),
+    ('ml_dtypes', '0.5.4'),
+    ('opt-einsum', '3.4.0'),
+    ('NCCL', '2.27.7', versionsuffix),
+    ('typing-extensions', '4.14.1'),
+    ('RDKit', '2026.03.4'),
+    ('tqdm', '4.67.1'),
+    ('dssp', '4.4.10'),
+    ('Abseil', '20250512.1'),
+    ('HMMER', '3.4'),
+    ('zstandard', '0.25.0'),
+    ('libcifpp', '7.0.8'),
+    ('dm-tree', '0.1.10'),
+    ('Python-bundle-PyPI', '2025.07'),  # tabulate for dm-haiku
+    ('zstd', '1.5.7'),  # fetch_databases.sh
+]
+
+# AFsample3's older Pallas and jax-triton APIs require a matching JAX/Triton pair.
+# The Triton 3.3.1 Python 3.13 wheel is available for Linux x86_64.
+_jax_version = '0.6.2'
+_wheel_abi = 'cp%(pymajver)s%(pyminver)s-cp%(pymajver)s%(pyminver)s'
+_triton_wheel = f'triton-%(version)s-{_wheel_abi}-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl'
+
+exts_list = [
+    ('jax_cuda12_pjrt', _jax_version, {
+        'modulename': 'jax_plugins.xla_cuda12',
+        'sources': ['%(name)s-%(version)s-py3-none-manylinux2014_x86_64.whl'],
+        'checksums': ['8cd9ead7948ea2c778a508fef5d1159e8b7abf4fccc7037c3fe1dbfcd95012dc'],
+    }),
+    ('jax_cuda12_plugin', _jax_version, {
+        'sources': [f'%(name)s-%(version)s-{_wheel_abi}-manylinux2014_x86_64.whl'],
+        'checksums': ['db4c6103c912d8cd1adf94c34d313bb4760ca7f01c897ca7cd62e65f27994199'],
+    }),
+    ('jaxlib', _jax_version, {
+        'easyblock': 'PythonPackage',
+        'sources': [f'%(name)s-%(version)s-{_wheel_abi}-manylinux2014_x86_64.whl'],
+        'checksums': ['f94163f14c8fd3ba93ae14b631abacf14cb031bba0b59138869984b4d10375f8'],
+    }),
+    ('jax', _jax_version, {
+        'checksums': ['a437d29038cbc8300334119692744704ca7941490867b9665406b7f90665cd96'],
+    }),
+    ('triton', '3.3.1', {
+        'sources': [_triton_wheel],
+        'checksums': ['b89d846b5a4198317fec27a5d3a609ea96b6d557ff44b56c23176546023c4240'],
+    }),
+    ('jax_triton', '0.3.0', {
+        'checksums': ['da7b9cd8f784de50b26d104a3f4c417c0afcdd894f98442bc815a822900033e6'],
+    }),
+    ('wadler_lindig', '0.1.7', {
+        'checksums': ['81d14d3fe77d441acf3ebd7f4aefac20c74128bf460e84b512806dccf7b2cd55'],
+    }),
+    ('jaxtyping', '0.2.38', {
+        'checksums': ['84d509341437189e82d7dbb59a2970435724851ca79fd8550e886cd37c048333'],
+    }),
+    ('jmp', '0.0.4', {
+        'checksums': ['5dfeb0fd7c7a9f72a70fff0aab9d0cbfae32a809c02f4037ff3485ceb33e1730'],
+    }),
+    ('dm_haiku', '0.0.14', {
+        'modulename': 'haiku',
+        'patches': ['dm_haiku-0.0.14-fix-flax-shim.patch'],
+        'checksums': [
+            {'dm_haiku-0.0.14.tar.gz': '0c1d56ef20e1e04d8551f788ff8964167092c5d8051b7c17ed3f9ce60c0b0a59'},
+            {'dm_haiku-0.0.14-fix-flax-shim.patch':
+             '8e588e7ca87de738b0173d5506b93ca14a6766869f1bb6e1e8dd37d68e202865'},
+        ],
+    }),
+    ('typeguard', '2.13.3', {
+        'checksums': ['00edaa8da3a133674796cf5ea87d9f4b4c367d77476e185e80251cc13dfbb8c4'],
+    }),
+    ('toolz', '1.0.0', {
+        'checksums': ['2c86e3d9a04798ac556793bced838816296a2f085017664e4995cb40a1047a02'],
+    }),
+    ('chex', '0.1.90', {
+        'checksums': ['d3c375aeb6154b08f1cccd2bee4ed83659ee2198a6acf1160d2fe2e4a6c87b5c'],
+    }),
+    # The AFsample3 release retains the AlphaFold Python distribution name and version.
+    ('alphafold3', '3.0.0', {
+        'preinstallopts': (
+            "sed -i "
+            "-e 's/dm-haiku==0.0.13/dm-haiku==0.0.14/' "
+            f"-e 's/jax==0.4.34/jax=={_jax_version}/' "
+            rf"-e 's/jax\[cuda12\]==0.4.34/jax[cuda12-local]=={_jax_version}/' "
+            "-e 's/jax-triton==0.2.0/jax-triton==0.3.0/' "
+            "-e 's/jaxtyping==0.2.34/jaxtyping==0.2.38/' "
+            "-e 's/rdkit==2024.3.5/rdkit==2026.03.4/' "
+            "-e 's/triton==3.1.0/triton==3.3.1/' "
+            "pyproject.toml && "
+        ),
+        'patches': [
+            f'{name}-{version}-fix-external-build-deps.patch',
+            f'{name}-{version}-fix-data-paths.patch',
+            f'{name}-{version}-fix-jax-pallas.patch',
+        ],
+        'postinstallcmds': [
+            'cp run_alphafold.py prepare_json.py %(installdir)s/bin/',
+            "sed -i '1i#!/usr/bin/env python' %(installdir)s/bin/run_alphafold.py",
+            "sed -i '1c#!/usr/bin/env python' %(installdir)s/bin/prepare_json.py",
+            'chmod +x %(installdir)s/bin/run_alphafold.py',
+            'install -m 755 fetch_databases.sh %(installdir)s/',
+            '%(installdir)s/bin/build_data',
+        ],
+        'source_urls': ['https://github.com/wallnerlab/afsample3/archive/refs/tags'],
+        'sources': [{'download_filename': f'v{version}.tar.gz', 'filename': f'{name}-{version}.tar.gz'}],
+        'checksums': [
+            {'AFsample3-2.0.tar.gz': '84925453b90c42844354996086102c748f788bb3754a8b677be390d0231930c5'},
+            {'AFsample3-2.0-fix-external-build-deps.patch':
+             'e53b90a51b90717a091146c3620ed4ef9a6f796bd2edbc20502231ef85ec8db5'},
+            {'AFsample3-2.0-fix-data-paths.patch':
+             '0c3830d5e1a1c858d96b86edf9f9ce2008d15897464355d138d3c25d363c9883'},
+            {'AFsample3-2.0-fix-jax-pallas.patch':
+             '09a4dc9ad33683f375b0dba01b195032d685ee26964437abb373de6d671a9ac6'},
+        ],
+    }),
+]
+
+fix_python_shebang_for = ['bin/run_alphafold.py', 'bin/prepare_json.py']
+
+sanity_check_paths = {
+    'files': ['bin/run_alphafold.py', 'bin/prepare_json.py', 'bin/build_data', 'fetch_databases.sh'],
+    'dirs': [],
+}
+
+sanity_check_commands = [
+    "JAX_PLATFORMS=cpu run_alphafold.py --helpfull | grep -F -- '--msa_rand_fraction'",
+    "python -c 'from alphafold3.constants.chemical_components import Ccd; assert Ccd()[\"ALA\"]'",
+]
+
+modextravars = {
+    'XLA_FLAGS': '--xla_gpu_enable_triton_gemm=false',
+    'XLA_PYTHON_CLIENT_PREALLOCATE': 'true',
+    'XLA_CLIENT_MEM_FRACTION': '0.95',
+}
+
+modloadmsg = """
+AFsample3 uses AlphaFold 3 model parameters obtained directly from Google
+and the AlphaFold 3 sequence databases. Set their locations with:
+  export AF3_MODEL_DIR=/path/to/models
+  export DB_DIR=/path/to/public_databases
+
+To fetch the databases, run "$EBROOTAFSAMPLE3/fetch_databases.sh" "$DB_DIR".
+Run run_alphafold.py --helpfull for options including --msa_rand_fraction.
+"""
+
+moduleclass = 'bio'

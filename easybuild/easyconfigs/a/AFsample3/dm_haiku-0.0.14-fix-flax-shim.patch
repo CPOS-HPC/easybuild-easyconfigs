@@ -1,0 +1,35 @@
+Use a module object for Haiku's optional Flax shim so Python 3.13 can import Haiku.
+Backport the shim implementation from dm-haiku 0.0.16 for use with JAX 0.6.2.
+
+Author: Emik Lin (HKUMed CPOS)
+
+--- a/haiku/_src/no_flax.py
++++ b/haiku/_src/no_flax.py
+@@ -15,17 +15,24 @@
+ """Module for when flax is missing."""
+
+ import sys
++import types
+
+
+-class FlaxNotInstalled:
++class FlaxNotInstalled(types.ModuleType):
++  """A module that raises an ImportError when Flax features are used."""
+   __slots__ = ()
+
+   def __getattr__(self, name: str) -> None:
++    if name == '__file__':
++      return None
+     raise ImportError(
+-        '`haiku.experimental.flax` features require `flax` to be installed.'
++        f'`haiku.experimental.flax.{name}` features require `flax` to be'
++        ' installed.'
+     )
+
+
+ def inject_shim_module():
+   # c.f. https://mail.python.org/pipermail/python-ideas/2012-May/014969.html
+-  sys.modules['haiku.experimental.flax'] = FlaxNotInstalled()
++  sys.modules['haiku.experimental.flax'] = FlaxNotInstalled(
++      'haiku.experimental.flax'
++  )

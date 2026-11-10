@@ -1,0 +1,20 @@
+Use AF3_MODEL_DIR and DB_DIR as the default model and database directories.
+Adapted from EasyBuild easyconfigs PR #27022.
+
+Author: Emik Lin (HKUMed CPOS)
+
+--- a/run_alphafold.py
++++ b/run_alphafold.py
+@@ -58,9 +58,9 @@
+ import numpy as np
+
+
+-_HOME_DIR = pathlib.Path(os.environ.get('HOME'))
+-_DEFAULT_MODEL_DIR = _HOME_DIR / 'models'
+-_DEFAULT_DB_DIR = _HOME_DIR / 'public_databases'
++_HOME_DIR = pathlib.Path.home()
++_DEFAULT_MODEL_DIR = pathlib.Path(os.environ.get('AF3_MODEL_DIR', _HOME_DIR / 'models'))
++_DEFAULT_DB_DIR = pathlib.Path(os.environ.get('DB_DIR', _HOME_DIR / 'public_databases'))
+
+
+ # Input and output paths.
