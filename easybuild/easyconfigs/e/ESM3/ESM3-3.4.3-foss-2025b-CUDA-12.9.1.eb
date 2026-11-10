@@ -1,0 +1,73 @@
+easyblock = 'PythonBundle'
+
+name = 'ESM3'
+version = '3.4.3'
+versionsuffix = '-CUDA-%(cudaver)s'
+
+homepage = 'https://github.com/Biohub/esm'
+description = """ESM3 is a generative model for protein design that jointly reasons across protein sequence,
+structure, and function. This module provides Biohub's esm Python package, which also includes ESMC and ESMFold2."""
+
+toolchain = {'name': 'foss', 'version': '2025b'}
+
+dependencies = [
+    ('CUDA', '12.9.1', '', SYSTEM),
+    ('Python', '3.13.5'),
+    ('PyTorch', '2.13.0', versionsuffix + '-whl'),
+    ('Transformers', '5.16.0'),
+    ('Biopython', '1.86'),
+    ('Biotite', '1.7.1'),
+    ('Brotli-python', '1.1.0'),
+    ('einops', '0.8.1'),
+    ('IPython', '9.4.0'),
+    ('scikit-learn', '1.7.1'),
+    ('RDKit', '2026.03.4'),
+    ('jupyter-server', '2.17.0'),  # ipywidgets
+    ('py3Dmol', '2.5.5'),
+    ('boto3', '1.39.8'),
+    ('matplotlib', '3.10.5'),
+    ('zstd', '1.5.7'),
+]
+
+exts_list = [
+    ('msgpack-numpy', '0.4.8', {
+        'modulename': 'msgpack_numpy',
+        'checksums': ['c667d3180513422f9c7545be5eec5d296dcbb357e06f72ed39cc683797556e69'],
+    }),
+    ('cloudpathlib', '0.26.0', {
+        'checksums': ['6ea02248f2db7cb10729caf1edbdec92587dfdbbd3df8c71a32aedd4ae55715a'],
+    }),
+    ('tenacity', '9.1.4', {
+        'checksums': ['adb31d4c263f2bd041081ab33b498309a57c77f9acf2db65aadf0898179cf93a'],
+    }),
+    ('zstd', '1.5.7.2', {
+        'preinstallopts': 'ZSTD_EXTERNAL=1 ',
+        'checksums': ['6d8684c69009be49e1b18ec251a5eb0d7e24f93624990a8a124a1da66a92fc8a'],
+    }),
+    ('pydssp', '0.9.1', {
+        'sources': [SOURCE_PY3_WHL],
+        'checksums': ['74fb8129c07c1625bb687b80f7e94ae7ebf1277725258d7fc75fc1f3d12a67dc'],
+    }),
+    ('pygtrie', '2.6.2', {
+        'checksums': ['879264597743ef52bf80f2dff085364088c0848ae22544db95dad2bf52e06471'],
+    }),
+    ('dna-features-viewer', '3.1.5', {
+        'modulename': 'dna_features_viewer',
+        'sources': ['dna_features_viewer-%(version)s.tar.gz'],
+        'checksums': ['4740b018f7c45427054cb1403ff8b11209bcbe4ca9d5b77f28f14ed5ecb144c4'],
+    }),
+    ('accelerate', '1.12.0', {
+        'checksums': ['70988c352feb481887077d2ab845125024b2a137a5090d6d7a32b57d03a45df6'],
+    }),
+    ('esm', version, {
+        'sources': [SOURCE_PY3_WHL],
+        'checksums': ['b9b59f2ffc381cbcd77a20859d0f680edc72da976598f6325daec7af632dafb1'],
+    }),
+]
+
+sanity_check_commands = [
+    "python -c 'import esm'",
+    "python -c 'from esm.models.esm3 import ESM3'",
+]
+
+moduleclass = 'bio'

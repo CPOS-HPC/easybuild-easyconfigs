@@ -1,0 +1,48 @@
+easyblock = 'PythonBundle'
+
+name = 'PyTorch'
+version = '2.13.0'
+versionsuffix = '-CUDA-%(cudaver)s-whl'
+
+homepage = 'https://pytorch.org/'
+description = """PyTorch is an optimized tensor library for deep learning using GPUs and CPUs.
+Used for applications such as computer vision, deep learning research and
+natural language processing.
+This module provides the official wheels of PyTorch from pytorch.org."""
+
+toolchain = {'name': 'foss', 'version': '2025b'}
+
+_torch_wheel_pyver = 'cp%(pymajver)s%(pyminver)s-cp%(pymajver)s%(pyminver)s'
+_torch_wheel_source = f'torch-{version}%2Bcu129-{_torch_wheel_pyver}-manylinux_2_28_{ARCH}.whl'
+
+dependencies = [
+    ('CUDA', '12.9.1', '', SYSTEM),
+    ('CUDA-wheel-bundle', '12.9.1', '-CUDA-%(cudaver)s'),
+    ('Python', '3.13.5'),
+    ('Triton', '3.7.1', versionsuffix),
+    ('SciPy-bundle', '2025.07'),
+    ('networkx', '3.5'),
+    ('sympy', '1.14.0'),
+]
+
+exts_list = [
+    ('torch', version + '+cu129', {
+        'source_urls': ['https://download-r2.pytorch.org/whl/cu129'],
+        'sources': [_torch_wheel_source],
+        'checksums': [{
+            'torch-2.13.0%2Bcu129-cp313-cp313-manylinux_2_28_aarch64.whl':
+                'cdb22a05563538d44a7e29d1d3cab5d37ffec103f76e949cc44722e462058a40',
+            'torch-2.13.0%2Bcu129-cp313-cp313-manylinux_2_28_x86_64.whl':
+                '6e3bcf183e3096db45bf539dc21f820963074986ece7a56550714f12863c76af',
+        }],
+    }),
+]
+
+_torch_site_packages = 'lib/python%(pyshortver)s/site-packages/torch'
+modextrapaths = {
+    'CMAKE_PREFIX_PATH': _torch_site_packages,
+    'LD_LIBRARY_PATH': f'{_torch_site_packages}/lib',
+    'LIBRARY_PATH': f'{_torch_site_packages}/lib',
+}
+
+moduleclass = 'ai'

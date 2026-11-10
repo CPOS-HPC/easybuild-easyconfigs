@@ -1,0 +1,40 @@
+easyblock = 'PythonBundle'
+
+name = 'Triton'
+version = '3.7.1'
+versionsuffix = '-CUDA-%(cudaver)s-whl'
+
+homepage = 'https://triton-lang.org/'
+description = """Triton is a language and compiler for parallel programming. It aims to provide a
+Python-based programming environment for productively writing custom DNN compute
+kernels capable of running at maximal throughput on modern GPU hardware.
+This module provides the official wheels of Triton from pytorch.org."""
+
+toolchain = {'name': 'gfbf', 'version': '2025b'}
+
+_triton_wheel_pyver = 'cp%(pymajver)s%(pyminver)s-cp%(pymajver)s%(pyminver)s'
+_triton_wheel_source = {
+    'aarch64': f'triton-{version}-{_triton_wheel_pyver}-linux_aarch64.whl',
+    'x86_64': f'triton-{version}-{_triton_wheel_pyver}-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl',
+}
+
+dependencies = [
+    ('CUDA', '12.9.1', '', SYSTEM),
+    ('Python', '3.13.5'),
+    ('SciPy-bundle', '2025.07'),
+]
+
+exts_list = [
+    ('triton', version, {
+        'source_urls': ['https://download-r2.pytorch.org/whl'],
+        'sources': [_triton_wheel_source[ARCH]],
+        'checksums': [{
+            'triton-3.7.1-cp313-cp313-linux_aarch64.whl':
+                '34894d51aff1abf7b017fbd0c5e9fe7211305c3599157fca251e3f42bc8f00cf',
+            'triton-3.7.1-cp313-cp313-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl':
+                '59688b9b924f887316dcd0fae9e8cbe697ee1d1f6ab386723982cc9ecdebee01',
+        }],
+    }),
+]
+
+moduleclass = 'ai'
