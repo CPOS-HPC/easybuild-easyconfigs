@@ -67,6 +67,12 @@ _jaxlib_buildopts = '--bazel_options="--distdir=%(builddir)s/archives" '
 
 if ARCH == 'aarch64':
     _jaxlib_buildopts += '--bazel_options="--@compute_library//:arch=armv8.2-a+fp16" '
+elif ARCH == 'x86_64':
+    # Clang 18.1.8 crashes in Early Machine LICM on XNNPACK's FP16 reduction with -march=native.
+    _jaxlib_buildopts += (
+        "--bazel_options='--per_file_copt=ynnpack/kernels/reduce/reduce[.]cc$@"
+        "-mllvm,-disable-machine-licm' "
+    )
 
 # create wheels for jaxlib and CUDA plugins and install it
 _jaxlib_buildopts += '--wheels=jaxlib,jax-cuda-plugin,jax-cuda-pjrt '
@@ -79,7 +85,6 @@ _jaxlib_buildopts += '--bazel_options="--host_linkopt=-Wl,-rpath,$EBROOTGCCCORE/
 # fix jaxlib version
 _jaxlib_buildopts += '--bazel_options="--action_env=JAXLIB_RELEASE" '
 _jaxlib_buildopts += '--bazel_options="--repo_env=ML_WHEEL_TYPE=release" '
-_jaxlib_buildopts += '--bazel_options="--define=ynn_enable_x86_avx512bf16=false" '
 _jaxlib_buildopts += '--disable_nccl '
 
 _jax_prebuildopts = 'export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1; '
