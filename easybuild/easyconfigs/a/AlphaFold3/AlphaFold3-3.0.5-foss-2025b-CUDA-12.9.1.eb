@@ -68,11 +68,8 @@ _jaxlib_buildopts = '--bazel_options="--distdir=%(builddir)s/archives" '
 if ARCH == 'aarch64':
     _jaxlib_buildopts += '--bazel_options="--@compute_library//:arch=armv8.2-a+fp16" '
 elif ARCH == 'x86_64':
-    # Clang 18.1.8 crashes in Early Machine LICM on XNNPACK's FP16 reduction with -march=native.
-    _jaxlib_buildopts += (
-        "--bazel_options='--per_file_copt=ynnpack/kernels/reduce/reduce[.]cc$@"
-        "-mllvm,-disable-machine-licm' "
-    )
+    # Clang 18.1.8 crashes in XLA and XNNPACK with -march=native. Override EasyBuild's CPU flags for jaxlib.
+    _jaxlib_buildopts += '--bazel_options="--copt=-march=x86-64" --bazel_options="--copt=-mtune=generic" '
 
 # create wheels for jaxlib and CUDA plugins and install it
 _jaxlib_buildopts += '--wheels=jaxlib,jax-cuda-plugin,jax-cuda-pjrt '
