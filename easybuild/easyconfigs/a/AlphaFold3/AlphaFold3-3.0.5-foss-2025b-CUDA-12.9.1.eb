@@ -162,8 +162,9 @@ _jax_runtest_cmd = ' '.join([_jax_runtest_cmd1, '||', _jax_runtest_cmd1, '--last
 
 exts_list = [
     ('jax', '0.10.2', {
-        # avoid OOM errors with when multiple JAX processes run concurrently
-        'pretestopts': _jax_prebuildopts + 'export XLA_PYTHON_CLIENT_PREALLOCATE=false; ',
+        # This build disables NCCL. Limit JAX to one GPU during tests.
+        # Avoid preallocating GPU memory when multiple pytest workers run concurrently.
+        'pretestopts': _jax_prebuildopts + 'export JAX_CUDA_VISIBLE_DEVICES=0 XLA_PYTHON_CLIENT_PREALLOCATE=false; ',
         # JAX_RELEASE makes jax/version.py report the clean version
         # ("0.10.2") instead of "0.10.2.dev<date>", which would otherwise
         # fail downstream `jax>=0.10.2` pip checks. Must be in preinstallopts
