@@ -83,6 +83,7 @@ Always confirm anchors from local easyconfigs instead of treating this table as 
 
 - Preserve official capitalization in `name`, filenames, modules, homepage, and descriptions.
 - Follow the field order of the closest current recipe.
+- Write multiline `description` values as a single triple-double-quoted string (`"""..."""`).
 - Keep every line in every easyconfig (`*.eb`) at or below 120 characters. Check the complete file, including
   unchanged lines, whenever creating or modifying an easyconfig.
 - Treat E501 fixes as formatting-only changes: preserve values, ordering, checksums, URLs, and commits exactly.
