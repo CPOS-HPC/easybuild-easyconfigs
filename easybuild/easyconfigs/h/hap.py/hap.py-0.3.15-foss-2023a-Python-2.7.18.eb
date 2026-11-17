@@ -28,7 +28,7 @@ dependencies = [
     ('SciPy-bundle', '2024.06', versionsuffix),
     ('Pysam', '0.20.0', versionsuffix),
     ('bx-python', '0.8.9', versionsuffix),
-    ('Java', '8', '', SYSTEM),
+    ('RTG-Tools', '3.12.1', '-Java-11', SYSTEM),
 ]
 
 modextrapaths = {'PYTHONPATH': ''}
@@ -38,6 +38,6 @@ sanity_check_paths = {
     'dirs': ['bin'],
 }
 
-sanity_check_commands = ["hap.py --version 2>&1"]
+sanity_check_commands = ['hap.py --version 2>&1', 'rtg version']
 
 moduleclass = 'math'
